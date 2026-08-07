@@ -850,7 +850,7 @@ tqdm==4.69.0
     #   shap
     #   spacy
     #   transformers
-traitlets==5.15.1
+traitlets==5.16.1
     # via
     #   ipykernel
     #   ipython
