@@ -1,0 +1,26 @@
+{
+  "tasks": [
+    {
+      "type": "training",
+      "properties": {
+        "data_path": "data/input/train/azure_ad_train.jsonl",
+        "cache_dir": ".cache/demo",
+        "timestamp_column": "timestamp",
+        "userid_column": "username",
+        "model_name_formatter": "DFP-{user_id}",
+        "cache_mode": "aggregate",
+        "min_history": 300,
+        "min_increment": 300,
+        "max_history": "70d",
+        "epochs": 100,
+        "mlflow_uri": "http://localhost:5001",
+        "experiment_name": "dfp/demo-pipeline"
+      }
+    }
+  ],
+  "metadata": {
+    "description": "Training configuration for DFP streaming demo",
+    "created": "2025-11-18",
+    "notes": "Uses relative paths for portability across developer environments. Cache dir matches streaming inference for proper model reuse. All paths resolve relative to project root (morpheus-dfp/dfp-demo/)."
+  }
+}

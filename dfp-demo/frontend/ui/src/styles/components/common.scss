@@ -1,0 +1,115 @@
+/* Glass/Overlay backgrounds */
+.bg-glass-overlay {
+  background-color: hsl(var(--glass-overlay) / 0.25);
+}
+
+/* Extra rounded corners */
+.rounded-4xl {
+  border-radius: 3rem;
+}
+
+.carousel-control {
+  cursor: pointer;
+  border: 1px solid var(--grey-500);
+  border-radius: 50%;
+  padding: 4px;
+
+  &:disabled {
+    opacity: 0.2;
+    cursor: not-allowed;
+  }
+
+  &:hover:not(:disabled) {
+    background-color: var(--brand-black);
+    border: 1px solid var(--brand-black);
+    color: #ffffff;
+  }
+}
+
+.numbered-item {
+  font-size: 10px;
+  font-weight: bold;
+  color: var(--brand-black);
+  background-color: var(--brand-pale-lime);
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.result-row {
+  font-weight: 600;
+  color: var(--brand-black);
+  margin-bottom: 4px;
+
+  &--title {
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 12px;
+  }
+
+  &--value {
+    font-weight: 400;
+    color: var(--foreground);
+    font-size: 14px;
+  }
+}
+
+.similar-detections {
+  border-bottom: 1px solid var(--grey-200);
+  padding-bottom: 15px;
+  margin-left: -17px;
+  margin-right: -17px;
+  padding-left: 17px;
+  padding-right: 17px;
+  position: relative;
+
+  &::after {
+    content: '';
+    display: block;
+    border-bottom: 1px solid #ffffff;
+    height: 1px;
+    position: absolute;
+    bottom: -2px;
+    width: 100%;
+  }
+}
+
+.avatar-md {
+  .sim-event-card__avatar {
+    width: 4rem;
+    height: 4rem;
+  }
+}
+
+.separator {
+  height: 1px;
+  background-color: var(--grey-200);
+  position: relative;
+
+  &::after {
+    content: '';
+    display: block;
+    border-bottom: 1px solid #ffffff;
+    height: 1px;
+    position: absolute;
+    bottom: -2px;
+    width: 100%;
+  }
+}
+
+.recharts-responsive-container {
+  div {
+    outline: none !important;
+    :focus {
+      outline: none !important;
+    }
+    :focus-visible {
+      outline: none !important;
+    }
+  }
+}

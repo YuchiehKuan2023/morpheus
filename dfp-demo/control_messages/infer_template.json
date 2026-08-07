@@ -1,0 +1,24 @@
+{
+  "tasks": [
+    {
+      "type": "inference",
+      "properties": {
+        "timestamp_column_name": "timestamp",
+        "userid_column_name": "username",
+        "cache_dir": ".cache/demo",
+        "model_name_formatter": "DFP-{user_id}",
+        "infer_data_glob": "data/daily/{date}.jsonl",
+        "cache_mode": "batch",
+        "min_history": 1,
+        "min_increment": 0,
+        "max_history": "1d"
+      }
+    }
+  ],
+  "metadata": {
+    "description": "Inference control message template for NVIDIA DFP integrated batch pipeline",
+    "version": "1.0",
+    "pattern": "NVIDIA Morpheus DFP - dfp_inference_pipe",
+    "reference": "nv-morpheus/morpheus/modules/dfp_inference_pipe.py"
+  }
+}

@@ -1,0 +1,112 @@
+// Custom styles using SCSS features
+body {
+  margin: 0;
+  font-family:
+    'Manrope',
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  // Nested styles
+  * {
+    box-sizing: border-box;
+  }
+}
+
+// Custom component styles (if needed outside of Tailwind)
+.custom-scrollbar {
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $gray-100;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $gray-100;
+    border-radius: 4px;
+
+    &:hover {
+      background: color.adjust($gray-100, $lightness: -10%);
+    }
+  }
+}
+
+// Animation keyframes
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tooltip-arrow {
+  margin-top: -1px; // Adjust for better alignment with tooltip content
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.loading-card .card-header > div {
+  justify-content: center;
+}
+
+.loading-card .card-title > div {
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.loading-card svg {
+  color: #9db821;
+  margin-bottom: 15px;
+}
+
+.dfp-main-content {
+  align-items: center;
+
+  > .container {
+    padding-top: 9rem;
+  }
+}
+
+/* Graph page: strip container constraints so the canvas fills the viewport */
+body.page-graph .dfp-main-content {
+  overflow: hidden;
+}
+body.page-graph .dfp-main-content > .container {
+  max-width: 100% !important;
+  padding: 0 !important;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Chat page: fill viewport height, only messages scroll */
+body.page-chat .dfp-main-content {
+  overflow: hidden;
+}
+body.page-chat .dfp-main-content > .container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 0;
+}
+.chat-container {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}

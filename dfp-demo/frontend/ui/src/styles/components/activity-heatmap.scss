@@ -1,0 +1,195 @@
+// Cell dimensions
+$cell-size: 13px;
+$cell-gap: 3px;
+$day-label-width: 26px;
+
+.activity-heatmap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  width: 100%;
+
+  // ── Month label row ────────────────────────────────────────────────────────
+  &__months {
+    display: flex;
+    gap: $cell-gap;
+    padding-left: $day-label-width + $cell-gap;
+  }
+
+  &__month-label {
+    flex: 1;
+    font-size: 0.5625rem;
+    font-weight: 900;
+    color: var(--grey-700);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    overflow: visible;
+  }
+
+  // ── Body row (day labels + grid) ───────────────────────────────────────────
+  &__body {
+    display: flex;
+    gap: $cell-gap;
+    align-items: stretch;
+  }
+
+  &__day-spacer {
+    // phantom spacer so month labels line up with the grid columns
+    flex: 0 0 0;
+  }
+
+  &__days {
+    flex: 0 0 $day-label-width;
+    display: flex;
+    flex-direction: column;
+    gap: $cell-gap;
+  }
+
+  &__day-label {
+    flex: 1;
+    font-size: 0.5625rem;
+    font-weight: 600;
+    color: var(--grey-700);
+    text-align: right;
+    padding-right: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  // ── Week columns ───────────────────────────────────────────────────────────
+  &__grid {
+    display: flex;
+    gap: $cell-gap;
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__week {
+    display: flex;
+    flex-direction: column;
+    gap: $cell-gap;
+    flex: 1;
+  }
+
+  // ── Individual cells ───────────────────────────────────────────────────────
+  &__cell {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 4px;
+    position: relative;
+    transition:
+      background 0.15s ease,
+      transform 0.1s ease;
+
+    // Intensity levels (brand lime scale)
+    &--level-0 {
+      background-image: repeating-linear-gradient(
+        -45deg,
+        var(--grey-300) 0px,
+        var(--grey-300) 4px,
+        var(--grey-50) 4px,
+        var(--grey-50) 11.31px
+      );
+    }
+    &--level-1 {
+      background: var(--wedge-of-lime-tint-800);
+    }
+    &--level-2 {
+      background: var(--wedge-of-lime-tint-600);
+    }
+    &--level-3 {
+      background: var(--brand-pale-lime);
+    }
+    &--level-4 {
+      background: var(--brand-dark-lime);
+    }
+
+    &--future {
+      background: transparent;
+    }
+
+    // Static = legend cells, no hover
+    &--static {
+      cursor: default;
+    }
+  }
+
+  // ── Legend ────────────────────────────────────────────────────────────────
+  &__legend {
+    display: flex;
+    align-items: center;
+    gap: $cell-gap;
+    justify-content: flex-end;
+    margin-top: 0.375rem;
+    padding-right: 2px;
+  }
+
+  &__legend-label {
+    font-size: 0.5625rem;
+    font-weight: 500;
+    color: var(--grey-700);
+    padding: 0 2px;
+  }
+
+  // ── Rich tooltip content ──────────────────────────────────────────────────
+  &__tooltip-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    min-width: 160px;
+  }
+
+  &__tooltip-date {
+    font-size: 0.6875rem;
+    font-weight: 700;
+  }
+
+  &__tooltip-total {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  &__tooltip-score {
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  &__tooltip-breakdown {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    margin-top: 0.125rem;
+    font-size: 0.625rem;
+    font-weight: 600;
+
+    > span {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 4px;
+    }
+  }
+
+  &__tooltip-confirmed {
+    display: flex;
+    flex-direction: column;
+    color: var(--brand-dark-lime); // green-400 — legible on dark bg
+  }
+
+  &__tooltip-fp {
+    display: flex;
+    flex-direction: column;
+    color: var(--error-400); // red-400 — legible on dark bg
+  }
+
+  &__tooltip-pending {
+    display: flex;
+    flex-direction: column;
+    color: var(--grey-300);
+  }
+}

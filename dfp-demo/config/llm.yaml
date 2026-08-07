@@ -1,0 +1,116 @@
+# LLM Configuration for AI Intelligence Layer
+#
+# Model identity is NOT configured here — use .env:
+#   LLM_PROVIDER            (github | groq | ollama)
+#   LLM_ROUTER_MODEL        Conversational AI intent router
+#   LLM_MAIN_MODEL          Conversational AI answer model
+#   LLM_ORCHESTRATOR_MODEL  AI Orchestrator: enrichment + validation
+#   LLM_ORCHESTRATOR_FALLBACK  429 fallback for orchestrator
+#   LLM_AGENT_MODEL         Agent Orchestrator: forensics / investigation / remediation
+#
+# This file covers only generation parameters, retry, RAG, and monitoring.
+
+llm:
+  # Provider — overridden by LLM_PROVIDER env var; this key takes precedence.
+  provider: "github"
+
+  # Generation parameters — single set, applied uniformly across all callers.
+  # No "fast" / "high_quality" modes: each role has its own dedicated model.
+  generation:
+    temperature: 0.3
+    max_tokens: 3800 # GitHub Models hard cap is 4096; leave headroom
+    top_p: 0.9
+    frequency_penalty: 0.0
+    presence_penalty: 0.0
+
+  # Retry and error handling
+  retry:
+    max_attempts: 3
+    initial_delay: 1.0 # seconds
+    max_delay: 10.0
+    exponential_backoff: true
+
+  # Rate limiting (client-side guard)
+  rate_limits:
+    requests_per_minute: 15
+    tokens_per_minute: 8000
+
+  # Timeouts
+  timeouts:
+    connection: 10.0 # seconds
+    read: 30.0
+    total: 60.0
+
+  # Caching
+  cache:
+    enabled: true
+    ttl: 3600 # seconds (1 hour)
+    max_size: 1000 # cached responses
+
+# RAG (Retrieval-Augmented Generation) Configuration
+rag:
+  enabled: true
+
+  # Context sources for RAG
+  sources:
+    # Similar detections from Qdrant
+    similar_detections:
+      enabled: true
+      max_results: 5
+      min_similarity: 0.7
+      weight: 0.4 # Contribution to final context
+
+    # Graph context from Neo4j
+    graph_context:
+      enabled: true
+      max_depth: 2 # Relationship traversal depth
+      max_nodes: 20
+      weight: 0.3
+
+    # Entity information from NER
+    entities:
+      enabled: true
+      max_entities: 10
+      weight: 0.2
+
+    # Historical patterns (future feature)
+    historical_patterns:
+      enabled: false
+      lookback_days: 30
+      weight: 0.1
+
+  # Context assembly
+  context:
+    max_tokens: 4000 # Maximum context size for RAG
+    prioritize_recent: true
+    include_metadata: true
+
+  # Prompts are defined directly in modules/ai/llm/llm_service.py as module-level
+  # constants (_SYSTEM_PROMPT, _USER_PROMPT_TEMPLATE). Do not add prompt text here.
+
+# Monitoring and logging
+monitoring:
+  # Log LLM requests and responses
+  log_requests: true
+  log_responses: true
+
+  # Track performance metrics
+  track_latency: true
+  track_token_usage: true
+  track_costs: true
+
+  # Alert thresholds
+  alerts:
+    latency_threshold_ms: 5000
+    error_rate_threshold: 0.05 # 5%
+    daily_cost_threshold: 10.0 # USD
+
+# Cost management
+cost:
+  daily_budget: 5.0
+  monthly_budget: 100.0
+
+# Feature flags
+features:
+  explanations_enabled: true
+  streaming_enabled: false

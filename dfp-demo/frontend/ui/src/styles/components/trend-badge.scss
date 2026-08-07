@@ -1,0 +1,29 @@
+.trend-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  width: 100%;
+  height: 100%;
+
+  &__arrow {
+    flex-shrink: 0;
+    stroke: currentColor;
+  }
+
+  &__label {
+    font-size: 0.5625rem; // 9px — fits comfortably in 42px badge
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.01em;
+  }
+
+  &--up {
+    color: var(--error-400);
+  }
+
+  &--down {
+    color: var(--brand-dark-lime); // fewer anomalies is good
+  }
+}

@@ -1,0 +1,165 @@
+# Base Configuration for DFP PoC
+# This file contains project-wide settings that are inherited by other configs
+
+project:
+  name: "morpheus-dfp-poc"
+  version: "0.1.0"
+  description: "NVIDIA Morpheus Digital Fingerprinting Proof of Concept"
+
+# Environment settings
+environment:
+  # Device for computation: "auto", "cpu", "cuda", or "mps"
+  # "auto" will detect best available device
+  device: "auto"
+
+  # Random seed for reproducibility
+  seed: 42
+
+  # Number of workers for data loading
+  num_workers: 4
+
+  # Enable debug mode
+  debug: false
+
+# Path configurations
+paths:
+  # Root directory for the project (can use ${PROJECT_ROOT} in other paths)
+  root: "./dfp-poc"
+
+  # Data directories
+  data:
+    root: "${paths.root}/data"
+    raw: "${paths.data.root}/raw"
+    processed: "${paths.data.root}/processed"
+    models: "${paths.data.root}/models"
+    output: "${paths.data.root}/output"
+
+  # MLflow artifacts
+  mlflow:
+    artifacts: "${paths.data.root}/mlflow"
+
+  # Logs directory
+  logs: "${paths.root}/logs"
+
+  # Config directory
+  configs: "${paths.root}/config"
+
+# Resource limits
+resources:
+  # Maximum memory usage (in GB, 0 for unlimited)
+  max_memory_gb: 0
+
+  # Batch size multiplier based on available memory
+  auto_batch_size: true
+
+  # Enable memory profiling
+  profile_memory: false
+
+# Monitoring and logging
+monitoring:
+  # Enable performance monitoring
+  enabled: true
+
+  # Metrics collection interval (seconds)
+  interval: 60
+
+  # Enable Prometheus metrics export
+  prometheus_enabled: false
+  prometheus_port: 8000
+
+# Feature flags
+features:
+  # Enable control message routing
+  control_messages: true
+
+  # Enable MLflow integration
+  mlflow: true
+
+  # Enable GPU acceleration (if available)
+  gpu_acceleration: true
+
+  # Enable RAPIDS acceleration (GPU only)
+  rapids_acceleration: false
+
+  # Enable distributed processing
+  distributed: false
+
+# Kafka Configuration (NVIDIA Morpheus DFP Streaming)
+kafka:
+  # Kafka broker addresses (comma-separated for multiple brokers)
+  # Using 127.0.0.1 instead of localhost to force IPv4 (avoid IPv6 connection issues)
+  bootstrap_servers: "127.0.0.1:29092"
+
+  # Topics
+  topics:
+    input: "dfp-events" # Input topic for events
+    output: "dfp-detections" # Output topic for anomaly detections
+    control: "control-messages" # Control messages for pipeline orchestration
+
+  # Consumer configuration (NVIDIA ControlMessageKafkaSourceStage pattern)
+  consumer:
+    group_id: "morpheus-dfp-inference"
+    auto_offset_reset: "latest" # Only consume new events (NVIDIA default)
+    enable_auto_commit: true
+    auto_commit_interval_ms: 5000
+    session_timeout_ms: 30000
+    max_poll_records: 500
+    max_poll_interval_ms: 300000
+
+    # NVIDIA-specific: polling interval (pandas Timedelta format)
+    poll_interval: "10millis" # NVIDIA standard: 10 milliseconds
+
+    # Message validation
+    disable_pre_filtering: false # Enable JSON validation (NVIDIA default)
+
+  # Producer configuration
+  producer:
+    acks: "1" # Leader acknowledgment (balance speed/reliability)
+    compression_type: "gzip" # Compress messages
+    batch_size: 16384 # Batch size in bytes
+    linger_ms: 10 # Wait up to 10ms to batch messages
+    buffer_memory: 33554432 # 32MB buffer
+    max_in_flight_requests: 5
+
+    # Async commits (NVIDIA default)
+    async_commits: true
+
+  # Streaming pipeline configuration
+  streaming:
+    # Event processing
+    batch_size: 100 # Process 100 events per batch
+
+    # Incremental training (NVIDIA DFP pattern)
+    training_trigger_events: 300 # Retrain after 300 new events per user
+
+    # Cache configuration for streaming (aggregate mode)
+    cache_mode: "aggregate" # Persistent cache (NOT batch mode)
+
+    # Window configurations
+    inference_window: "1d" # 1 day aggregation for inference
+    training_window: "60d" # 60 days aggregation for training
+
+    # Real-time processing (no minimum history requirement)
+    min_history: 1 # Process immediately
+    min_increment: 0 # Process every event
+
+    # Anomaly detection threshold (NVIDIA default)
+    anomaly_threshold: 2.0 # Z-score threshold
+
+    # Monitoring
+    progress_interval: 100 # Log progress every N events
+
+# Default values (can be overridden by specific configs)
+defaults:
+  batch_size: 32
+  validation_split: 0.1
+  test_split: 0.1
+  shuffle: true
+
+# System information
+system:
+  # Log system information on startup
+  log_system_info: true
+
+  # Check for updates
+  check_updates: false

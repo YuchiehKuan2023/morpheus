@@ -1,0 +1,1037 @@
+# Feature Schema Configuration
+# Defines input data schema and derived features for DFP
+# Reference: NVIDIA Morpheus DFP Azure AD and Duo Authentication examples
+# Sources:
+#   - nv-morpheus/examples/digital_fingerprinting/production/dfp_azure_pipeline.py
+#   - nv-morpheus/examples/digital_fingerprinting/production/dfp_duo_pipeline.py
+#   - nv-morpheus/python/morpheus/morpheus/data/columns_ae_azure.txt
+#   - nv-morpheus/python/morpheus/morpheus/data/columns_ae_duo.txt
+
+# Schema Type: Azure AD Style (more comprehensive than Duo)
+# This schema follows NVIDIA's Azure AD authentication log structure
+# with support for both preprocessed and raw data formats
+
+# Column naming convention (NVIDIA standard):
+#   - userid_column_name: "username"
+#   - timestamp_column_name: "timestamp"
+#   - Nested JSON fields flattened with underscores (e.g., deviceDetail_browser)
+#   - Location fields concatenated with ", " separator
+
+# Raw input schema - Azure AD Authentication Logs
+# Based on: dfp_azure_pipeline.py source_schema definition
+raw_schema:
+  # Identity and temporal (required core fields)
+  username:
+    type: "string"
+    description: "User principal name (UPN) from userPrincipalName field"
+    required: true
+    nullable: false
+    morpheus_mapping: "properties.userPrincipalName"
+
+  timestamp:
+    type: "datetime"
+    description: "Event timestamp from 'time' field"
+    required: true
+    nullable: false
+    format: "ISO8601"
+    morpheus_mapping: "time"
+
+  # Application and resource access
+  appDisplayName:
+    type: "string"
+    description: "Display name of the application being accessed"
+    required: false
+    nullable: true
+    morpheus_mapping: "properties.appDisplayName"
+
+  resourceDisplayName:
+    type: "string"
+    description: "Display name of the resource being accessed"
+    required: false
+    nullable: true
+    morpheus_mapping: "resourceDisplayName"
+
+  clientAppUsed:
+    type: "string"
+    description: "Client application used for authentication"
+    required: false
+    nullable: true
+    morpheus_mapping: "properties.clientAppUsed"
+
+  # Device details (flattened from deviceDetail object)
+  deviceDetailbrowser:
+    type: "string"
+    description: "Browser used for authentication"
+    required: false
+    nullable: true
+    morpheus_mapping: "properties.deviceDetail.browser"
+
+  deviceDetaildisplayName:
+    type: "string"
+    description: "Display name of the device"
+    required: false
+    nullable: true
+    morpheus_mapping: "properties.deviceDetail.displayName"
+
+  deviceDetailoperatingSystem:
+    type: "string"
+    description: "Operating system of the device"
+    required: false
+    nullable: true
+    morpheus_mapping: "properties.deviceDetail.operatingSystem"
+
+  # Location information
+  location:
+    type: "string"
+    description: "Combined location string (city, country)"
+    required: false
+    nullable: true
+    morpheus_mapping: "StringCatColumn(['properties.location.city', 'properties.location.countryOrRegion'], sep=', ')"
+
+  location_city_state_country:
+    type: "string"
+    description: "Full location: city, state, country"
+    required: false
+    nullable: true
+
+  location_state_country:
+    type: "string"
+    description: "Location: state, country"
+    required: false
+    nullable: true
+
+  location_country:
+    type: "string"
+    description: "Country or region from location.countryOrRegion"
+    required: false
+    nullable: true
+    morpheus_mapping: "properties.location.countryOrRegion"
+
+  # Geographic coordinates
+  location_geoCoordinates_latitude:
+    type: "float"
+    description: "Geographic latitude"
+    required: false
+    nullable: true
+
+  location_geoCoordinates_longitude:
+    type: "float"
+    description: "Geographic longitude"
+    required: false
+    nullable: true
+
+  # Network information
+  autonomousSystemNumber:
+    type: "string"
+    description: "Autonomous System Number (ASN) of the network"
+    required: false
+    nullable: true
+
+  # Authentication status
+  statusfailureReason:
+    type: "string"
+    description: "Failure reason if authentication failed"
+    required: false
+    nullable: true
+    morpheus_mapping: "properties.status.failureReason"
+
+  category:
+    type: "string"
+    description: "Event category"
+    required: false
+    nullable: true
+
+  # Derived travel/location features (from preprocessing)
+  travel_speed_kmph:
+    type: "float"
+    description: "Calculated travel speed between locations (km/h)"
+    required: false
+    nullable: true
+
+  distance_km:
+    type: "float"
+    description: "Distance from previous location (km)"
+    required: false
+    nullable: true
+
+  ts_delta_hour:
+    type: "float"
+    description: "Time delta from previous event (hours)"
+    required: false
+    nullable: true
+
+  # VPN/corporate network indicator
+  is_corp_vpn:
+    type: "boolean"
+    description: "Whether connection is from corporate VPN"
+    required: false
+    nullable: true
+    default: false
+
+# Derived temporal features
+# Extracted from timestamp column during preprocessing
+# Note: NVIDIA examples use simple derived features in preprocessing stage
+temporal_features:
+  hour:
+    type: "integer"
+    description: "Hour of day (0-23) extracted from timestamp"
+    source: "timestamp"
+    extraction: "hour"
+    range: [0, 23]
+    enabled: true
+
+  dayofweek:
+    type: "integer"
+    description: "Day of week (0=Monday, 6=Sunday) extracted from timestamp"
+    source: "timestamp"
+    extraction: "dayofweek"
+    range: [0, 6]
+    enabled: true
+
+  day:
+    type: "integer"
+    description: "Day of month (1-31)"
+    source: "timestamp"
+    extraction: "day"
+    range: [1, 31]
+    enabled: false
+
+  month:
+    type: "integer"
+    description: "Month (1-12)"
+    source: "timestamp"
+    extraction: "month"
+    range: [1, 12]
+    enabled: false
+
+  year:
+    type: "integer"
+    description: "Year"
+    source: "timestamp"
+    extraction: "year"
+    enabled: false
+
+  is_weekend:
+    type: "boolean"
+    description: "Whether timestamp is on weekend (Saturday/Sunday)"
+    source: "timestamp"
+    extraction: "is_weekend"
+    enabled: false
+
+  is_business_hours:
+    type: "boolean"
+    description: "Whether timestamp is during business hours (9-17)"
+    source: "timestamp"
+    extraction: "is_business_hours"
+    enabled: false
+
+# Derived behavioral features
+# These are computed per-user during preprocessing using morpheus.utils.column_info classes
+# Reference: Azure pipeline uses IncrementColumn and DistinctIncrementColumn
+behavioral_features:
+  # NVIDIA Standard Features (from columns_ae_azure.txt)
+
+  logcount:
+    type: "integer"
+    description: "Cumulative log count per user (IncrementColumn)"
+    source: ["username", "timestamp"]
+    calculation: "cumulative_count"
+    scope: "per_user"
+    morpheus_class: "IncrementColumn"
+    morpheus_params:
+      input_name: "timestamp"
+      groupby_column: "username"
+    enabled: true
+
+  locincrement:
+    type: "integer"
+    description: "Distinct location counter - increments when user accesses new location (DistinctIncrementColumn)"
+    source: ["username", "location", "timestamp"]
+    calculation: "distinct_increment"
+    scope: "per_user"
+    morpheus_class: "DistinctIncrementColumn"
+    morpheus_params:
+      input_name: "location"
+      groupby_column: "username"
+      timestamp_column: "timestamp"
+    enabled: true
+
+  appincrement:
+    type: "integer"
+    description: "Distinct application counter - increments when user accesses new app (DistinctIncrementColumn)"
+    source: ["username", "appDisplayName", "timestamp"]
+    calculation: "distinct_increment"
+    scope: "per_user"
+    morpheus_class: "DistinctIncrementColumn"
+    morpheus_params:
+      input_name: "appDisplayName"
+      groupby_column: "username"
+      timestamp_column: "timestamp"
+    enabled: true
+
+  # Additional behavioral features (optional extensions)
+
+  new_city_counter:
+    type: "integer"
+    description: "Count of distinct cities accessed by user"
+    source: ["username", "location_city_state_country"]
+    calculation: "cumulative_unique_count"
+    scope: "per_user"
+    enabled: false
+
+  new_country_counter:
+    type: "integer"
+    description: "Count of distinct countries accessed by user"
+    source: ["username", "location_country"]
+    calculation: "cumulative_unique_count"
+    scope: "per_user"
+    enabled: false
+
+  events_per_hour:
+    type: "float"
+    description: "Number of events per hour for user (rolling window)"
+    source: ["username", "timestamp"]
+    calculation: "rolling_count"
+    scope: "per_user"
+    window: "1H"
+    enabled: false
+
+  success_rate:
+    type: "float"
+    description: "Success rate over rolling window (requires success field)"
+    source: ["username", "statusfailureReason"]
+    calculation: "rolling_mean"
+    scope: "per_user"
+    window: "24H"
+    range: [0.0, 1.0]
+    enabled: false
+
+# Feature columns for model input
+# These are the actual features used as input to the dfencoder AutoEncoder
+# Reference: columns_ae_azure.txt from NVIDIA Morpheus package
+#   - Excludes identity fields (username, timestamp)
+#   - Excludes non-feature metadata (_batch_id, is_corp_vpn, distance_km, ts_delta_hour)
+#   - Includes categorical features (apps, devices, locations) + derived behavioral features
+
+model_features:
+  # NVIDIA Azure AD Standard Features (from columns_ae_azure.txt)
+  azure_ad_standard:
+    - "appDisplayName" # Application being accessed
+    - "clientAppUsed" # Client application used
+    - "deviceDetailbrowser" # Browser type
+    - "deviceDetaildisplayName" # Device name
+    - "deviceDetailoperatingSystem" # OS type
+    - "statusfailureReason" # Authentication failure reason
+    - "appincrement" # New app counter (derived)
+    - "locincrement" # Location change counter (derived)
+    - "logcount" # Event count (derived)
+
+  # NVIDIA Duo Authentication Standard Features (from columns_ae_duo.txt)
+  duo_standard:
+    - "accessdevicebrowser" # Browser on access device
+    - "accessdeviceos" # OS on access device
+    - "authdevicename" # Authentication device name
+    - "reason" # Authentication reason/method
+    - "result" # Authentication result (boolean)
+    - "locincrement" # Location change counter (derived)
+    - "logcount" # Event count (derived)
+
+  # Extended feature set (optional additions for richer model)
+  extended:
+    # Core features
+    - "appDisplayName"
+    - "resourceDisplayName" # Resource being accessed
+    - "clientAppUsed"
+    - "deviceDetailbrowser"
+    - "deviceDetaildisplayName"
+    - "deviceDetailoperatingSystem"
+    - "statusfailureReason"
+    # Location features
+    - "location_city_state_country"
+    - "location_state_country"
+    - "location_country"
+    - "autonomousSystemNumber" # Network ASN
+    # Geographic coordinates
+    - "location_geoCoordinates_latitude"
+    - "location_geoCoordinates_longitude"
+    # Travel metrics
+    - "travel_speed_kmph"
+    # Temporal features
+    - "hour"
+    - "dayofweek"
+    # Derived behavioral features
+    - "logcount"
+    - "locincrement"
+    - "appincrement"
+
+  # Minimal feature set (for testing/baseline)
+  minimal:
+    - "appDisplayName"
+    - "deviceDetailbrowser"
+    - "deviceDetailoperatingSystem"
+    - "logcount"
+    - "locincrement"
+
+  # Default feature set (recommended for production)
+  # NVIDIA official features from columns_ae_azure.txt + Geographic velocity detection
+  # Reference: /nv-morpheus/python/morpheus/morpheus/data/columns_ae_azure.txt
+  # Reference: /nv-morpheus/examples/digital_fingerprinting/production/grafana/run.py
+  default:
+    # Categorical features (will be encoded)
+    - "appDisplayName"
+    - "clientAppUsed"
+    - "deviceDetailbrowser"
+    - "deviceDetaildisplayName"
+    - "deviceDetailoperatingSystem"
+    - "statusfailureReason"
+    # Derived behavioral features
+    - "logcount"
+    - "locincrement"
+    - "appincrement"
+    # Geographic velocity detection (NVIDIA Grafana pattern)
+    # CRITICAL: travel_speed_kmph IS included in training → model learns normal travel patterns
+    # EXCLUDED: distance_km, ts_delta_hour, impossible_travel → rule-based metadata only
+    - "travel_speed_kmph"
+
+# Fields to exclude from training (NVIDIA Grafana pattern)
+# These are kept in the dataframe but not used as model features
+# CRITICAL: travel_speed_kmph IS INCLUDED (model learns normal patterns)
+# CRITICAL: distance_km, ts_delta_hour, impossible_travel ARE EXCLUDED (rule-based only)
+excluded_fields:
+  # Identity and temporal (used for grouping/sorting, not as features)
+  - "username"
+  - "timestamp"
+
+  # Batch processing metadata
+  - "_batch_id"
+
+  # Non-feature analysis fields (from Azure preprocessing)
+  - "is_corp_vpn" # VPN indicator (metadata, not predictive feature)
+
+  # Geographic metadata (NVIDIA Grafana pattern: EXCLUDE from training)
+  # Reference: nv-morpheus/examples/digital_fingerprinting/production/grafana/run.py
+  - "distance_km" # Haversine distance (rule-based metadata only)
+  - "ts_delta_hour" # Time delta (rule-based metadata only)
+  - "impossible_travel" # Rule-based flag (not for ML training)
+
+  # Raw JSON fields (if present before flattening)
+  - "properties"
+  - "deviceDetail"
+  - "location"
+
+# Categorical features encoding configuration
+# Defines how categorical features are encoded for the model
+categorical_features:
+  appDisplayName:
+    encoding: "label" # dfencoder handles encoding internally
+    description: "Application display name"
+    max_unique_values: 100
+    handle_unknown: "use_default"
+    enabled: true
+
+  resourceDisplayName:
+    encoding: "label"
+    description: "Resource display name"
+    max_unique_values: 100
+    handle_unknown: "use_default"
+    enabled: true
+
+  clientAppUsed:
+    encoding: "label"
+    description: "Client application type"
+    max_unique_values: 50
+    handle_unknown: "use_default"
+    enabled: true
+
+  deviceDetailbrowser:
+    encoding: "label"
+    description: "Browser type"
+    max_unique_values: 30
+    handle_unknown: "use_default"
+    enabled: true
+
+  deviceDetaildisplayName:
+    encoding: "label"
+    description: "Device display name"
+    max_unique_values: 200
+    handle_unknown: "use_default"
+    enabled: true
+
+  deviceDetailoperatingSystem:
+    encoding: "label"
+    description: "Operating system"
+    max_unique_values: 20
+    handle_unknown: "use_default"
+    enabled: true
+
+  statusfailureReason:
+    encoding: "label"
+    description: "Authentication failure reason"
+    max_unique_values: 50
+    handle_unknown: "use_default"
+    enabled: true
+
+  location_city_state_country:
+    encoding: "label"
+    description: "Full location string"
+    max_unique_values: 500
+    handle_unknown: "use_default"
+    enabled: false
+
+  location_state_country:
+    encoding: "label"
+    description: "State and country"
+    max_unique_values: 200
+    handle_unknown: "use_default"
+    enabled: false
+
+  location_country:
+    encoding: "label"
+    description: "Country name"
+    max_unique_values: 50
+    handle_unknown: "use_default"
+    enabled: true
+
+  autonomousSystemNumber:
+    encoding: "label"
+    description: "Network ASN"
+    max_unique_values: 1000
+    handle_unknown: "use_default"
+    enabled: false
+
+  category:
+    encoding: "label"
+    description: "Event category"
+    max_unique_values: 20
+    handle_unknown: "use_default"
+    enabled: false
+
+# Numerical features for normalization/standardization
+# Note: dfencoder AutoEncoder handles normalization internally
+# These settings are for data validation and preprocessing only
+numerical_features:
+  # Derived behavioral features (integer counts)
+  - "logcount"
+  - "locincrement"
+  - "appincrement"
+
+  # Temporal features (integer values with known ranges)
+  - "hour" # [0-23]
+  - "dayofweek" # [0-6]
+  - "day" # [1-31]
+  - "month" # [1-12]
+
+  # Geographic coordinates (float values)
+  - "location_geoCoordinates_latitude" # [-90, 90]
+  - "location_geoCoordinates_longitude" # [-180, 180]
+
+  # Travel/distance metrics (float values)
+  - "travel_speed_kmph" # [0, inf)
+  - "distance_km" # [0, inf)
+  - "ts_delta_hour" # [0, inf)
+
+# Feature preprocessing rules
+# Note: Most preprocessing is handled by NVIDIA Morpheus DFP stages
+# These settings guide the synthetic data generator and validation
+preprocessing:
+  # Normalization method for numerical features
+  # dfencoder handles normalization internally, this is for synthetic data generation
+  normalization_method: "standard" # "standard", "minmax", "robust"
+
+  # Handle missing values in synthetic data
+  missing_values:
+    strategy: "fill" # "drop", "fill", "forward_fill"
+    fill_value:
+      # Categorical fields
+      appDisplayName: "Unknown"
+      clientAppUsed: "Unknown"
+      deviceDetailbrowser: "Unknown"
+      deviceDetaildisplayName: "Unknown"
+      deviceDetailoperatingSystem: "Unknown"
+      statusfailureReason: ""
+      location_country: "Unknown"
+      # Numerical fields
+      logcount: 1
+      locincrement: 0
+      appincrement: 0
+      hour: 12
+      dayofweek: 2
+      travel_speed_kmph: 0.0
+      distance_km: 0.0
+      ts_delta_hour: 0.0
+      location_geoCoordinates_latitude: 0.0
+      location_geoCoordinates_longitude: 0.0
+
+  # Outlier handling
+  outliers:
+    method: "iqr" # "iqr", "zscore", "isolation_forest"
+    threshold: 2.0
+    action: "flag" # "clip", "remove", "flag"
+
+  # Feature value ranges (for validation and generation)
+  value_ranges:
+    # Temporal features
+    hour: [0, 23]
+    dayofweek: [0, 6]
+    day: [1, 31]
+    month: [1, 12]
+
+    # Geographic coordinates
+    location_geoCoordinates_latitude: [-90.0, 90.0]
+    location_geoCoordinates_longitude: [-180.0, 180.0]
+
+    # Behavioral features (minimum values)
+    logcount: [1, null] # Must be at least 1
+    locincrement: [0, null]
+    appincrement: [0, null]
+
+    # Travel metrics
+    travel_speed_kmph: [0.0, 800.0] # Max commercial aircraft cruise speed (typical upper bound for human travel)
+    distance_km: [0.0, 20000.0] # Max reasonable distance
+    ts_delta_hour: [0.0, 720.0] # Max 30 days
+
+# Feature validation rules
+# Used for data quality checks in synthetic data generation and pipeline input
+validation:
+  # Required core fields (must be present in every record)
+  required_features:
+    - "username"
+    - "timestamp"
+
+  # Feature value constraints
+  constraints:
+    # Temporal constraints
+    hour:
+      min: 0
+      max: 23
+      type: "integer"
+
+    dayofweek:
+      min: 0
+      max: 6
+      type: "integer"
+
+    day:
+      min: 1
+      max: 31
+      type: "integer"
+
+    month:
+      min: 1
+      max: 12
+      type: "integer"
+
+    # Behavioral constraints
+    logcount:
+      min: 1
+      type: "integer"
+      description: "Must be at least 1 (first event)"
+
+    locincrement:
+      min: 0
+      type: "integer"
+
+    appincrement:
+      min: 0
+      type: "integer"
+
+    # Geographic constraints
+    location_geoCoordinates_latitude:
+      min: -90.0
+      max: 90.0
+      type: "float"
+
+    location_geoCoordinates_longitude:
+      min: -180.0
+      max: 180.0
+      type: "float"
+
+    # Travel metrics constraints
+    travel_speed_kmph:
+      min: 0.0
+      max: 1000.0
+      type: "float"
+      description: "Reasonable max speed limit"
+
+    distance_km:
+      min: 0.0
+      type: "float"
+
+    ts_delta_hour:
+      min: 0.0
+      type: "float"
+
+  # Data quality checks
+  quality_checks:
+    # Check for duplicate (username, timestamp) pairs
+    check_duplicates: true
+    duplicate_subset: ["username", "timestamp"]
+
+    # Check for temporal ordering within each user
+    check_temporal_order: true
+    temporal_column: "timestamp"
+    groupby_column: "username"
+
+    # Check for missing required fields
+    check_required_fields: true
+
+    # Check for outliers in numerical features
+    check_outliers: true
+    outlier_features:
+      - "logcount"
+      - "travel_speed_kmph"
+      - "distance_km"
+      - "ts_delta_hour"
+
+    # Maximum allowed null percentage per column
+    max_null_percentage: 0.15 # 15% max nulls
+
+    # Minimum number of events per user
+    min_events_per_user: 10
+
+    # Maximum gap between events (hours)
+    max_event_gap_hours: 720.0 # 30 days
+
+# Rolling window aggregation features
+# Used by DFPRollingWindowStage in NVIDIA Morpheus pipeline
+# Reference: dfp_azure_pipeline.py rolling window configuration
+rolling_window:
+  # Enable rolling window features
+  enabled: true
+
+  # Window configuration
+  # min_history: Minimum number of rows required before creating a window
+  # min_increment: Minimum number of new rows required to trigger new window
+  # max_history: Maximum history to maintain (optional, 0 = unlimited)
+  # aggregation_windows: Time-based window sizes for aggregations
+
+  min_history: 300 # NVIDIA default: 300 events minimum
+  min_increment: 100 # NVIDIA default: 100 new events to trigger
+  max_history: 0 # 0 = unlimited history (NVIDIA default)
+  cache_dir: "data/.cache/demo" # Cache directory for rolling windows
+
+  # Time-based aggregation windows (not used in basic NVIDIA example)
+  # These would be for additional rolling statistics
+  aggregation_windows:
+    - "1H" # 1 hour
+    - "6H" # 6 hours
+    - "24H" # 1 day
+    - "7D" # 7 days
+
+  # Aggregation functions (for future extensions)
+  aggregations:
+    - "mean"
+    - "std"
+    - "min"
+    - "max"
+    - "count"
+
+  # Features to aggregate over windows (for future extensions)
+  features_to_aggregate:
+    - "logcount"
+    - "locincrement"
+    - "appincrement"
+    - "travel_speed_kmph"
+
+# Pipeline schema configuration
+# Defines schemas used in different pipeline stages (NVIDIA Morpheus pattern)
+pipeline_schemas:
+  # Source schema: Raw input data format
+  # Maps raw JSON/CSV fields to normalized column names
+  source_schema:
+    userid_column: "username"
+    timestamp_column: "timestamp"
+    json_columns: [] # List of JSON columns to flatten (e.g., ["properties"])
+    preserve_columns:
+      # Preserve coordinates as intermediate columns for travel_speed_kmph calculation
+      # These are required inputs for preprocessing but not final model features
+      - "location_geoCoordinates_latitude"
+      - "location_geoCoordinates_longitude"
+
+  # Preprocessing schema: After initial transformations
+  # Output of DFPFileToDataFrameStage, input to DFPPreprocessingStage
+  preprocessing_schema:
+    userid_column: "username"
+    timestamp_column: "timestamp"
+    preserve_columns: ["_batch_id"] # Batch ID for tracking
+
+    # Columns expected after preprocessing
+    expected_columns:
+      # Core fields
+      - "username"
+      - "timestamp"
+      - "_batch_id"
+      # Application/resource fields
+      - "appDisplayName"
+      - "resourceDisplayName"
+      - "clientAppUsed"
+      # Device fields
+      - "deviceDetailbrowser"
+      - "deviceDetaildisplayName"
+      - "deviceDetailoperatingSystem"
+      # Location fields
+      - "location"
+      - "location_city_state_country"
+      - "location_state_country"
+      - "location_country"
+      - "autonomousSystemNumber"
+      - "location_geoCoordinates_latitude"
+      - "location_geoCoordinates_longitude"
+      # Status/outcome
+      - "statusfailureReason"
+      - "category"
+      # Derived metrics
+      - "travel_speed_kmph"
+      - "distance_km"
+      - "ts_delta_hour"
+      - "is_corp_vpn"
+      # Derived features (added by DFPPreprocessingStage)
+      - "logcount"
+      - "locincrement"
+      - "appincrement"
+
+  # Training schema: Features used for model training
+  # Input to DFPTraining stage
+  training_schema:
+    userid_column: "username"
+    timestamp_column: "timestamp"
+
+    # Exclude these columns from training features
+    exclude_columns:
+      - "username"
+      - "timestamp"
+      - "_batch_id"
+      - "is_corp_vpn"
+      - "distance_km"
+      - "ts_delta_hour"
+
+    # Feature columns (from columns_ae_azure.txt)
+    feature_columns:
+      - "appDisplayName"
+      - "clientAppUsed"
+      - "deviceDetailbrowser"
+      - "deviceDetaildisplayName"
+      - "deviceDetailoperatingSystem"
+      - "statusfailureReason"
+      - "appincrement"
+      - "locincrement"
+      - "logcount"
+
+  # Inference schema: Features used for inference/scoring
+  # Same as training schema (consistency required)
+  inference_schema:
+    userid_column: "username"
+    timestamp_column: "timestamp"
+
+    # Must match training feature columns exactly
+    feature_columns:
+      - "appDisplayName"
+      - "clientAppUsed"
+      - "deviceDetailbrowser"
+      - "deviceDetaildisplayName"
+      - "deviceDetailoperatingSystem"
+      - "statusfailureReason"
+      - "appincrement"
+      - "locincrement"
+      - "logcount"
+
+    # Additional output columns from inference
+    output_columns:
+      - "mean_abs_z" # Mean absolute z-score (anomaly score)
+      - "z_loss" # Reconstruction loss z-score
+      - "anomaly_score" # Final anomaly score
+
+# Data generation configuration (for synthetic data generator)
+# This guides the creation of realistic synthetic authentication logs
+data_generation:
+  # User behavior patterns
+  user_patterns:
+    # Number of synthetic users to generate
+    num_users: 100
+
+    # User ID format (UK email domain)
+    userid_format: "user{:04d}@company.co.uk" # e.g., user0001@company.co.uk
+
+    # User behavior profiles (normal users)
+    normal_profiles:
+      - name: "office_worker"
+        weight: 0.5 # 50% of users
+        characteristics:
+          apps: ["Office365", "Outlook", "Teams", "SharePoint"]
+          devices: ["Desktop", "Laptop"]
+          browsers: ["Chrome", "Edge", "Firefox"]
+          os: ["Windows 10", "Windows 11"]
+          locations: ["Office-HQ", "Office-Regional", "Office-Branch"]
+          hours: [8, 9, 10, 11, 12, 13, 14, 15, 16, 17] # Business hours
+          frequency: "high" # 50-100 events/day
+
+      - name: "remote_worker"
+        weight: 0.3 # 30% of users
+        characteristics:
+          apps: ["Office365", "Teams", "VPN", "Outlook"]
+          devices: ["Laptop", "Mobile"]
+          browsers: ["Chrome", "Safari", "Edge"]
+          os: ["Windows 10", "MacOS", "iOS"]
+          locations: ["Home-LON", "Home-MAN", "Home-EDI", "Home-BIR"]
+          hours: [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18] # Flexible hours
+          frequency: "medium" # 20-50 events/day
+
+      - name: "mobile_user"
+        weight: 0.2 # 20% of users
+        characteristics:
+          apps: ["Outlook", "Teams", "OneDrive"]
+          devices: ["Mobile", "Tablet"]
+          browsers: ["Safari", "Chrome Mobile"]
+          os: ["iOS", "Android"]
+          locations: ["Mobile-LON", "Mobile-MAN", "Mobile-EDI", "Mobile-GLA"]
+          hours: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20] # All day
+          frequency: "low" # 10-30 events/day
+
+  # Application catalog
+  applications:
+    - "Office365"
+    - "Outlook"
+    - "Teams"
+    - "SharePoint"
+    - "OneDrive"
+    - "Exchange"
+    - "Azure Portal"
+    - "PowerBI"
+    - "Dynamics365"
+    - "VPN"
+
+  # Resource catalog
+  resources:
+    - "Office 365 Exchange Online"
+    - "Office 365 SharePoint Online"
+    - "Microsoft Teams"
+    - "Azure AD"
+    - "OneDrive"
+    - "Azure Portal"
+    - "PowerBI Service"
+
+  # Device/browser combinations
+  devices:
+    Desktop:
+      browsers: ["Chrome", "Edge", "Firefox"]
+      os: ["Windows 10", "Windows 11", "Ubuntu", "MacOS"]
+    Laptop:
+      browsers: ["Chrome", "Edge", "Safari", "Firefox"]
+      os: ["Windows 10", "Windows 11", "MacOS", "Ubuntu"]
+    Mobile:
+      browsers: ["Safari", "Chrome Mobile", "Edge Mobile"]
+      os: ["iOS", "Android"]
+    Tablet:
+      browsers: ["Safari", "Chrome", "Edge"]
+      os: ["iOS", "Android", "Windows 11"]
+
+  # Location catalog (city, state/region, country)
+  # UK-focused locations for UK market PoC
+  locations:
+    - city: "London"
+      state: "England"
+      country: "United Kingdom"
+      coords: [51.5074, -0.1278]
+      timezone: "Europe/London"
+    - city: "Manchester"
+      state: "England"
+      country: "United Kingdom"
+      coords: [53.4808, -2.2426]
+      timezone: "Europe/London"
+    - city: "Birmingham"
+      state: "England"
+      country: "United Kingdom"
+      coords: [52.4862, -1.8904]
+      timezone: "Europe/London"
+    - city: "Edinburgh"
+      state: "Scotland"
+      country: "United Kingdom"
+      coords: [55.9533, -3.1883]
+      timezone: "Europe/London"
+    - city: "Leeds"
+      state: "England"
+      country: "United Kingdom"
+      coords: [53.8008, -1.5491]
+      timezone: "Europe/London"
+    - city: "Glasgow"
+      state: "Scotland"
+      country: "United Kingdom"
+      coords: [55.8642, -4.2518]
+      timezone: "Europe/London"
+
+  # Authentication outcomes
+  outcomes:
+    success_rate: 0.95 # 95% success rate for normal users
+    failure_reasons:
+      - "Invalid credentials"
+      - "MFA required"
+      - "Account locked"
+      - "Session expired"
+      - "Conditional access denied"
+
+  # Temporal patterns
+  temporal:
+    # Date range for synthetic data
+    start_date: "2024-01-01"
+    end_date: "2024-03-31"
+
+    # Business hours (local time)
+    business_hours: [9, 10, 11, 12, 13, 14, 15, 16, 17]
+
+    # Days of week (0=Monday, 6=Sunday)
+    business_days: [0, 1, 2, 3, 4] # Monday-Friday
+    weekend_days: [5, 6] # Saturday-Sunday
+
+    # Event frequency reduction on weekends
+    weekend_reduction: 0.2 # 20% of weekday activity
+
+# Feature monitoring configuration (for drift detection in production)
+monitoring:
+  # Enable feature monitoring
+  enabled: true
+
+  # Features to monitor for distribution drift
+  monitored_features:
+    - "hour"
+    - "dayofweek"
+    - "logcount"
+    - "locincrement"
+    - "appincrement"
+    - "appDisplayName"
+    - "deviceDetailoperatingSystem"
+    - "location_country"
+
+  # Drift detection method: "ks_test", "chi_square", "psi"
+  drift_method: "ks_test" # Kolmogorov-Smirnov test
+
+  # Drift threshold (p-value for statistical tests)
+  drift_threshold: 0.05
+
+  # Reference window (days of data to use as baseline)
+  reference_window_days: 30
+
+  # Comparison window (days of new data to compare)
+  comparison_window_days: 7
+
+  # Alert thresholds
+  alerts:
+    critical_drift_threshold: 0.01 # High confidence drift
+    warning_drift_threshold: 0.05 # Moderate drift
+    features_drifted_alert: 3 # Alert if 3+ features drift
+
+# Metadata
+metadata:
+  schema_version: "1.0"
+  created_date: "2024-11-07"
+  last_modified: "2024-11-07"
+  author: "DFP PoC Team"
+  description: "Feature schema for NVIDIA Morpheus DFP based on Azure AD authentication logs"
+  references:
+    - "nv-morpheus/examples/digital_fingerprinting/production/dfp_azure_pipeline.py"
+    - "nv-morpheus/examples/digital_fingerprinting/production/dfp_duo_pipeline.py"
+    - "nv-morpheus/python/morpheus/morpheus/data/columns_ae_azure.txt"
+  notes:
+    - "Schema follows NVIDIA Morpheus 25.10 DFP architecture"
+    - "Uses dfencoder AutoEncoder for unsupervised anomaly detection"
+    - "Outputs reconstruction errors (z-scores), not classification labels"
+    - "Training uses only clean/normal data (no anomalies)"

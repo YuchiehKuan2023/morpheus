@@ -1,0 +1,55 @@
+CURRENT
+
+# For event_count, we need to map time bins to DataFrame rows
+# This is a simplified approach: return indices of all rows
+# A more sophisticated approach would map bins to specific rows
+# For now, we'll mark all rows as potential anomalies if any bin is anomalous
+if len(signal_anomaly_indices) > 0:
+    logger.debug(
+        f"Event count signal has {len(signal_anomaly_indices)} anomalous bins, marking all {len(df)} rows"
+    )
+    return np.arange(len(df))
+else:
+    return np.array([], dtype=int)
+
+
+SUGGESTED REPLACEMENT
+
+For event_count signals, marking all DataFrame rows as anomalous when any time bin is anomalous is overly broad. Consider implementing a more precise mapping that associates each time bin with its corresponding DataFrame rows. This would improve detection granularity and reduce false positives.
+
+
+# For event_count, map anomalous time bins to DataFrame rows based on timestamp binning
+# Assumes DataFrame has a 'timestamp' column and self.bin_edges is available
+if not hasattr(self, "bin_edges") or self.bin_edges is None:
+    logger.warning("bin_edges not set on FFTStage; cannot map anomalies precisely. Marking all rows.")
+    if len(signal_anomaly_indices) > 0:
+        return np.arange(len(df))
+    else:
+        return np.array([], dtype=int)
+# Ensure timestamp column exists
+if "timestamp" not in df.columns:
+    logger.warning("DataFrame missing 'timestamp' column; cannot map anomalies precisely. Marking all rows.")
+    if len(signal_anomaly_indices) > 0:
+        return np.arange(len(df))
+    else:
+        return np.array([], dtype=int)
+# Map each anomalous bin to DataFrame rows within that bin
+anomalous_row_indices = []
+timestamps = pd.to_datetime(df["timestamp"])
+for bin_idx in signal_anomaly_indices:
+    if bin_idx >= len(self.bin_edges) - 1:
+        logger.warning(f"Bin index {bin_idx} out of range for bin_edges of length {len(self.bin_edges)}")
+        continue
+    bin_start = self.bin_edges[bin_idx]
+    bin_end = self.bin_edges[bin_idx + 1]
+    # Select rows where timestamp is in [bin_start, bin_end)
+    mask = (timestamps >= bin_start) & (timestamps < bin_end)
+    indices = np.where(mask)[0]
+    anomalous_row_indices.extend(indices)
+if len(anomalous_row_indices) == 0:
+    return np.array([], dtype=int)
+else:
+    logger.debug(
+        f"Event count signal: {len(signal_anomaly_indices)} anomalous bins, marking {len(anomalous_row_indices)} rows"
+    )
+    return np.array(sorted(set(anomalous_row_indices)), dtype=int)

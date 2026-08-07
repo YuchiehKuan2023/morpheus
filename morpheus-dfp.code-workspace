@@ -1,0 +1,33 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"terminal.integrated.env.osx": {
+			"PYTHONPATH": "${workspaceFolder}"
+		},
+		"terminal.integrated.env.linux": {
+			"PYTHONPATH": "${workspaceFolder}"
+		},
+		"terminal.integrated.profiles.osx": {
+			"zsh (venv)": {
+				"path": "zsh",
+				"args": [
+					"-c",
+					"source .venv/bin/activate && exec zsh"
+				]
+			}
+		},
+		"terminal.integrated.defaultProfile.osx": "zsh (venv)",
+		"ruff.enable": true,
+		"ruff.organizeImports": true,
+		"ruff.fixAll": true,
+		"files.associations": {
+			"*.yml": "yaml",
+			"*.yaml": "yaml"
+		},
+		"python-envs.defaultEnvManager": "ms-python.python:system"
+	}
+}

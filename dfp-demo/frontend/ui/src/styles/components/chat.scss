@@ -1,0 +1,10 @@
+.ai-response-bubble {
+  &.ai {
+    @extend .glass-card;
+    @extend .glass-card--xs;
+    border-top-left-radius: 0.125rem !important;
+    width: 100%;
+    padding: 1rem !important;
+    margin-left: 2rem;
+  }
+}

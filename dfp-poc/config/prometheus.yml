@@ -1,0 +1,70 @@
+# Prometheus configuration for DFP Pipeline Monitoring
+#
+# This configuration scrapes metrics from the DFP pipeline's HTTP server.
+#
+# Usage:
+#   prometheus --config.file=config/prometheus.yml
+#
+# Web UI: http://localhost:9090
+
+global:
+  scrape_interval: 15s # How frequently to scrape targets
+  evaluation_interval: 15s # How frequently to evaluate rules
+
+  # Attach these labels to any time series or alerts when communicating with
+  # external systems (federation, remote storage, Alertmanager).
+  external_labels:
+    monitor: "dfp-pipeline"
+    environment: "development"
+
+# Load rules once and periodically evaluate them
+rule_files:
+  # - "rules/*.yml"
+
+# Alertmanager configuration (optional)
+# alerting:
+#   alertmanagers:
+#     - static_configs:
+#         - targets:
+#           - localhost:9093
+
+# Scrape configuration
+scrape_configs:
+  # DFP Pipeline Metrics
+  - job_name: "dfp-pipeline"
+
+    # Override the global scrape interval for this job
+    scrape_interval: 10s
+    scrape_timeout: 5s
+
+    # Metrics path defaults to '/metrics'
+    metrics_path: /metrics
+
+    # Scheme defaults to 'http'
+    scheme: http
+
+    static_configs:
+      - targets: ["localhost:8000"]
+        labels:
+          pipeline: "dfp"
+          component: "integrated_batch"
+
+    # Relabel instance to be more readable
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+        replacement: "dfp-pipeline"
+
+  # Pushgateway for batch job metrics
+  - job_name: "pushgateway"
+    scrape_interval: 10s
+    honor_labels: true # Preserve job labels from pushed metrics
+    static_configs:
+      - targets: ["localhost:9091"]
+        labels:
+          component: "pushgateway"
+
+  # Prometheus self-monitoring
+  - job_name: "prometheus"
+    static_configs:
+      - targets: ["localhost:9090"]

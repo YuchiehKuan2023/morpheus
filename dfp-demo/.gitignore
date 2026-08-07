@@ -1,0 +1,91 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual Environment
+.venv/
+venv/
+ENV/
+env/
+
+# IDEs
+.idea/
+*.swp
+*.swo
+*~
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# MLflow
+mlruns/
+data/mlflow/mlflow.db
+data/mlflow/mlflow.db-shm
+data/mlflow/mlflow.db-wal
+data/mlflow/.trash/
+
+# Qdrant Vector Database (Runtime State)
+# These files are generated at runtime and should not be committed
+data/ai/qdrant/raft_state.json
+data/ai/qdrant/*.pid
+data/ai/qdrant/collections/
+data/ai/qdrant/aliases/
+data/ai/qdrant/.deleted/
+data/ai/qdrant/storage/
+data/ai/qdrant/.wal/
+
+# Redis Cache (Runtime State)
+# Redis persistence files should not be committed
+data/redis/*.rdb
+data/redis/*.aof
+data/redis/appendonlydir/
+data/redis/dump.rdb
+
+# Kafka
+data/kafka/
+data/kafka-logs/
+
+# Logs
+data/logs/*.log
+*.log
+
+# Prometheus
+data/prometheus/
+
+# Model Cache
+data/output/cache/
+data/output/models/*.pkl
+data/output/models/*.joblib
+data/output/prompts/
+
+# Temporary Files
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db
+
+# Environment Variables
+.env
+.env.local
+.env.*.local
+
+# Monitoring
+data/pushgateway/
+
+*.pid
+
+data/ai/qdrant/aliases/data.json

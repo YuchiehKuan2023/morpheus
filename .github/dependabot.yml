@@ -1,0 +1,141 @@
+version: 2
+updates:
+  # Root Python dependencies (poetry-managed, has poetry.lock)
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "dfp-team"
+    labels:
+      - "dependencies"
+      - "python"
+    commit-message:
+      prefix: "chore(deps)"
+    ignore:
+      - dependency-name: "scikit-learn"
+        update-types: ["version-update:semver-patch"]
+    groups:
+      pytorch:
+        patterns:
+          - "torch*"
+      ml-frameworks:
+        patterns:
+          - "xgboost"
+          - "lightgbm"
+      data-processing:
+        patterns:
+          - "pandas"
+          - "numpy"
+          - "scipy"
+      kafka:
+        patterns:
+          - "kafka-*"
+          - "confluent-*"
+      testing:
+        patterns:
+          - "pytest*"
+
+  # dfp-demo Python dependencies (setuptools-managed, uses requirements.txt lockfile)
+  - package-ecosystem: "pip"
+    directory: "/dfp-demo"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "dfp-team"
+    labels:
+      - "dependencies"
+      - "python"
+      - "dfp-demo"
+    commit-message:
+      prefix: "chore(deps)[dfp-demo]"
+    ignore:
+      - dependency-name: "scikit-learn"
+        update-types: ["version-update:semver-patch"]
+    groups:
+      pytorch:
+        patterns:
+          - "torch*"
+      ml-frameworks:
+        patterns:
+          - "xgboost"
+          - "lightgbm"
+          - "shap"
+      data-processing:
+        patterns:
+          - "pandas"
+          - "numpy"
+          - "scipy"
+      kafka:
+        patterns:
+          - "kafka-*"
+          - "confluent-*"
+      ai:
+        patterns:
+          - "transformers"
+          - "sentence-transformers"
+          - "spacy"
+          - "langchain*"
+          - "openai"
+      testing:
+        patterns:
+          - "pytest*"
+
+  # dfp-poc Python dependencies (setuptools-managed, uses requirements.txt lockfile)
+  - package-ecosystem: "pip"
+    directory: "/dfp-poc"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "dfp-team"
+    labels:
+      - "dependencies"
+      - "python"
+      - "dfp-poc"
+    commit-message:
+      prefix: "chore(deps)[dfp-poc]"
+    ignore:
+      - dependency-name: "scikit-learn"
+        update-types: ["version-update:semver-patch"]
+    groups:
+      pytorch:
+        patterns:
+          - "torch*"
+      ml-frameworks:
+        patterns:
+          - "xgboost"
+          - "lightgbm"
+      data-processing:
+        patterns:
+          - "pandas"
+          - "numpy"
+          - "scipy"
+      kafka:
+        patterns:
+          - "kafka-*"
+          - "confluent-*"
+      testing:
+        patterns:
+          - "pytest*"
+
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "github-actions"
+    commit-message:
+      prefix: "chore(ci)"

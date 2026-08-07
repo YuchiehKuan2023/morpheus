@@ -1,0 +1,2440 @@
+users:
+  brian.ramirez@wingtiptoys.com:
+    normal_behavior:
+      typical_apps:
+      - Microsoft To-Do
+      - Workday
+      - Microsoft Forms
+      - Microsoft OneDrive for Business
+      - Microsoft SharePoint Online
+      - AWS Console
+      typical_locations:
+      - city: Birmingham
+        lat: 52.4862
+        lon: -1.8904
+      - city: Bristol
+        lat: 51.4545
+        lon: -2.5879
+      - city: Manchester
+        lat: 53.4808
+        lon: -2.2426
+      typical_browsers:
+      - Chrome Mobile 119.0
+      - Edge 118.0
+      typical_os:
+      - Android 14
+      - iOS 17.0
+      work_hours:
+        start: 9
+        end: 17
+      work_days:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      typical_activity_range:
+        min: 24
+        max: 120
+      typical_apps_per_session: 6
+      never_accessed:
+      - GitHub
+      - Salesforce
+      - Jira
+      travel_pattern: frequent
+      privileged_access: true
+      user_role: engineering
+  dorothy.adams@citypower.com:
+    normal_behavior:
+      typical_apps:
+      - GitHub
+      - AWS Console
+      - Okta
+      - Microsoft Stream
+      - Microsoft Bookings
+      - Microsoft Teams
+      typical_locations:
+      - city: Shanghai
+        lat: 31.2304
+        lon: 121.4737
+      - city: Hong Kong
+        lat: 22.3193
+        lon: 114.1694
+      - city: Manila
+        lat: 14.5995
+        lon: 120.9842
+      typical_browsers:
+      - Firefox 120.0
+      typical_os:
+      - Windows 11
+      - Android 14
+      work_hours:
+        start: 9
+        end: 17
+      work_days:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      typical_activity_range:
+        min: 27
+        max: 138
+      typical_apps_per_session: 6
+      never_accessed:
+      - Salesforce
+      - Jira
+      travel_pattern: frequent
+      privileged_access: true
+      user_role: engineering
+  nancy.zabek@proseware.com:
+    normal_behavior:
+      typical_apps:
+      - Microsoft To-Do
+      - Box
+      - Microsoft OneDrive for Business
+      - Salesforce
+      - Microsoft Dynamics 365
+      - Office 365 Exchange Online
+      - Okta
+      typical_locations:
+      - city: Hong Kong
+        lat: 22.3193
+        lon: 114.1694
+      - city: Singapore
+        lat: 1.3521
+        lon: 103.8198
+      - city: Jakarta
+        lat: -6.2088
+        lon: 106.8456
+      typical_browsers:
+      - Firefox 119.0
+      - Firefox 120.0
+      typical_os:
+      - macOS 13 Ventura
+      - Android 13
+      - macOS 14 Sonoma
+      work_hours:
+        start: 9
+        end: 17
+      work_days:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      typical_activity_range:
+        min: 8
+        max: 40
+      typical_apps_per_session: 6
+      never_accessed:
+      - AWS Console
+      - GitHub
+      - Jira
+      travel_pattern: frequent
+      privileged_access: false
+      user_role: sales_marketing
+  jennifer.nguyen@contoso.com:
+    normal_behavior:
+      typical_apps:
+      - Microsoft Teams
+      - Jira
+      - Microsoft Azure Portal
+      - Slack
+      - Microsoft Intune
+      typical_locations:
+      - city: Seattle
+        lat: 47.6062
+        lon: -122.3321
+      - city: Vancouver
+        lat: 49.2827
+        lon: -123.1207
+      - city: San Francisco
+        lat: 37.7749
+        lon: -122.4194
+      typical_browsers:
+      - Safari 17.0
+      - Chrome Mobile 119.0
+      - Firefox 119.0
+      - Chrome 118.0
+      typical_os:
+      - Ubuntu 20.04
+      - iOS 17.1
+      - Android 14
+      work_hours:
+        start: 9
+        end: 17
+      work_days:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      typical_activity_range:
+        min: 33
+        max: 169
+      typical_apps_per_session: 5
+      never_accessed:
+      - AWS Console
+      - GitHub
+      - Salesforce
+      travel_pattern: frequent
+      privileged_access: false
+      user_role: general
+  andrew.gonzalez@citypower.com:
+    normal_behavior:
+      typical_apps:
+      - Slack
+      - Adobe Creative Cloud
+      - Dropbox
+      - Zoom
+      - Okta
+      typical_locations:
+      - city: San Francisco
+        lat: 37.7749
+        lon: -122.4194
+      - city: Vancouver
+        lat: 49.2827
+        lon: -123.1207
+      - city: Seattle
+        lat: 47.6062
+        lon: -122.3321
+      typical_browsers:
+      - Safari 17.0
+      - Chrome Mobile 119.0
+      typical_os:
+      - Ubuntu 22.04
+      - macOS 14 Sonoma
+      - Windows 10
+      - Ubuntu 20.04
+      work_hours:
+        start: 9
+        end: 17
+      work_days:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      typical_activity_range:
+        min: 7
+        max: 37
+      typical_apps_per_session: 5
+      never_accessed:
+      - AWS Console
+      - GitHub
+      - Salesforce
+      - Jira
+      travel_pattern: frequent
+      privileged_access: false
+      user_role: general
+  gabriel.wright@solutions.org:
+    normal_behavior:
+      typical_apps:
+      - Microsoft Stream
+      - ServiceNow
+      - Workday
+      - Zoom
+      - Slack
+      - Dropbox
+      - Microsoft Power BI
+      - Microsoft Planner
+      - Microsoft Teams
+      - Microsoft OneDrive for Business
+      typical_locations:
+      - city: Bristol
+        lat: 51.4545
+        lon: -2.5879
+      - city: London
+        lat: 51.5074
+        lon: -0.1278
+      - city: Birmingham
+        lat: 52.4862
+        lon: -1.8904
+      typical_browsers:
+      - Safari 17.0
+      - Chrome 118.0
+      typical_os:
+      - iOS 17.0
+      - macOS 13 Ventura
+      - Windows 10
+      work_hours:
+        start: 9
+        end: 17
+      work_days:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      typical_activity_range:
+        min: 8
+        max: 43
+      typical_apps_per_session: 9
+      never_accessed:
+      - AWS Console
+      - GitHub
+      - Salesforce
+      - Jira
+      travel_pattern: frequent
+      privileged_access: false
+      user_role: hr
+  emily.lewis@globalcorp.com:
+    normal_behavior:
+      typical_apps:
+      - AWS Console
+      - ServiceNow
+      - Adobe Creative Cloud
+      - Slack
+      - Microsoft Intune
+      - Confluence
+      - Salesforce
+      - Microsoft Stream
+      typical_locations:
+      - city: London
+        lat: 51.5074
+        lon: -0.1278
+      - city: Paris
+        lat: 48.8566
+        lon: 2.3522
+      - city: Bristol
+        lat: 51.4545
+        lon: -2.5879
+      typical_browsers:
+      - Edge 118.0
+      - Firefox 120.0
+      typical_os:
+      - macOS 14 Sonoma
+      work_hours:
+        start: 9
+        end: 17
+      work_days:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      typical_activity_range:
+        min: 6
+        max: 34
+      typical_apps_per_session: 7
+      never_accessed:
+      - GitHub
+      - Jira
+      travel_pattern: frequent
+      privileged_access: true
+      user_role: engineering
+  christopher.thomas@wingtiptoys.com:
+    normal_behavior:
+      typical_apps:
+      - GitHub
+      - Confluence
+      - Jira
+      - Microsoft Bookings
+      - Microsoft SharePoint Online
+      - Microsoft Forms
+      - Microsoft Planner
+      - Workday
+      - Microsoft Teams
+      - AWS Console
+      typical_locations:
+      - city: Istanbul
+        lat: 41.0082
+        lon: 28.9784
+      - city: Munich
+        lat: 48.1351
+        lon: 11.582
+      - city: Brussels
+        lat: 50.8503
+        lon: 4.3517
+      typical_browsers:
+      - Chrome 119.0
+      - Mobile Safari 17.0
+      - Edge 118.0
+      typical_os:
+      - macOS 13 Ventura
+      - Android 13
+      - Ubuntu 22.04
+      work_hours:
+        start: 9
+        end: 17
+      work_days:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      typical_activity_range:
+        min: 9
+        max: 45
+      typical_apps_per_session: 9
+      never_accessed:
+      - Salesforce
+      travel_pattern: frequent
+      privileged_access: true
+      user_role: engineering
+  mark.baker@globalcorp.com:
+    normal_behavior:
+      typical_apps:
+      - Microsoft Dynamics 365
+      - Slack
+      - DocuSign
+      - Dropbox
+      - Microsoft SharePoint Online
+      - Microsoft Forms
+      - Microsoft Planner
+      - Jira
+      - Workday
+      - Confluence
+      typical_locations:
+      - city: Sydney
+        lat: -33.8688
+        lon: 151.2093
+      - city: Melbourne
+        lat: -37.8136
+        lon: 144.9631
+      - city: Auckland
+        lat: -36.8485
+        lon: 174.7633
+      typical_browsers:
+      - Mobile Safari 17.0
+      - Firefox 120.0
+      - Chrome Mobile 119.0
+      typical_os:
+      - Android 13
+      work_hours:
+        start: 9
+        end: 17
+      work_days:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      typical_activity_range:
+        min: 7
+        max: 36
+      typical_apps_per_session: 8
+      never_accessed:
+      - AWS Console
+      - GitHub
+      - Salesforce
+      travel_pattern: occasional
+      privileged_access: false
+      user_role: hr
+  kenneth.davis@woodgrovebank.com:
+    normal_behavior:
+      typical_apps:
+      - Dropbox
+      - Workday
+      - Microsoft Power BI
+      - Microsoft Intune
+      - Google Workspace
+      - Microsoft OneDrive for Business
+      typical_locations:
+      - city: Istanbul
+        lat: 41.0082
+        lon: 28.9784
+      - city: Berlin
+        lat: 52.52
+        lon: 13.405
+      typical_browsers:
+      - Edge 119.0
+      - Safari 17.0
+      typical_os:
+      - Android 14
+      - Android 13
+      work_hours:
+        start: 9
+        end: 17
+      work_days:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      typical_activity_range:
+        min: 48
+        max: 240
+      typical_apps_per_session: 6
+      never_accessed:
+      - AWS Console
+      - GitHub
+      - Salesforce
+      - Jira
+      travel_pattern: occasional
+      privileged_access: false
+      user_role: hr
+  robert.allen@azure.example:
+    normal_behavior:
+      typical_apps:
+      - Salesforce
+      - GitHub
+      - Microsoft Power BI
+      - Microsoft Intune
+      - Microsoft Azure Portal
+      - Okta
+      - Google Workspace
+      - Zoom
+      typical_locations:
+      - city: Birmingham
+        lat: 52.4862
+        lon: -1.8904
+      - city: Manchester
+        lat: 53.4808
+        lon: -2.2426
+      - city: Munich
+        lat: 48.1351
+        lon: 11.582
+      typical_browsers:
+      - Chrome 119.0
+      - Chrome Mobile 119.0
+      typical_os:
+      - iOS 17.1
+      - Windows 10
+      work_hours:
+        start: 9
+        end: 17
+      work_days:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      typical_activity_range:
+        min: 11
+        max: 55
+      typical_apps_per_session: 8
+      never_accessed:
+      - AWS Console
+      - Jira
+      travel_pattern: frequent
+      privileged_access: false
+      user_role: engineering
+  tomasz.robinson@proseware.com:
+    normal_behavior:
+      typical_apps:
+      - Microsoft Azure Portal
+      - Dropbox
+      - Microsoft Stream
+      - Microsoft To-Do
+      - Microsoft Teams
+      - Microsoft Forms
+      typical_locations:
+      - city: Berlin
+        lat: 52.52
+        lon: 13.405
+      - city: Manchester
+        lat: 53.4808
+        lon: -2.2426
+      - city: London
+        lat: 51.5074
+        lon: -0.1278
+      typical_browsers:
+      - Edge 118.0
+      - Chrome 118.0
+      typical_os:
+      - Windows 11
+      - Ubuntu 22.04
+      - macOS 13 Ventura
+      work_hours:
+        start: 9
+        end: 17
+      work_days:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      typical_activity_range:
+        min: 7
+        max: 39
+      typical_apps_per_session: 6
+      never_accessed:
+      - AWS Console
+      - GitHub
+      - Salesforce
+      - Jira
+      travel_pattern: frequent
+      privileged_access: false
+      user_role: general
+  margaret.wilson@litwareinc.com:
+    normal_behavior:
+      typical_apps:
+      - Slack
+      - Microsoft Intune
+      - Microsoft OneDrive for Business
+      - Microsoft To-Do
+      - AWS Console
+      - Microsoft Planner
+      - Dropbox
+      - Confluence
+      - Microsoft Bookings
+      - Microsoft Yammer
+      typical_locations:
+      - city: Cairo
+        lat: 30.0444
+        lon: 31.2357
+      - city: Johannesburg
+        lat: -26.2041
+        lon: 28.0473
+      - city: Tel Aviv
+        lat: 32.0853
+        lon: 34.7818
+      typical_browsers:
+      - Safari 16.6
+      - Firefox 119.0
+      - Safari 17.0
+      - Mobile Safari 17.0
+      typical_os:
+      - Ubuntu 20.04
+      - iOS 17.0
+      - Android 13
+      - macOS 14 Sonoma
+      work_hours:
+        start: 9
+        end: 17
+      work_days:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      typical_activity_range:
+        min: 11
+        max: 58
+      typical_apps_per_session: 9
+      never_accessed:
+      - GitHub
+      - Salesforce
+      - Jira
+      travel_pattern: occasional
+      privileged_access: true
+      user_role: engineering
+  stephanie.clark@adventureworks.com:
+    normal_behavior:
+      typical_apps:
+      - Microsoft Bookings
+      - Box
+      - Microsoft Whiteboard
+      - Google Workspace
+      - Microsoft Yammer
+      - Workday
+      - Dropbox
+      - Confluence
+      - Adobe Creative Cloud
+      - Office 365 Exchange Online
+      typical_locations:
+      - city: Los Angeles
+        lat: 34.0522
+        lon: -118.2437
+      - city: New York
+        lat: 40.7128
+        lon: -74.006
+      - city: Chicago
+        lat: 41.8781
+        lon: -87.6298
+      typical_browsers:
+      - Firefox 119.0
+      - Mobile Safari 17.0
+      - Chrome 119.0
+      typical_os:
+      - Windows 10
+      - macOS 14 Sonoma
+      - Windows 11
+      work_hours:
+        start: 9
+        end: 17
+      work_days:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      typical_activity_range:
+        min: 10
+        max: 53
+      typical_apps_per_session: 9
+      never_accessed:
+      - AWS Console
+      - GitHub
+      - Salesforce
+      - Jira
+      travel_pattern: frequent
+      privileged_access: false
+      user_role: hr
+  brian.smith@citypower.com:
+    normal_behavior:
+      typical_apps:
+      - Box
+      - Okta
+      - Microsoft Bookings
+      - Microsoft Dynamics 365
+      - Office 365 Exchange Online
+      - Slack
+      typical_locations:
+      - city: Tel Aviv
+        lat: 32.0853
+        lon: 34.7818
+      - city: Cairo
+        lat: 30.0444
+        lon: 31.2357
+      typical_browsers:
+      - Edge 118.0
+      - Safari 16.6
+      typical_os:
+      - macOS 13 Ventura
+      - iOS 17.0
+      work_hours:
+        start: 9
+        end: 17
+      work_days:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      typical_activity_range:
+        min: 7
+        max: 35
+      typical_apps_per_session: 6
+      never_accessed:
+      - AWS Console
+      - GitHub
+      - Salesforce
+      - Jira
+      travel_pattern: occasional
+      privileged_access: false
+      user_role: general
+  david.wright@tailspintoys.com:
+    normal_behavior:
+      typical_apps:
+      - Zoom
+      - Microsoft Stream
+      - Microsoft Intune
+      - Microsoft To-Do
+      - Microsoft Forms
+      - Box
+      - Dropbox
+      - Confluence
+      typical_locations:
+      - city: Brussels
+        lat: 50.8503
+        lon: 4.3517
+      - city: Paris
+        lat: 48.8566
+        lon: 2.3522
+      - city: Amsterdam
+        lat: 52.3676
+        lon: 4.9041
+      typical_browsers:
+      - Edge 118.0
+      - Safari 16.6
+      - Firefox 120.0
+      typical_os:
+      - Android 14
+      - iOS 17.1
+      - Ubuntu 20.04
+      work_hours:
+        start: 9
+        end: 17
+      work_days:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      typical_activity_range:
+        min: 16
+        max: 84
+      typical_apps_per_session: 8
+      never_accessed:
+      - AWS Console
+      - GitHub
+      - Salesforce
+      - Jira
+      travel_pattern: frequent
+      privileged_access: false
+      user_role: general
+  robert.williams@cohowinery.com:
+    normal_behavior:
+      typical_apps:
+      - Workday
+      - Microsoft OneDrive for Business
+      - Microsoft To-Do
+      - Microsoft Intune
+      - Microsoft Stream
+      typical_locations:
+      - city: Boston
+        lat: 42.3601
+        lon: -71.0589
+      - city: Montreal
+        lat: 45.5017
+        lon: -73.5673
+      - city: New York
+        lat: 40.7128
+        lon: -74.006
+      typical_browsers:
+      - Chrome 118.0
+      - Edge 119.0
+      typical_os:
+      - Ubuntu 20.04
+      - Android 13
+      - Android 14
+      work_hours:
+        start: 9
+        end: 17
+      work_days:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      typical_activity_range:
+        min: 19
+        max: 98
+      typical_apps_per_session: 5
+      never_accessed:
+      - AWS Console
+      - GitHub
+      - Salesforce
+      - Jira
+      travel_pattern: frequent
+      privileged_access: false
+      user_role: hr
+  robert.harris@consolidated.com:
+    normal_behavior:
+      typical_apps:
+      - Microsoft Teams
+      - Okta
+      - Microsoft OneDrive for Business
+      - Microsoft Stream
+      - Zoom
+      - DocuSign
+      - Dropbox
+      - Workday
+      - Google Workspace
+      typical_locations:
+      - city: Mumbai
+        lat: 19.076
+        lon: 72.8777
+      - city: Cairo
+        lat: 30.0444
+        lon: 31.2357
+      - city: Bangalore
+        lat: 12.9716
+        lon: 77.5946
+      typical_browsers:
+      - Firefox 119.0
+      - Firefox 120.0
+      - Edge 119.0
+      typical_os:
+      - Ubuntu 22.04
+      - Windows 10
+      - macOS 14 Sonoma
+      work_hours:
+        start: 9
+        end: 17
+      work_days:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      typical_activity_range:
+        min: 13
+        max: 69
+      typical_apps_per_session: 9
+      never_accessed:
+      - AWS Console
+      - GitHub
+      - Salesforce
+      - Jira
+      travel_pattern: frequent
+      privileged_access: false
+      user_role: hr
+  gabriel.white@fourthcoffee.com:
+    normal_behavior:
+      typical_apps:
+      - Adobe Creative Cloud
+      - Microsoft SharePoint Online
+      - Dropbox
+      - Confluence
+      - Box
+      - Microsoft Stream
+      typical_locations:
+      - city: Birmingham
+        lat: 52.4862
+        lon: -1.8904
+      - city: Bristol
+        lat: 51.4545
+        lon: -2.5879
+      - city: Amsterdam
+        lat: 52.3676
+        lon: 4.9041
+      typical_browsers:
+      - Firefox 120.0
+      - Safari 16.6
+      - Firefox 119.0
+      - Safari 17.0
+      typical_os:
+      - iOS 17.1
+      - iOS 17.0
+      - Windows 10
+      work_hours:
+        start: 9
+        end: 17
+      work_days:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      typical_activity_range:
+        min: 18
+        max: 90
+      typical_apps_per_session: 6
+      never_accessed:
+      - AWS Console
+      - GitHub
+      - Salesforce
+      - Jira
+      travel_pattern: frequent
+      privileged_access: false
+      user_role: general
+  deborah.adams@cohowinery.com:
+    normal_behavior:
+      typical_apps:
+      - Google Workspace
+      - Slack
+      - Microsoft Dynamics 365
+      - Adobe Creative Cloud
+      - ServiceNow
+      - Microsoft Bookings
+      - Microsoft Stream
+      - Microsoft Teams
+      typical_locations:
+      - city: Washington DC
+        lat: 38.9072
+        lon: -77.0369
+      - city: New York
+        lat: 40.7128
+        lon: -74.006
+      - city: Miami
+        lat: 25.7617
+        lon: -80.1918
+      typical_browsers:
+      - Chrome Mobile 119.0
+      - Edge 119.0
+      typical_os:
+      - Ubuntu 22.04
+      - Ubuntu 20.04
+      work_hours:
+        start: 9
+        end: 17
+      work_days:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      typical_activity_range:
+        min: 13
+        max: 66
+      typical_apps_per_session: 8
+      never_accessed:
+      - AWS Console
+      - GitHub
+      - Salesforce
+      - Jira
+      travel_pattern: frequent
+      privileged_access: false
+      user_role: general
+  mary.davis@proseware.com:
+    normal_behavior:
+      typical_apps:
+      - DocuSign
+      - Microsoft Intune
+      - Microsoft SharePoint Online
+      - Google Workspace
+      - GitHub
+      typical_locations:
+      - city: Milan
+        lat: 45.4642
+        lon: 9.19
+      - city: Brussels
+        lat: 50.8503
+        lon: 4.3517
+      - city: Munich
+        lat: 48.1351
+        lon: 11.582
+      typical_browsers:
+      - Edge 119.0
+      - Safari 16.6
+      - Safari 17.0
+      typical_os:
+      - macOS 13 Ventura
+      - Windows 11
+      - macOS 14 Sonoma
+      - iOS 17.1
+      work_hours:
+        start: 9
+        end: 17
+      work_days:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      typical_activity_range:
+        min: 12
+        max: 61
+      typical_apps_per_session: 5
+      never_accessed:
+      - AWS Console
+      - Salesforce
+      - Jira
+      travel_pattern: frequent
+      privileged_access: false
+      user_role: engineering
+  carol.robinson@wingtiptoys.com:
+    normal_behavior:
+      typical_apps:
+      - Google Workspace
+      - GitHub
+      - DocuSign
+      - Microsoft Stream
+      - Zoom
+      - Adobe Creative Cloud
+      typical_locations:
+      - city: Manchester
+        lat: 53.4808
+        lon: -2.2426
+      - city: Birmingham
+        lat: 52.4862
+        lon: -1.8904
+      - city: London
+        lat: 51.5074
+        lon: -0.1278
+      typical_browsers:
+      - Mobile Safari 17.0
+      - Safari 16.6
+      - Firefox 119.0
+      typical_os:
+      - Android 13
+      - iOS 17.0
+      - macOS 13 Ventura
+      work_hours:
+        start: 9
+        end: 17
+      work_days:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      typical_activity_range:
+        min: 15
+        max: 75
+      typical_apps_per_session: 6
+      never_accessed:
+      - AWS Console
+      - Salesforce
+      - Jira
+      travel_pattern: frequent
+      privileged_access: false
+      user_role: engineering
+  robert.carter@wingtiptoys.com:
+    normal_behavior:
+      typical_apps:
+      - Dropbox
+      - Salesforce
+      - Zoom
+      - Slack
+      - Microsoft Dynamics 365
+      - Microsoft Stream
+      typical_locations:
+      - city: Cairo
+        lat: 30.0444
+        lon: 31.2357
+      - city: Tel Aviv
+        lat: 32.0853
+        lon: 34.7818
+      typical_browsers:
+      - Chrome Mobile 119.0
+      - Mobile Safari 17.0
+      - Safari 17.0
+      typical_os:
+      - Windows 10
+      - Ubuntu 20.04
+      - Windows 11
+      work_hours:
+        start: 9
+        end: 17
+      work_days:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      typical_activity_range:
+        min: 12
+        max: 60
+      typical_apps_per_session: 6
+      never_accessed:
+      - AWS Console
+      - GitHub
+      - Jira
+      travel_pattern: occasional
+      privileged_access: false
+      user_role: sales_marketing
+  nancy.johnson@proseware.com:
+    normal_behavior:
+      typical_apps:
+      - Microsoft SharePoint Online
+      - Office 365 Exchange Online
+      - Workday
+      - Box
+      - Confluence
+      - AWS Console
+      - Microsoft Teams
+      - Adobe Creative Cloud
+      - Microsoft Intune
+      typical_locations:
+      - city: Shanghai
+        lat: 31.2304
+        lon: 121.4737
+      - city: Beijing
+        lat: 39.9042
+        lon: 116.4074
+      - city: Seoul
+        lat: 37.5665
+        lon: 126.978
+      typical_browsers:
+      - Edge 119.0
+      - Edge 118.0
+      typical_os:
+      - Windows 11
+      - Android 14
+      work_hours:
+        start: 9
+        end: 17
+      work_days:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      typical_activity_range:
+        min: 11
+        max: 56
+      typical_apps_per_session: 8
+      never_accessed:
+      - GitHub
+      - Salesforce
+      - Jira
+      travel_pattern: frequent
+      privileged_access: true
+      user_role: engineering
+  linda.robinson@azure.example:
+    normal_behavior:
+      typical_apps:
+      - Microsoft Bookings
+      - AWS Console
+      - Microsoft Forms
+      - Microsoft Whiteboard
+      - Jira
+      - Zoom
+      - Slack
+      - DocuSign
+      - Google Workspace
+      typical_locations:
+      - city: Paris
+        lat: 48.8566
+        lon: 2.3522
+      - city: Madrid
+        lat: 40.4168
+        lon: -3.7038
+      - city: Manchester
+        lat: 53.4808
+        lon: -2.2426
+      typical_browsers:
+      - Chrome Mobile 119.0
+      - Chrome 119.0
+      typical_os:
+      - iOS 17.1
+      - Windows 11
+      work_hours:
+        start: 9
+        end: 17
+      work_days:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      typical_activity_range:
+        min: 6
+        max: 34
+      typical_apps_per_session: 7
+      never_accessed:
+      - GitHub
+      - Salesforce
+      travel_pattern: frequent
+      privileged_access: true
+      user_role: engineering
+  robert.wright@woodgrovebank.com:
+    normal_behavior:
+      typical_apps:
+      - Microsoft Planner
+      - Microsoft Intune
+      - DocuSign
+      - Microsoft SharePoint Online
+      - Adobe Creative Cloud
+      - Microsoft Yammer
+      typical_locations:
+      - city: Sydney
+        lat: -33.8688
+        lon: 151.2093
+      - city: Melbourne
+        lat: -37.8136
+        lon: 144.9631
+      typical_browsers:
+      - Firefox 119.0
+      - Chrome 119.0
+      - Chrome 118.0
+      typical_os:
+      - Ubuntu 20.04
+      - Android 14
+      - Ubuntu 22.04
+      work_hours:
+        start: 9
+        end: 17
+      work_days:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      typical_activity_range:
+        min: 8
+        max: 44
+      typical_apps_per_session: 6
+      never_accessed:
+      - AWS Console
+      - GitHub
+      - Salesforce
+      - Jira
+      travel_pattern: occasional
+      privileged_access: false
+      user_role: general
+  robert.robinson@enterprise.co.uk:
+    normal_behavior:
+      typical_apps:
+      - Adobe Creative Cloud
+      - Workday
+      - Box
+      - Microsoft Intune
+      - Salesforce
+      - Microsoft To-Do
+      typical_locations:
+      - city: Delhi
+        lat: 28.7041
+        lon: 77.1025
+      - city: Dubai
+        lat: 25.2048
+        lon: 55.2708
+      - city: Mumbai
+        lat: 19.076
+        lon: 72.8777
+      typical_browsers:
+      - Edge 119.0
+      - Safari 17.0
+      typical_os:
+      - Windows 11
+      - macOS 14 Sonoma
+      work_hours:
+        start: 9
+        end: 17
+      work_days:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      typical_activity_range:
+        min: 7
+        max: 35
+      typical_apps_per_session: 6
+      never_accessed:
+      - AWS Console
+      - GitHub
+      - Jira
+      travel_pattern: frequent
+      privileged_access: false
+      user_role: sales_marketing
+  donna.sanchez@wingtiptoys.com:
+    normal_behavior:
+      typical_apps:
+      - Confluence
+      - Microsoft Power BI
+      - Dropbox
+      - Microsoft Dynamics 365
+      - AWS Console
+      - Microsoft SharePoint Online
+      - Microsoft OneDrive for Business
+      - Salesforce
+      - Office 365 Exchange Online
+      typical_locations:
+      - city: Washington DC
+        lat: 38.9072
+        lon: -77.0369
+      - city: Boston
+        lat: 42.3601
+        lon: -71.0589
+      - city: Toronto
+        lat: 43.6532
+        lon: -79.3832
+      typical_browsers:
+      - Edge 119.0
+      - Mobile Safari 17.0
+      typical_os:
+      - Windows 11
+      - macOS 14 Sonoma
+      work_hours:
+        start: 9
+        end: 17
+      work_days:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      typical_activity_range:
+        min: 14
+        max: 72
+      typical_apps_per_session: 9
+      never_accessed:
+      - GitHub
+      - Jira
+      travel_pattern: frequent
+      privileged_access: true
+      user_role: engineering
+  steven.young@northwind.com:
+    normal_behavior:
+      typical_apps:
+      - Microsoft Dynamics 365
+      - Workday
+      - Office 365 Exchange Online
+      - ServiceNow
+      - Confluence
+      - Microsoft Stream
+      - Microsoft Teams
+      - Microsoft Power BI
+      - Microsoft Forms
+      - Microsoft Whiteboard
+      typical_locations:
+      - city: Austin
+        lat: 30.2672
+        lon: -97.7431
+      - city: San Francisco
+        lat: 37.7749
+        lon: -122.4194
+      - city: Washington DC
+        lat: 38.9072
+        lon: -77.0369
+      typical_browsers:
+      - Firefox 119.0
+      - Safari 16.6
+      - Chrome Mobile 119.0
+      typical_os:
+      - Android 13
+      - Ubuntu 22.04
+      - iOS 17.1
+      - Android 14
+      work_hours:
+        start: 9
+        end: 17
+      work_days:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      typical_activity_range:
+        min: 8
+        max: 42
+      typical_apps_per_session: 8
+      never_accessed:
+      - AWS Console
+      - GitHub
+      - Salesforce
+      - Jira
+      travel_pattern: frequent
+      privileged_access: false
+      user_role: hr
+  daniel.hill@consolidated.com:
+    normal_behavior:
+      typical_apps:
+      - Microsoft Yammer
+      - Microsoft SharePoint Online
+      - Confluence
+      - GitHub
+      - Microsoft OneDrive for Business
+      - Jira
+      - Microsoft To-Do
+      - Zoom
+      - Microsoft Planner
+      typical_locations:
+      - city: San Francisco
+        lat: 37.7749
+        lon: -122.4194
+      - city: Seattle
+        lat: 47.6062
+        lon: -122.3321
+      - city: Vancouver
+        lat: 49.2827
+        lon: -123.1207
+      typical_browsers:
+      - Chrome 118.0
+      - Edge 119.0
+      - Chrome Mobile 119.0
+      typical_os:
+      - Android 14
+      - Ubuntu 20.04
+      work_hours:
+        start: 9
+        end: 17
+      work_days:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      typical_activity_range:
+        min: 21
+        max: 107
+      typical_apps_per_session: 9
+      never_accessed:
+      - AWS Console
+      - Salesforce
+      travel_pattern: frequent
+      privileged_access: false
+      user_role: engineering
+  melissa.mitchell@fourthcoffee.com:
+    normal_behavior:
+      typical_apps:
+      - Microsoft SharePoint Online
+      - Microsoft OneDrive for Business
+      - DocuSign
+      - Dropbox
+      - Microsoft Forms
+      - Jira
+      - Microsoft Planner
+      - Workday
+      typical_locations:
+      - city: Mexico City
+        lat: 19.4326
+        lon: -99.1332
+      - city: Tel Aviv
+        lat: 32.0853
+        lon: 34.7818
+      - city: Bangalore
+        lat: 12.9716
+        lon: 77.5946
+      typical_browsers:
+      - Edge 119.0
+      - Firefox 120.0
+      - Mobile Safari 17.0
+      typical_os:
+      - macOS 13 Ventura
+      - macOS 14 Sonoma
+      - iOS 17.0
+      work_hours:
+        start: 9
+        end: 17
+      work_days:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      typical_activity_range:
+        min: 7
+        max: 37
+      typical_apps_per_session: 7
+      never_accessed:
+      - AWS Console
+      - GitHub
+      - Salesforce
+      travel_pattern: frequent
+      privileged_access: false
+      user_role: hr
+  jessica.nelson@innovate.com:
+    normal_behavior:
+      typical_apps:
+      - Microsoft Intune
+      - Microsoft Dynamics 365
+      - Google Workspace
+      - Microsoft Whiteboard
+      - Okta
+      - Microsoft Power BI
+      - Jira
+      - Microsoft Teams
+      typical_locations:
+      - city: Milan
+        lat: 45.4642
+        lon: 9.19
+      - city: Paris
+        lat: 48.8566
+        lon: 2.3522
+      - city: Brussels
+        lat: 50.8503
+        lon: 4.3517
+      typical_browsers:
+      - Chrome 119.0
+      - Safari 17.0
+      - Mobile Safari 17.0
+      typical_os:
+      - Android 14
+      - macOS 14 Sonoma
+      - Windows 11
+      work_hours:
+        start: 9
+        end: 17
+      work_days:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      typical_activity_range:
+        min: 8
+        max: 40
+      typical_apps_per_session: 7
+      never_accessed:
+      - AWS Console
+      - GitHub
+      - Salesforce
+      travel_pattern: frequent
+      privileged_access: false
+      user_role: general
+  betty.scott@cohowinery.com:
+    normal_behavior:
+      typical_apps:
+      - Confluence
+      - Microsoft Forms
+      - Okta
+      - Jira
+      - Microsoft Whiteboard
+      - GitHub
+      typical_locations:
+      - city: Brussels
+        lat: 50.8503
+        lon: 4.3517
+      - city: Munich
+        lat: 48.1351
+        lon: 11.582
+      - city: Milan
+        lat: 45.4642
+        lon: 9.19
+      typical_browsers:
+      - Firefox 120.0
+      - Chrome Mobile 119.0
+      - Edge 119.0
+      typical_os:
+      - Windows 10
+      - Windows 11
+      - macOS 14 Sonoma
+      work_hours:
+        start: 9
+        end: 17
+      work_days:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      typical_activity_range:
+        min: 7
+        max: 36
+      typical_apps_per_session: 6
+      never_accessed:
+      - AWS Console
+      - Salesforce
+      travel_pattern: frequent
+      privileged_access: false
+      user_role: engineering
+  deborah.brown@blueyonderairlines.com:
+    normal_behavior:
+      typical_apps:
+      - Confluence
+      - Workday
+      - GitHub
+      - Microsoft Forms
+      - Microsoft SharePoint Online
+      - Microsoft Azure Portal
+      - Box
+      - Microsoft Stream
+      typical_locations:
+      - city: Los Angeles
+        lat: 34.0522
+        lon: -118.2437
+      - city: Montreal
+        lat: 45.5017
+        lon: -73.5673
+      - city: Toronto
+        lat: 43.6532
+        lon: -79.3832
+      typical_browsers:
+      - Firefox 120.0
+      - Chrome 119.0
+      typical_os:
+      - iOS 17.1
+      - macOS 14 Sonoma
+      work_hours:
+        start: 9
+        end: 17
+      work_days:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      typical_activity_range:
+        min: 16
+        max: 80
+      typical_apps_per_session: 8
+      never_accessed:
+      - AWS Console
+      - Salesforce
+      - Jira
+      travel_pattern: frequent
+      privileged_access: false
+      user_role: engineering
+  jessica.hernandez@globalcorp.com:
+    normal_behavior:
+      typical_apps:
+      - DocuSign
+      - Microsoft Teams
+      - Microsoft To-Do
+      - Microsoft Dynamics 365
+      - Office 365 Exchange Online
+      - Workday
+      typical_locations:
+      - city: Jakarta
+        lat: -6.2088
+        lon: 106.8456
+      - city: Singapore
+        lat: 1.3521
+        lon: 103.8198
+      - city: Beijing
+        lat: 39.9042
+        lon: 116.4074
+      typical_browsers:
+      - Safari 17.0
+      - Edge 119.0
+      - Chrome 119.0
+      - Chrome 118.0
+      typical_os:
+      - Windows 10
+      - Android 14
+      - Android 13
+      - Windows 11
+      work_hours:
+        start: 9
+        end: 17
+      work_days:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      typical_activity_range:
+        min: 10
+        max: 50
+      typical_apps_per_session: 6
+      never_accessed:
+      - AWS Console
+      - GitHub
+      - Salesforce
+      - Jira
+      travel_pattern: frequent
+      privileged_access: false
+      user_role: hr
+  andrew.thomas@fabrikam.com:
+    normal_behavior:
+      typical_apps:
+      - Microsoft Stream
+      - Microsoft Forms
+      - Microsoft Whiteboard
+      - Microsoft Azure Portal
+      - Dropbox
+      - ServiceNow
+      - Slack
+      - GitHub
+      - Microsoft SharePoint Online
+      typical_locations:
+      - city: Mumbai
+        lat: 19.076
+        lon: 72.8777
+      - city: Delhi
+        lat: 28.7041
+        lon: 77.1025
+      - city: Bangalore
+        lat: 12.9716
+        lon: 77.5946
+      typical_browsers:
+      - Safari 17.0
+      - Chrome 118.0
+      - Safari 16.6
+      typical_os:
+      - Windows 11
+      - macOS 13 Ventura
+      - macOS 14 Sonoma
+      work_hours:
+        start: 9
+        end: 17
+      work_days:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      typical_activity_range:
+        min: 9
+        max: 46
+      typical_apps_per_session: 8
+      never_accessed:
+      - AWS Console
+      - Salesforce
+      - Jira
+      travel_pattern: occasional
+      privileged_access: false
+      user_role: engineering
+  sarah.lewis@cohowinery.com:
+    normal_behavior:
+      typical_apps:
+      - Microsoft SharePoint Online
+      - DocuSign
+      - Microsoft Forms
+      - Microsoft Power BI
+      - Zoom
+      - Microsoft Stream
+      typical_locations:
+      - city: Mumbai
+        lat: 19.076
+        lon: 72.8777
+      - city: Tel Aviv
+        lat: 32.0853
+        lon: 34.7818
+      - city: Bangalore
+        lat: 12.9716
+        lon: 77.5946
+      typical_browsers:
+      - Firefox 119.0
+      - Mobile Safari 17.0
+      - Chrome 118.0
+      - Firefox 120.0
+      typical_os:
+      - Windows 11
+      - Android 13
+      - macOS 13 Ventura
+      - iOS 17.1
+      work_hours:
+        start: 9
+        end: 17
+      work_days:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      typical_activity_range:
+        min: 6
+        max: 34
+      typical_apps_per_session: 6
+      never_accessed:
+      - AWS Console
+      - GitHub
+      - Salesforce
+      - Jira
+      travel_pattern: frequent
+      privileged_access: false
+      user_role: general
+  donna.mitchell@blueyonderairlines.com:
+    normal_behavior:
+      typical_apps:
+      - Office 365 Exchange Online
+      - GitHub
+      - Adobe Creative Cloud
+      - Salesforce
+      - Slack
+      typical_locations:
+      - city: Los Angeles
+        lat: 34.0522
+        lon: -118.2437
+      - city: Denver
+        lat: 39.7392
+        lon: -104.9903
+      - city: San Francisco
+        lat: 37.7749
+        lon: -122.4194
+      typical_browsers:
+      - Safari 17.0
+      - Chrome 119.0
+      - Mobile Safari 17.0
+      typical_os:
+      - Ubuntu 20.04
+      - Ubuntu 22.04
+      - Windows 10
+      work_hours:
+        start: 9
+        end: 17
+      work_days:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      typical_activity_range:
+        min: 9
+        max: 48
+      typical_apps_per_session: 5
+      never_accessed:
+      - AWS Console
+      - Jira
+      travel_pattern: frequent
+      privileged_access: false
+      user_role: engineering
+  deborah.moore@techsolutions.com:
+    normal_behavior:
+      typical_apps:
+      - ServiceNow
+      - Zoom
+      - Microsoft OneDrive for Business
+      - Dropbox
+      - Microsoft Stream
+      - Microsoft Dynamics 365
+      - Microsoft Teams
+      - Microsoft Forms
+      typical_locations:
+      - city: Beijing
+        lat: 39.9042
+        lon: 116.4074
+      - city: Hong Kong
+        lat: 22.3193
+        lon: 114.1694
+      - city: Bangkok
+        lat: 13.7563
+        lon: 100.5018
+      typical_browsers:
+      - Firefox 119.0
+      - Chrome Mobile 119.0
+      typical_os:
+      - iOS 17.0
+      - iOS 17.1
+      work_hours:
+        start: 9
+        end: 17
+      work_days:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      typical_activity_range:
+        min: 7
+        max: 38
+      typical_apps_per_session: 7
+      never_accessed:
+      - AWS Console
+      - GitHub
+      - Salesforce
+      - Jira
+      travel_pattern: frequent
+      privileged_access: false
+      user_role: general
+  timothy.thomas@proseware.com:
+    normal_behavior:
+      typical_apps:
+      - Jira
+      - Office 365 Exchange Online
+      - Microsoft Teams
+      - Microsoft Intune
+      - Salesforce
+      - Microsoft Power BI
+      typical_locations:
+      - city: Birmingham
+        lat: 52.4862
+        lon: -1.8904
+      - city: Manchester
+        lat: 53.4808
+        lon: -2.2426
+      - city: London
+        lat: 51.5074
+        lon: -0.1278
+      typical_browsers:
+      - Chrome 118.0
+      - Chrome Mobile 119.0
+      typical_os:
+      - Ubuntu 20.04
+      - Ubuntu 22.04
+      work_hours:
+        start: 9
+        end: 17
+      work_days:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      typical_activity_range:
+        min: 7
+        max: 35
+      typical_apps_per_session: 6
+      never_accessed:
+      - AWS Console
+      - GitHub
+      travel_pattern: frequent
+      privileged_access: false
+      user_role: sales_marketing
+  lisa.nguyen@citypower.com:
+    normal_behavior:
+      typical_apps:
+      - Microsoft Yammer
+      - Adobe Creative Cloud
+      - Workday
+      - Office 365 Exchange Online
+      - Okta
+      - Microsoft Planner
+      typical_locations:
+      - city: Toronto
+        lat: 43.6532
+        lon: -79.3832
+      - city: New York
+        lat: 40.7128
+        lon: -74.006
+      - city: Washington DC
+        lat: 38.9072
+        lon: -77.0369
+      typical_browsers:
+      - Edge 119.0
+      - Chrome Mobile 119.0
+      - Mobile Safari 17.0
+      typical_os:
+      - Android 13
+      - macOS 13 Ventura
+      - Ubuntu 20.04
+      work_hours:
+        start: 9
+        end: 17
+      work_days:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      typical_activity_range:
+        min: 8
+        max: 41
+      typical_apps_per_session: 6
+      never_accessed:
+      - AWS Console
+      - GitHub
+      - Salesforce
+      - Jira
+      travel_pattern: frequent
+      privileged_access: false
+      user_role: hr
+  kevin.clark@cohowinery.com:
+    normal_behavior:
+      typical_apps:
+      - Microsoft To-Do
+      - Jira
+      - Google Workspace
+      - Microsoft Azure Portal
+      - Microsoft Dynamics 365
+      - Microsoft Power BI
+      - Dropbox
+      - ServiceNow
+      - Microsoft Whiteboard
+      typical_locations:
+      - city: Birmingham
+        lat: 52.4862
+        lon: -1.8904
+      - city: Edinburgh
+        lat: 55.9533
+        lon: -3.1883
+      - city: Bristol
+        lat: 51.4545
+        lon: -2.5879
+      typical_browsers:
+      - Chrome Mobile 119.0
+      - Edge 118.0
+      - Firefox 119.0
+      - Chrome 118.0
+      typical_os:
+      - macOS 14 Sonoma
+      - Android 14
+      - Windows 11
+      - iOS 17.0
+      work_hours:
+        start: 9
+        end: 17
+      work_days:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      typical_activity_range:
+        min: 7
+        max: 37
+      typical_apps_per_session: 8
+      never_accessed:
+      - AWS Console
+      - GitHub
+      - Salesforce
+      travel_pattern: frequent
+      privileged_access: false
+      user_role: general
+  thomas.williams@citypower.com:
+    normal_behavior:
+      typical_apps:
+      - Okta
+      - Microsoft OneDrive for Business
+      - Microsoft Forms
+      - Microsoft Whiteboard
+      - Jira
+      - Google Workspace
+      - Slack
+      typical_locations:
+      - city: Mumbai
+        lat: 19.076
+        lon: 72.8777
+      - city: Bangalore
+        lat: 12.9716
+        lon: 77.5946
+      - city: Delhi
+        lat: 28.7041
+        lon: 77.1025
+      typical_browsers:
+      - Chrome 119.0
+      - Firefox 119.0
+      typical_os:
+      - Ubuntu 20.04
+      - macOS 14 Sonoma
+      work_hours:
+        start: 9
+        end: 17
+      work_days:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      typical_activity_range:
+        min: 7
+        max: 38
+      typical_apps_per_session: 6
+      never_accessed:
+      - AWS Console
+      - GitHub
+      - Salesforce
+      travel_pattern: occasional
+      privileged_access: false
+      user_role: general
+  jessica.jones@adventureworks.com:
+    normal_behavior:
+      typical_apps:
+      - Confluence
+      - Microsoft Teams
+      - Microsoft SharePoint Online
+      - ServiceNow
+      - Zoom
+      typical_locations:
+      - city: Jakarta
+        lat: -6.2088
+        lon: 106.8456
+      - city: Shanghai
+        lat: 31.2304
+        lon: 121.4737
+      - city: Seoul
+        lat: 37.5665
+        lon: 126.978
+      typical_browsers:
+      - Edge 119.0
+      - Firefox 120.0
+      typical_os:
+      - iOS 17.0
+      - macOS 13 Ventura
+      work_hours:
+        start: 9
+        end: 17
+      work_days:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      typical_activity_range:
+        min: 10
+        max: 51
+      typical_apps_per_session: 5
+      never_accessed:
+      - AWS Console
+      - GitHub
+      - Salesforce
+      - Jira
+      travel_pattern: frequent
+      privileged_access: false
+      user_role: general
+  thomas.zabek@citypower.com:
+    normal_behavior:
+      typical_apps:
+      - Dropbox
+      - Okta
+      - Salesforce
+      - Box
+      - Microsoft Power BI
+      - DocuSign
+      - Microsoft Azure Portal
+      - Zoom
+      - Microsoft Planner
+      - Google Workspace
+      typical_locations:
+      - city: Brussels
+        lat: 50.8503
+        lon: 4.3517
+      - city: Milan
+        lat: 45.4642
+        lon: 9.19
+      - city: Madrid
+        lat: 40.4168
+        lon: -3.7038
+      typical_browsers:
+      - Firefox 120.0
+      - Safari 16.6
+      typical_os:
+      - Android 13
+      - Windows 10
+      work_hours:
+        start: 9
+        end: 17
+      work_days:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      typical_activity_range:
+        min: 9
+        max: 49
+      typical_apps_per_session: 9
+      never_accessed:
+      - AWS Console
+      - GitHub
+      - Jira
+      travel_pattern: frequent
+      privileged_access: false
+      user_role: sales_marketing
+  emily.rivera@contoso.com:
+    normal_behavior:
+      typical_apps:
+      - Microsoft SharePoint Online
+      - DocuSign
+      - Zoom
+      - Box
+      - Microsoft Power BI
+      typical_locations:
+      - city: Seoul
+        lat: 37.5665
+        lon: 126.978
+      - city: Shanghai
+        lat: 31.2304
+        lon: 121.4737
+      - city: Manila
+        lat: 14.5995
+        lon: 120.9842
+      typical_browsers:
+      - Firefox 120.0
+      - Chrome Mobile 119.0
+      typical_os:
+      - iOS 17.1
+      - Ubuntu 22.04
+      work_hours:
+        start: 9
+        end: 17
+      work_days:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      typical_activity_range:
+        min: 8
+        max: 41
+      typical_apps_per_session: 5
+      never_accessed:
+      - AWS Console
+      - GitHub
+      - Salesforce
+      - Jira
+      travel_pattern: frequent
+      privileged_access: false
+      user_role: general
+  betty.campbell@proseware.com:
+    normal_behavior:
+      typical_apps:
+      - Microsoft Azure Portal
+      - Microsoft Power BI
+      - Microsoft Bookings
+      - Microsoft Dynamics 365
+      - Zoom
+      - Microsoft Whiteboard
+      typical_locations:
+      - city: Seattle
+        lat: 47.6062
+        lon: -122.3321
+      - city: Vancouver
+        lat: 49.2827
+        lon: -123.1207
+      - city: Los Angeles
+        lat: 34.0522
+        lon: -118.2437
+      typical_browsers:
+      - Safari 17.0
+      typical_os:
+      - macOS 14 Sonoma
+      - Windows 11
+      work_hours:
+        start: 9
+        end: 17
+      work_days:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      typical_activity_range:
+        min: 10
+        max: 52
+      typical_apps_per_session: 6
+      never_accessed:
+      - AWS Console
+      - GitHub
+      - Salesforce
+      - Jira
+      travel_pattern: frequent
+      privileged_access: false
+      user_role: general
+  michael.mitchell@woodgrovebank.com:
+    normal_behavior:
+      typical_apps:
+      - Microsoft Azure Portal
+      - Confluence
+      - Microsoft Forms
+      - Dropbox
+      - DocuSign
+      - Jira
+      - Box
+      typical_locations:
+      - city: Washington DC
+        lat: 38.9072
+        lon: -77.0369
+      - city: Boston
+        lat: 42.3601
+        lon: -71.0589
+      - city: Toronto
+        lat: 43.6532
+        lon: -79.3832
+      typical_browsers:
+      - Safari 17.0
+      - Chrome Mobile 119.0
+      - Firefox 119.0
+      typical_os:
+      - Android 14
+      - macOS 14 Sonoma
+      work_hours:
+        start: 9
+        end: 17
+      work_days:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      typical_activity_range:
+        min: 8
+        max: 43
+      typical_apps_per_session: 7
+      never_accessed:
+      - AWS Console
+      - GitHub
+      - Salesforce
+      travel_pattern: frequent
+      privileged_access: false
+      user_role: general
+  david.brown@tailspintoys.com:
+    normal_behavior:
+      typical_apps:
+      - Microsoft SharePoint Online
+      - Microsoft Intune
+      - Dropbox
+      - Jira
+      - Workday
+      typical_locations:
+      - city: Washington DC
+        lat: 38.9072
+        lon: -77.0369
+      - city: New York
+        lat: 40.7128
+        lon: -74.006
+      - city: Toronto
+        lat: 43.6532
+        lon: -79.3832
+      typical_browsers:
+      - Chrome 118.0
+      - Mobile Safari 17.0
+      typical_os:
+      - Android 14
+      - Ubuntu 22.04
+      work_hours:
+        start: 9
+        end: 17
+      work_days:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      typical_activity_range:
+        min: 9
+        max: 47
+      typical_apps_per_session: 5
+      never_accessed:
+      - AWS Console
+      - GitHub
+      - Salesforce
+      travel_pattern: frequent
+      privileged_access: false
+      user_role: hr
+  michael.green@techsolutions.com:
+    normal_behavior:
+      typical_apps:
+      - Microsoft Azure Portal
+      - Slack
+      - Microsoft Dynamics 365
+      - AWS Console
+      - Microsoft Teams
+      - Microsoft Power BI
+      - Zoom
+      - Microsoft Yammer
+      - Jira
+      typical_locations:
+      - city: Delhi
+        lat: 28.7041
+        lon: 77.1025
+      - city: Mumbai
+        lat: 19.076
+        lon: 72.8777
+      - city: Tel Aviv
+        lat: 32.0853
+        lon: 34.7818
+      typical_browsers:
+      - Chrome 119.0
+      - Mobile Safari 17.0
+      - Firefox 120.0
+      - Edge 118.0
+      typical_os:
+      - Ubuntu 22.04
+      - Android 13
+      - iOS 17.0
+      - macOS 13 Ventura
+      work_hours:
+        start: 9
+        end: 17
+      work_days:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      typical_activity_range:
+        min: 12
+        max: 64
+      typical_apps_per_session: 9
+      never_accessed:
+      - GitHub
+      - Salesforce
+      travel_pattern: frequent
+      privileged_access: true
+      user_role: engineering
+anomaly_distribution:
+  percentage_users_with_anomalies: 0.35
+  anomaly_types:
+    impossible_travel:
+      probability: 0.25
+      description: Access from geographically distant location in impossible timeframe
+      severity: high
+      applies_to: all
+    off_hours_access:
+      probability: 0.2
+      description: Access outside trained work hours (per user baseline)
+      severity: medium
+      applies_to:
+      - users without late-night work pattern
+    unusual_application:
+      probability: 0.15
+      description: Access to application never seen during training
+      severity: medium
+      applies_to: all
+    excessive_activity:
+      probability: 0.2
+      description: Activity count > 2x user's typical maximum
+      severity: medium
+      applies_to: all
+    privilege_escalation:
+      probability: 0.1
+      description: Non-privileged user accessing admin resources
+      severity: critical
+      applies_to:
+      - users without privileged_access
+    unusual_device:
+      probability: 0.1
+      description: Access from browser/OS never seen in training
+      severity: low
+      applies_to: all
+      malicious: false
+settings:
+  global_locations:
+  - city: Moscow, Russia
+    lat: 55.7558
+    lon: 37.6173
+    suspicious: true
+  - city: Beijing, China
+    lat: 39.9042
+    lon: 116.4074
+    suspicious: false
+  - city: Lagos, Nigeria
+    lat: 6.5244
+    lon: 3.3792
+    suspicious: true
+  - city: Sydney, Australia
+    lat: -33.8688
+    lon: 151.2093
+    suspicious: false
+  - city: London, UK
+    lat: 51.5074
+    lon: -0.1278
+    suspicious: false
+  unusual_applications:
+  - TOR Browser
+  - Kali Linux Tools
+  - Anonymous VPN
+  - File Transfer Pro
+  - Cryptocurrency Wallet
+  default_date_range:
+    start_days_ago: 30
+    end_days_ago: 0

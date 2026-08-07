@@ -1,0 +1,130 @@
+/**
+ * Tabs Component Styles
+ * Pill-style tabs with glass effect for selected state
+ */
+
+.tabs-pill-container {
+  /* Rounded pill background with brand lime color */
+  background-color: var(--brand-lime);
+  border-radius: 22px; /* Fully rounded */
+  padding: 1.75rem 0.5rem;
+  display: inline-flex;
+  gap: 0; /* 4px between tabs */
+
+  &.forecast-horizon-tabs {
+    width: 100%;
+    padding: 0.3rem 0.35rem;
+    border-radius: 17px;
+    justify-content: space-evenly;
+
+    [role='tab'] {
+      width: 25%;
+    }
+  }
+
+  /* Compact variant — smaller padding for dialogs with ≥3 tabs */
+  &.tabs-pill-container--compact {
+    padding: 0.3rem 0.35rem;
+    border-radius: 17px;
+
+    [role='tab'] {
+      padding: 0.3rem 1rem;
+      font-size: 0.875rem;
+      border-radius: 10px;
+    }
+  }
+
+  /* Tab triggers inside the pill container */
+  [role='tab'] {
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    padding: 0.625rem 1.5rem; /* 10px 24px */
+    font-size: 1rem;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.7);
+    transition: all 200ms ease-in-out;
+    cursor: pointer;
+    white-space: nowrap;
+    outline: none;
+
+    &:hover {
+      color: rgba(0, 0, 0, 0.9);
+    }
+
+    /* Selected state - white glass effect */
+    &[data-state='active'] {
+      background: rgba(255, 255, 255, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      color: rgba(0, 0, 0, 0.95);
+    }
+
+    /* Remove all focus styles */
+    &:focus,
+    &:focus-visible {
+      outline: none;
+      box-shadow: none;
+    }
+  }
+
+  /* Action button — styled like a tab but triggers onClick */
+  .tabs-pill-action {
+    background: transparent;
+    border: none;
+    padding: 0.625rem 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.7);
+    cursor: pointer;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 200ms ease-in-out;
+
+    &:hover {
+      color: rgba(0, 0, 0, 0.95);
+    }
+
+    &:focus,
+    &:focus-visible {
+      outline: none;
+      box-shadow: none;
+    }
+
+    &--left {
+      border-right: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 22px 0 0 22px;
+    }
+
+    &--right {
+      border-left: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 0 22px 22px 0;
+    }
+  }
+
+  /* Remove border radius on sides adjacent to action buttons */
+  &--action-left [role='tab']:first-of-type {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  &--action-right [role='tab']:last-of-type {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  /* Compact variant overrides for action buttons */
+  &.tabs-pill-container--compact .tabs-pill-action {
+    padding: 0.3rem 0.75rem;
+    font-size: 0.875rem;
+
+    &--left {
+      border-radius: 17px 0 0 17px;
+    }
+
+    &--right {
+      border-radius: 0 17px 17px 0;
+    }
+  }
+}

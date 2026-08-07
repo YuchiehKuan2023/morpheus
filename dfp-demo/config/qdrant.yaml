@@ -1,0 +1,50 @@
+# Qdrant Vector Database Configuration
+# Used by AI modules for semantic search and vector storage
+
+storage:
+  # Storage backend configuration
+  storage_path: ./data/ai/qdrant
+
+  # Performance settings
+  performance:
+    max_search_threads: 0 # 0 = autodetect CPU cores
+
+  # Optimistic concurrency control
+  optimizers:
+    deleted_threshold: 0.2
+    vacuum_min_vector_number: 1000
+    default_segment_number: 2
+
+  # WAL configuration
+  wal:
+    wal_capacity_mb: 32
+    wal_segments_ahead: 0
+
+service:
+  # HTTP/REST API
+  host: 0.0.0.0
+  http_port: 6333
+
+  # gRPC API
+  grpc_port: 6334
+
+  # Enable CORS for web dashboard
+  enable_cors: true
+
+log_level: INFO
+
+# Telemetry (disabled for privacy)
+telemetry_disabled: true
+
+# Collection defaults
+collection:
+  # Optimizer configuration
+  optimizer:
+    deleted_threshold: 0.2
+    vacuum_min_vector_number: 1000
+    default_segment_number: 2
+    max_segment_size_kb: 200000
+    memmap_threshold_kb: 200000
+    indexing_threshold_kb: 10000
+    flush_interval_sec: 5
+    max_optimization_threads: 1

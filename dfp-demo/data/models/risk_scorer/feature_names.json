@@ -1,0 +1,22 @@
+[
+  "anomaly_score",
+  "mean_abs_z",
+  "feature_count",
+  "event_count",
+  "sub_category_risk",
+  "severity_score",
+  "classification_confidence",
+  "is_managed",
+  "is_compliant",
+  "trust_score",
+  "os_risk",
+  "is_high_risk_country",
+  "is_foreign",
+  "baseline_strength",
+  "baseline_available",
+  "related_anomalies_count",
+  "graph_relationship_count",
+  "similar_count",
+  "cold_start",
+  "validation_confidence"
+]

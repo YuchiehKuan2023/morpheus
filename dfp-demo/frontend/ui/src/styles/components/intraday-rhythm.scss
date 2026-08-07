@@ -1,0 +1,106 @@
+.intraday-rhythm {
+  width: 100%;
+
+  // ── Toggle ─────────────────────────────────────────────────────────────────
+  &__toggle {
+    display: inline-flex;
+    align-items: center;
+    background: var(--grey-100);
+    border-radius: 6px;
+    padding: 2px;
+    gap: 2px;
+    margin-bottom: 0.75rem;
+  }
+
+  &__toggle-btn {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    border: none;
+    background: transparent;
+    color: var(--grey-500);
+    cursor: pointer;
+    transition:
+      background 0.15s ease,
+      color 0.15s ease;
+
+    &:hover {
+      color: var(--grey-800);
+    }
+
+    &--active {
+      background: white;
+      color: var(--grey-900);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+    }
+  }
+
+  // ── SVG ───────────────────────────────────────────────────────────────────
+  &__svg {
+    display: block;
+    max-width: 100%;
+    overflow: visible;
+  }
+
+  &__gridline {
+    stroke: var(--grey-200);
+    stroke-width: 0.5;
+  }
+
+  &__axis-line {
+    stroke: var(--grey-300);
+    stroke-width: 1;
+  }
+
+  &__axis-label {
+    font-size: 9px;
+    font-family: inherit;
+    fill: var(--brand-black);
+  }
+
+  &__bubble {
+    opacity: 0.85;
+    cursor: default;
+  }
+
+  &__bubble-label {
+    font-size: 11px;
+    font-weight: 700;
+    fill: #ffffff;
+    letter-spacing: 0;
+    user-select: none;
+    pointer-events: none;
+  }
+
+  // ── Tooltip ───────────────────────────────────────────────────────────────
+  &__tooltip-bg {
+    fill: #111827;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.45));
+  }
+
+  &__tooltip-divider {
+    stroke: rgba(255, 255, 255, 0.12);
+    stroke-width: 0.5;
+  }
+
+  &__tooltip-title {
+    font-size: 10px;
+    font-weight: 700;
+    font-family: inherit;
+    fill: var(--brand-dark-lime);
+  }
+
+  &__tooltip-key {
+    font-size: 9px;
+    font-family: inherit;
+    fill: #9ca3af;
+  }
+
+  &__tooltip-val {
+    font-size: 9.5px;
+    font-weight: 600;
+    font-family: inherit;
+    fill: white;
+  }
+}

@@ -1,0 +1,50 @@
+/**
+ * LocationMap Component Styles
+ */
+
+.location-map {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+
+  &__container {
+    width: 100%;
+  }
+
+  /* Leaflet tooltip overrides */
+  &__tooltip {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-size: 0.75rem;
+    line-height: 1.4;
+
+    strong {
+      font-size: 0.8125rem;
+    }
+
+    span {
+      color: rgba(0, 0, 0, 0.6);
+    }
+  }
+}
+
+/* Override leaflet default tile layer to not conflict with dark mode */
+.leaflet-container {
+  background: #1e2535;
+  font-family: inherit;
+}
+
+.leaflet-tooltip {
+  border-radius: 1rem !important;
+  background: var(--brand-lime) !important;
+  box-shadow:
+    inset 0 0 0 3px white,
+    0 0 5px rgba(0, 0, 0, 0.08) !important;
+  padding: 0.5rem 0.75rem !important;
+}
+
+/* Remove the arrow */
+.location-map .leaflet-tooltip::before {
+  display: none;
+}

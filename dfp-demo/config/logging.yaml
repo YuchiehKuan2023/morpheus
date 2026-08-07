@@ -1,0 +1,288 @@
+# Logging Configuration
+# Structured logging setup for DFP PoC
+
+# Global logging configuration
+version: 1
+disable_existing_loggers: false
+
+# Formatters
+formatters:
+  # Simple text formatter
+  simple:
+    format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    datefmt: "%Y-%m-%d %H:%M:%S"
+
+  # Detailed formatter with more context
+  detailed:
+    format: "%(asctime)s - %(name)s - %(levelname)s - %(filename)s:%(lineno)d - %(funcName)s() - %(message)s"
+    datefmt: "%Y-%m-%d %H:%M:%S"
+
+  # JSON formatter for structured logging
+  json:
+    class: pythonjsonlogger.jsonlogger.JsonFormatter
+    format: "%(asctime)s %(name)s %(levelname)s %(filename)s %(lineno)d %(funcName)s %(message)s"
+    datefmt: "%Y-%m-%d %H:%M:%S"
+
+  # Colored formatter for console
+  colored:
+    class: colorlog.ColoredFormatter
+    format: "%(log_color)s%(asctime)s - %(name)s - %(levelname)s%(reset)s - %(message)s"
+    datefmt: "%Y-%m-%d %H:%M:%S"
+    log_colors:
+      DEBUG: cyan
+      INFO: green
+      WARNING: yellow
+      ERROR: red
+      CRITICAL: bold_red
+
+# Handlers
+handlers:
+  # Console handler with colored output
+  console:
+    class: logging.StreamHandler
+    level: INFO
+    formatter: colored
+    stream: ext://sys.stdout
+
+  # File handler for all logs
+  file_all:
+    class: logging.handlers.RotatingFileHandler
+    level: DEBUG
+    formatter: detailed
+    filename: ./data/logs/dfp_all.log
+    maxBytes: 10485760 # 10MB
+    backupCount: 5
+    encoding: utf8
+
+  # File handler for errors only
+  file_error:
+    class: logging.handlers.RotatingFileHandler
+    level: ERROR
+    formatter: detailed
+    filename: ./data/logs/dfp_errors.log
+    maxBytes: 10485760 # 10MB
+    backupCount: 5
+    encoding: utf8
+
+  # JSON log file for structured logging
+  file_json:
+    class: logging.handlers.RotatingFileHandler
+    level: INFO
+    formatter: json
+    filename: ./data/logs/dfp_structured.json
+    maxBytes: 10485760 # 10MB
+    backupCount: 5
+    encoding: utf8
+
+  # Training pipeline specific log
+  file_training:
+    class: logging.handlers.RotatingFileHandler
+    level: DEBUG
+    formatter: detailed
+    filename: ./data/logs/training.log
+    maxBytes: 10485760 # 10MB
+    backupCount: 10
+    encoding: utf8
+
+  # Inference pipeline specific log
+  file_inference:
+    class: logging.handlers.RotatingFileHandler
+    level: DEBUG
+    formatter: detailed
+    filename: ./data/logs/inference.log
+    maxBytes: 10485760 # 10MB
+    backupCount: 10
+    encoding: utf8
+
+  # Performance metrics log
+  file_performance:
+    class: logging.handlers.RotatingFileHandler
+    level: INFO
+    formatter: json
+    filename: ./data/logs/performance.json
+    maxBytes: 10485760 # 10MB
+    backupCount: 5
+    encoding: utf8
+
+# Loggers
+loggers:
+  # Root logger
+  "":
+    level: INFO
+    handlers:
+      - console
+      - file_all
+      - file_error
+      - file_json
+    propagate: false
+
+  # DFP modules logger
+  dfp:
+    level: DEBUG
+    handlers:
+      - console
+      - file_all
+    propagate: false
+
+  # Training pipeline logger
+  dfp.training:
+    level: DEBUG
+    handlers:
+      - console
+      - file_training
+      - file_all
+    propagate: false
+
+  # Inference pipeline logger
+  dfp.inference:
+    level: DEBUG
+    handlers:
+      - console
+      - file_inference
+      - file_all
+    propagate: false
+
+  # Data processing logger
+  dfp.preprocessing:
+    level: DEBUG
+    handlers:
+      - console
+      - file_all
+    propagate: false
+
+  # MLflow logger
+  dfp.mlflow:
+    level: INFO
+    handlers:
+      - console
+      - file_all
+    propagate: false
+
+  # Performance logger
+  dfp.performance:
+    level: INFO
+    handlers:
+      - file_performance
+    propagate: false
+
+  # Control message logger
+  dfp.control:
+    level: DEBUG
+    handlers:
+      - console
+      - file_all
+    propagate: false
+
+  # Suppress verbose third-party loggers
+  urllib3:
+    level: WARNING
+    propagate: false
+
+  boto3:
+    level: WARNING
+    propagate: false
+
+  botocore:
+    level: WARNING
+    propagate: false
+
+  kafka:
+    level: WARNING
+    propagate: false
+
+  mlflow:
+    level: INFO
+    propagate: false
+
+  torch:
+    level: WARNING
+    propagate: false
+
+# Custom logging levels (can be referenced in code)
+custom_levels:
+  TRACE: 5 # For very detailed debugging
+  VERBOSE: 15 # Between DEBUG and INFO
+  NOTICE: 25 # Between INFO and WARNING
+  SUCCESS: 35 # Between WARNING and ERROR
+
+# Log rotation settings
+rotation:
+  max_bytes: 10485760 # 10MB
+  backup_count: 5
+  when: "midnight" # For TimedRotatingFileHandler
+  interval: 1
+  encoding: "utf8"
+
+# Performance logging configuration
+performance:
+  # Enable performance logging
+  enabled: true
+
+  # Log execution time for functions
+  log_execution_time: true
+
+  # Minimum execution time to log (seconds)
+  min_execution_time: 0.1
+
+  # Log memory usage
+  log_memory: true
+
+  # Log CPU usage
+  log_cpu: true
+
+  # Log GPU usage (if available)
+  log_gpu: true
+
+  # Performance sampling interval (seconds)
+  sampling_interval: 10
+
+# Context logging
+context:
+  # Include process ID
+  include_pid: true
+
+  # Include thread ID
+  include_tid: true
+
+  # Include hostname
+  include_hostname: false
+
+  # Include username
+  include_username: false
+
+  # Include environment info
+  include_environment: true
+
+# Metrics logging
+metrics:
+  # Enable metrics logging
+  enabled: true
+
+  # Metrics log file
+  log_file: ./data/logs/metrics.json
+
+  # Flush interval (seconds)
+  flush_interval: 60
+
+  # Include system metrics
+  include_system_metrics: true
+
+  # Include pipeline metrics
+  include_pipeline_metrics: true
+
+# Debugging configuration
+debug:
+  # Enable debug mode
+  enabled: false
+
+  # Log stack traces for errors
+  log_stack_traces: true
+
+  # Log function arguments
+  log_function_args: false
+
+  # Log return values
+  log_return_values: false
+
+  # Enable verbose third-party logging in debug mode
+  verbose_third_party: false

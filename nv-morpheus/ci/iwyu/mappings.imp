@@ -1,0 +1,127 @@
+[
+
+## Include mappings
+# mrc protos
+{ "include": [ "\"mrc/protos/architect.pb.h\"", private, "<mrc/protos/architect.pb.h>", "public" ] },
+{ "include": [ "\"mrc/protos/codable.pb.h\"", private, "<mrc/protos/codable.pb.h>", "public" ] },
+{ "include": [ "\"mrc/protos/remote_descriptor.pb.h\"", private, "<mrc/protos/remote_descriptor.pb.h>", "public" ] },
+{ "include": [ "\"mrc/protos/tensor_meta_data.pb.h\"", private, "<mrc/protos/tensor_meta_data.pb.h>", "public" ] },
+
+# stdlib
+{ "include": [ "<bits/chrono.h>", private, "<chrono>", "public" ] },
+{ "include": [ "<bits/cxxabi_forced.h>", private, "<mutex>", "public" ] },
+{ "include": [ "<bits/cxxabi_forced.h>", private, "<vector>", "public" ] },
+{ "include": [ "<bits/this_thread_sleep.h>", private, "<thread>", "public" ] },
+{ "include": [ "<bits/types/siginfo_t.h>", private, "<csignal>", "public" ] },
+
+# boost
+{ "include": ["@<boost/algorithm/string/.*>", "private", "<boost/algorithm/string.hpp>", "public" ] },
+{ "include": ["@<boost/asio/detail/.*>", "private", "<boost/asio.hpp>", "public" ] },
+{ "include": ["@<boost/asio/impl/.*>", "private", "<boost/asio.hpp>", "public" ] },
+{ "include": ["@<boost/asio/ip/impl/.*>", "private", "<boost/asio.hpp>", "public" ] },
+{ "include": ["@<boost/beast/core/detail/.*>", "private", "<boost/beast/core.hpp>", "public" ] },
+{ "include": ["@<boost/beast/core/impl/.*>", "private", "<boost/beast/core.hpp>", "public" ] },
+{ "include": ["@<boost/beast/http/detail/.*>", "private", "<boost/beast/http.hpp>", "public" ] },
+{ "include": ["@<boost/beast/http/impl/.*>", "private", "<boost/beast/http.hpp>", "public" ] },
+{ "include": ["@<boost/fiber/future/detail/.*>", "private", "<boost/fiber/future/future.hpp>", "public"] },
+
+# cuda
+{ "include": ["<cuda_runtime_api.h>", "private", "<cuda_runtime.h>", "public"] },
+{ "include": ["\"cuda_runtime_api.h\"", "private", "<cuda_runtime.h>", "public"] },
+{ "include": ["<driver_types.h>", "private", "<cuda_runtime.h>", "public"] },
+{ "include": ["\"driver_types.h\"", "private", "<cuda_runtime.h>", "public"] },
+{ "include": ["\"cuda/__memory_resource/properties.h\"", "private", "<cuda/memory_resource>", "public"] },
+{ "include": ["\"cuda/__memory_resource/resource_ref.h\"", "private", "<cuda/memory_resource>", "public"] },
+
+# gtest
+{ "include": ["@<gtest/gtest-.*>", "private", "<gtest/gtest.h>", "public"] },
+{ "include": ["@<gtest/gtest_.*>", "private", "<gtest/gtest.h>", "public"] },
+
+# gprc
+{ "include": ["@<grpcpp/impl/.*>", "private", "<grpcpp/grpcpp.h>", "public"] },
+{ "include": ["@<grpc/impl/.*>", "private", "<grpcpp/grpcpp.h>", "public"] },
+
+# nlohmann json
+{ "include": ["<nlohmann/detail/iterators/iter_impl.hpp>", "private", "<nlohmann/json.hpp>", "public"] },
+{ "include": ["<nlohmann/detail/iterators/iteration_proxy.hpp>", "private", "<nlohmann/json.hpp>", "public"] },
+{ "include": ["<nlohmann/detail/json_ref.hpp>", "private", "<nlohmann/json.hpp>", "public"] },
+
+# Protobuf
+{ "include": [ "<google/protobuf/repeated_ptr_field.h>", private, "<google/protobuf/repeated_field.h>", "public" ] },
+
+# pybind11
+{ "include": [ "@<pybind11/detail/.*>", "private", "<pybind11/pybind11.h>", "public" ] },
+{ "include": [ "<pybind11/cast.h>", "private", "<pybind11/pybind11.h>", "public" ] },
+
+# rxcpp
+# Hide includes that are exported by <rxcpp/rx.hpp>
+{ "include": ["@<rxcpp/.*>", "private", "<rxcpp/rx.hpp>", "public" ] },
+{ "include": ["@\"rxcpp/.*\"", "private", "<rxcpp/rx.hpp>", "public" ] },
+{ "include": ["@<rxcpp/rx-.*>", "private", "<rxcpp/rx.hpp>", "public" ] },
+{ "include": ["@\"rxcpp/rx-.*\"", "private", "<rxcpp/rx.hpp>", "public" ] },
+
+#Triton Client
+{ "include": ["\"common.h\"", "private", "<http_client.h>", "public"] },
+
+## Symbol mappings
+# stdlib
+{ "symbol": ["__gnu_cxx::__enable_if<true, double>::__type", "private", "<cmath>", "public"] },
+{ "symbol": ["std::__success_type<std::chrono::duration<long, std::ratio<1, 1000000000>>>::type" , "private", "<chrono>", "public"] },
+{ "symbol": ["__cxxabiv1::__forced_unwind", "private", "<future>", "public"] },
+{ "symbol": ["std::filesystem", "private", "<filesystem>", "public"] },
+{ "symbol": ["size_t", , "private", "<cstddef>", "public"] },
+{ "symbol": ["std::size_t", , "private", "<cstddef>", "public"] },
+
+# boost
+{ "symbol": ["__forced_unwind", "private", "<boost/fiber/all.hpp>", "public"] },
+{ "symbol": ["boost::context::detail::forced_unwind", "private", "<boost/fiber/future/future.hpp>", "public"] },
+{ "symbol": ["boost::intrusive_ptr::operator", "private", "<boost/fiber/future/promise.hpp>", "public"] },
+{ "symbol": ["__cxxabiv1::__forced_unwind", "private", "<boost/fiber/future/future.hpp>", "public"] },
+
+# cuda
+{ "symbol": ["cuda::std::declval", "private", "<cuda/memory_resource>", "public"] },
+
+# nlohmann json
+# Tells IWYU that both json and json_fwd export the nlohmann::json namespace without this IWYU will always require
+# json_fwd.hpp even when json.hpp is already included
+{ "symbol": ["nlohmann", "private", "<nlohmann/json.hpp>", "public"] },
+{ "symbol": ["nlohmann", "private", "<nlohmann/json_fwd.hpp>", "public"] },
+{ "symbol": ["nlohmann::json", "private", "<nlohmann/json.hpp>", "public"] },
+{ "symbol": ["nlohmann::json", "private", "<nlohmann/json_fwd.hpp>", "public"] },
+
+# pybind11
+{ "symbol": ["pybind11", "private", "<pybind11/embed.h>", "public"] },
+{ "symbol": ["pybind11", "private", "<pybind11/pybind11.h>", "public"] },
+{ "symbol": ["pybind11", "private", "<pybind11/pytypes.h>", "public"] },
+
+{ "symbol": ["_Py_IsFinalizing", "private", "<pybind11/pybind11.h>", "public"] },
+{ "symbol": ["PYBIND11_MODULE", "private", "<pybind11/pybind11.h>", "public"] },
+{ "symbol": ["PyExc_ImportError", "private", "<pybind11/pybind11.h>", "public"] },
+{ "symbol": ["PyErr_SetNone", "private", "<pybind11/pybind11.h>", "public"] },
+{ "symbol": ["PyErr_SetObject", "private", "<pybind11/pybind11.h>", "public"] },
+{ "symbol": ["PyExc_StopIteration", "private", "<pybind11/pybind11.h>", "public"] },
+{ "symbol": ["PyGILState_Check", "private", "<pybind11/gil.h>", "public"] },
+{ "symbol": ["PyObject", "private", "<pybind11/pybind11.h>", "public"] },
+{ "symbol": ["PySequence_GetItem", "private", "<pybind11/pybind11.h>", "public"] },
+{ "symbol": ["pybind11::arg", "private", "<pybind11/pybind11.h>", "public"] },
+{ "symbol": ["pybind11::detail::key_error", "private", "<pybind11/pytypes.h>", "public"] },
+{ "symbol": ["pybind11::detail::overload_cast_impl", "private", "<pybind11/pybind11.h>", "public"] },
+{ "symbol": ["pybind11::detail::str_attr_accessor", "private", "<pybind11/pybind11.h>", "public"] },
+{ "symbol": ["pybind11::key_error", "private", "<pybind11/pytypes.h>", "public"] },
+{ "symbol": ["pybind11::overload_cast", "private", "<pybind11/pybind11.h>", "public"] },
+{ "symbol": ["pybind11::return_value_policy", "private", "<pybind11/pybind11.h>", "public"] },
+{ "symbol": ["pybind11::return_value_policy::move", "private", "<pybind11/pybind11.h>", "public"] },
+{ "symbol": ["pybind11::return_value_policy::reference_internal", "private", "<pybind11/pybind11.h>", "public"] },
+{ "symbol": ["pybind11::size_t", "private", "<pybind11/pytypes.h>", "public"] },
+{ "symbol": ["pybind11::stop_iteration", "private", "<pybind11/pybind11.h>", "public"] },
+
+# spdlog
+{ "symbol": ["spdlog::details::file_helper::~file_helper", "private", "<spdlog/sinks/basic_file_sink.h>", "public"] },
+
+# xtensor
+{ "symbol": ["xt::no_ownership", "private", "<xtensor/xadapt.hpp>", "public"] },
+
+# mrc
+{ "symbol": ["std::__decay_and_strip<std::shared_ptr<mrc::TraceStatistics> &>::__type" , "private", "<mrc/benchmarking/trace_statistics.hpp>", "public"] },
+
+]

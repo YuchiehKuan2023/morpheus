@@ -1,0 +1,200 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dfp-poc"
+version = "0.1.0"
+description = "Digital Fingerprinting Platform with Multi-Layer Anomaly Detection"
+readme = "README.md"
+authors = [
+    {name = "Deloitte Digital Fingerprinting Team"}
+]
+license = {text = "Apache-2.0"}
+requires-python = ">=3.10,<3.13"
+keywords = ["machine-learning", "anomaly-detection", "digital-fingerprinting", "cybersecurity", "autoencoder", "morpheus"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Security",
+    "Operating System :: OS Independent",
+]
+
+dependencies = [
+    "numpy>=1.24.0,<3.0.0",
+    "pandas>=2.0.0,<3.0.0",
+    "scipy>=1.10.0,<1.16.0",
+    "scikit-learn>=1.5.0",
+    "torch>=2.8.0,<3.0.0",
+    "mlflow>=2.7.0",
+    "pydantic>=2.0.0",
+    "click>=8.1.0",
+    "pyyaml>=6.0",
+    "omegaconf>=2.3.0",
+    "kafka-python>=2.0.2",
+    "confluent-kafka>=2.0.0",
+    "prometheus-client>=0.17.0",
+    "structlog>=23.1.0",
+    "colorlog>=6.7.0",
+    "psutil>=5.9.0",
+    "tqdm>=4.65.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
+    "pytest-asyncio>=0.21.0",
+    "pytest-mock>=3.11.0",
+    "Faker>=20.0.0",
+    "black>=23.7.0",
+    "ruff>=0.1.0",
+    "mypy>=1.5.0",
+    "pre-commit>=3.5.0",
+    "bandit[toml]>=1.7.5",
+    "safety>=2.3.5",
+]
+
+viz = [
+    "matplotlib>=3.7.0",
+    "seaborn>=0.12.0",
+    "plotly>=5.15.0",
+]
+
+jupyter = [
+    "jupyter>=1.0.0",
+    "notebook>=7.0.0",
+]
+
+all = ["dfp-poc[dev,viz,jupyter]"]
+
+[project.urls]
+Homepage = "https://github.com/Deloitte-UK-Innersource/morpheus-dfp"
+Documentation = "https://deloitte-uk-innersource.github.io/morpheus-dfp"
+Repository = "https://github.com/Deloitte-UK-Innersource/morpheus-dfp"
+Issues = "https://github.com/Deloitte-UK-Innersource/morpheus-dfp/issues"
+
+[project.scripts]
+dfp-train = "pipelines.training_pipeline:main"
+dfp-infer = "pipelines.inference_pipeline:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["modules*", "pipelines*", "scripts*"]
+exclude = ["tests*", "docs*", "notebooks*", "data*", "logs*", "mlruns*"]
+
+[tool.black]
+line-length = 120
+target-version = ['py310', 'py311', 'py312']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+  | htmlcov
+  | mlruns
+  | logs
+)/
+'''
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+exclude = [
+    "modules/dfencoder/**",
+    "notebooks/**",
+    "*.ipynb",
+]
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "B",   # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "UP",  # pyupgrade
+]
+ignore = [
+    "E501",  # line too long, handled by black
+    "B008",  # do not perform function calls in argument defaults
+    "C901",  # too complex
+    "W191",  # indentation contains tabs
+]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"]
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
+ignore_missing_imports = true
+no_strict_optional = true
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+ignore_errors = true
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "-v",
+    "--strict-markers",
+    "--tb=short",
+    "--cov-report=term-missing",
+]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "unit: marks tests as unit tests",
+]
+
+[tool.coverage.run]
+source = ["modules", "pipelines", "scripts"]
+omit = [
+    "*/tests/*",
+    "*/test_*.py",
+    "*/__pycache__/*",
+    "*/site-packages/*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+    "class .*\\bProtocol\\):",
+    "@(abc\\.)?abstractmethod",
+]
+
+[tool.bandit]
+exclude_dirs = ["tests", "notebooks"]
+skips = ["B101", "B601"]
+
+[tool.isort]
+profile = "black"
+line_length = 120

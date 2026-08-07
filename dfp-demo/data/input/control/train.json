@@ -1,0 +1,15 @@
+{
+  "tasks": [
+    {
+      "type": "training",
+      "properties": {
+        "data_path": "data/input/train/azure_ad_train.jsonl",
+        "cache_dir": ".cache/dfp",
+        "config_file": "config/pipeline.yaml",
+        "start_time": "2025-09-08T15:18:45.000Z",
+        "end_time": "2025-11-07T15:18:45.000Z",
+        "timestamp_column": "time"
+      }
+    }
+  ]
+}

@@ -1,0 +1,133 @@
+version: "3.8"
+
+services:
+  # Zookeeper for Kafka
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.5.0
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - "2181:2181"
+    volumes:
+      - zookeeper-data:/var/lib/zookeeper/data
+      - zookeeper-logs:/var/lib/zookeeper/log
+
+  # Kafka broker
+  kafka:
+    image: confluentinc/cp-kafka:7.5.0
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+      - "9093:9093"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:9093
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+    volumes:
+      - kafka-data:/var/lib/kafka/data
+
+  # MLflow tracking server
+  mlflow:
+    image: python:3.11-slim
+    ports:
+      - "5000:5000"
+    volumes:
+      - mlflow-data:/mlflow
+    command: >
+      bash -c "pip install mlflow psycopg2-binary &&
+               mlflow server --host 0.0.0.0 --port 5000
+               --backend-store-uri file:///mlflow/mlruns
+               --default-artifact-root file:///mlflow/artifacts"
+
+  # Prometheus
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--web.enable-lifecycle"
+
+  # Pushgateway for batch job metrics
+  pushgateway:
+    image: prom/pushgateway:latest
+    ports:
+      - "9091:9091"
+    volumes:
+      - pushgateway-data:/data
+
+  # Grafana
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: admin
+      GF_INSTALL_PLUGINS: "grafana-piechart-panel"
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./config/grafana_dashboard.json:/etc/grafana/provisioning/dashboards/dfp-dashboard.json
+    depends_on:
+      - prometheus
+
+  # DFP Training Service
+  dfp-training:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: python -m pipelines.training_pipeline --config config/pipeline.yaml
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+      - mlflow-data:/app/mlruns
+      - ./config:/app/config
+    environment:
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+      - MLFLOW_TRACKING_URI=http://mlflow:5000
+      - PROMETHEUS_PUSHGATEWAY=pushgateway:9091
+    depends_on:
+      - kafka
+      - mlflow
+      - pushgateway
+
+  # DFP Inference Service
+  dfp-inference:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: python -m pipelines.inference_pipeline --config config/pipeline.yaml
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+      - mlflow-data:/app/mlruns
+      - ./config:/app/config
+    environment:
+      - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
+      - MLFLOW_TRACKING_URI=http://mlflow:5000
+      - PROMETHEUS_PUSHGATEWAY=pushgateway:9091
+    depends_on:
+      - kafka
+      - mlflow
+      - pushgateway
+      - dfp-training
+
+volumes:
+  zookeeper-data:
+  zookeeper-logs:
+  kafka-data:
+  mlflow-data:
+  prometheus-data:
+  pushgateway-data:
+  grafana-data:

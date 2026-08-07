@@ -1,0 +1,11 @@
+{
+  "username": "andrew.rivera@contoso.com",
+  "timestamp": "2025-11-19T10:30:00+00:00",
+  "appDisplayName": "Microsoft Intune",
+  "clientAppUsed": "Browser",
+  "deviceDetailbrowser": "Chrome",
+  "deviceDetaildisplayName": "DESKTOP-ABC123",
+  "deviceDetailoperatingSystem": "Windows 10",
+  "statusfailureReason": "",
+  "location": "Austin, United States"
+}

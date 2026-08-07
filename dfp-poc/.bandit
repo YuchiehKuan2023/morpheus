@@ -1,0 +1,26 @@
+[bandit]
+# Bandit configuration for DFP PoC
+exclude_dirs = [
+    '/tests/',
+    '/htmlcov/',
+    '/mlruns/',
+    '/logs/',
+    '/.venv/',
+    '/build/',
+    '/dist/'
+]
+
+# Skip specific test IDs for known safe patterns
+skips = [
+    # B301: Pickle usage is intentional for internal cache serialization
+    # These are trusted internal files, not user-supplied data
+    'B301',
+    # B307: eval() with restricted scope - safe for internal use
+    'B307',
+    # B104: Binding to 0.0.0.0 is intentional for metrics server
+    'B104'
+]
+
+# Security level: only report medium and high severity issues
+severity_level = 'MEDIUM'
+confidence_level = 'MEDIUM'

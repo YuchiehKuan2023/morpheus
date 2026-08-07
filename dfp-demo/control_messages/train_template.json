@@ -1,0 +1,28 @@
+{
+  "tasks": [
+    {
+      "type": "training",
+      "properties": {
+        "data_path": "data/input/train/azure_ad_train.jsonl",
+        "cache_dir": ".cache/demo",
+        "timestamp_column": "timestamp",
+        "userid_column": "username",
+        "model_name_formatter": "DFP-{user_id}",
+        "cache_mode": "aggregate",
+        "min_history": 300,
+        "min_increment": 300,
+        "max_history": "60d",
+        "epochs": 50,
+        "validation_size": 0.1,
+        "min_training_samples": 100
+      }
+    }
+  ],
+  "metadata": {
+    "description": "Training control message template for DFP streaming pipeline",
+    "version": "2.0",
+    "pattern": "NVIDIA Morpheus DFP - Streaming Pipeline",
+    "reference": "pipelines/training_pipeline.py",
+    "notes": "Cache dir must match streaming inference (.cache/demo) for proper model reuse. RollingWindow module automatically adds rolling-user-data subdirectory. Path is relative to project root (morpheus-dfp/)."
+  }
+}

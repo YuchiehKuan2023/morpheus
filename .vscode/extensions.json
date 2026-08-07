@@ -1,0 +1,21 @@
+{
+  "recommendations": [
+    // Python
+    "ms-python.python",
+    "ms-python.vscode-pylance",
+    "charliermarsh.ruff",
+
+    // Frontend - Biome (formatter + linter)
+    "biomejs.biome",
+
+    // Database
+    "prisma.prisma",
+
+    // Git
+    "eamodio.gitlens",
+
+    // General
+    "editorconfig.editorconfig",
+    "ms-vscode.vscode-typescript-next"
+  ]
+}

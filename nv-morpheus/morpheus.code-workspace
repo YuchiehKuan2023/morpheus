@@ -1,0 +1,595 @@
+{
+    "extensions": {
+        // See https://go.microsoft.com/fwlink/?LinkId=827846 to learn about workspace recommendations.
+        // Extension identifier format: ${publisher}.${name}. Example: vscode.csharp
+        // List of extensions which should be recommended for users of this workspace.
+        "recommendations": [
+            "eeyore.yapf",
+            "josetr.cmake-language-support-vscode",
+            "llvm-vs-code-extensions.vscode-clangd",
+            "matepek.vscode-catch2-test-adapter",
+            "ms-python.flake8",
+            "ms-python.isort",
+            "ms-python.pylint",
+            "ms-vscode.cmake-tools",
+            "stkb.rewrap"
+        ],
+        // List of extensions recommended by VS Code that should not be recommended for users of this workspace.
+        "unwantedRecommendations": [
+            "austin.code-gnu-global"
+        ]
+    },
+    "folders": [
+        {
+            "path": "."
+        }
+    ],
+    "launch": {
+        "compounds": [],
+        "configurations": [
+            {
+                "args": [
+                    "--log_level=DEBUG",
+                    // "--debug",
+                    "run",
+                    "--num_threads=8",
+                    "--pipeline_batch_size=1024",
+                    "--model_max_batch_size=32",
+                    "--edge_buffer_size=4",
+                    "--use_cpp=False",
+                    "pipeline-nlp",
+                    "--model_seq_length=256",
+                    "from-file",
+                    "--filename=models/datasets/validation-data/sid-validation-data.csv",
+                    "--repeat=50",
+                    // "dropna",
+                    // "from-kafka",
+                    "deserialize",
+                    "preprocess",
+                    "--vocab_hash_file=./python/morpheus/morpheus/data/bert-base-uncased-hash.txt",
+                    "--truncation=True",
+                    "--do_lower_case=True",
+                    "--add_special_tokens=False",
+                    "inf-triton",
+                    "--model_name=sid-minibert-onnx",
+                    "--server_url=localhost:8001",
+                    "--force_convert_inputs=True",
+                    // "--use_shared_memory=True",
+                    "monitor",
+                    "--description",
+                    "Inference Rate",
+                    "--unit",
+                    "inf",
+                    "add-class",
+                    // "filter",
+                    "serialize",
+                    // "--include",
+                    // "timestamp",
+                    "--exclude",
+                    "^_ts_",
+                    "--output_type=json",
+                    // "to-kafka",
+                    // "--output_topic",
+                    // "inference_output",
+                    "to-file",
+                    "--filename=./.tmp/sid_training_data-nlp.csv",
+                    "--overwrite"
+                ],
+                "console": "integratedTerminal",
+                "cwd": "${workspaceFolder}",
+                "justMyCode": false,
+                "name": "Python: Run Pipeline (NLP)",
+                "program": "${workspaceFolder}/python/morpheus/morpheus/cli/run.py",
+                "request": "launch",
+                "subProcess": true,
+                "type": "debugpy"
+            },
+            {
+                "args": [
+                    "--log_level=DEBUG",
+                    // "--debug",
+                    "run",
+                    "--num_threads=8",
+                    "--pipeline_batch_size=1024",
+                    "--model_max_batch_size=1024",
+                    // "--use_cpp=False",
+                    "pipeline-fil",
+                    "from-file",
+                    "--filename=./models/datasets/validation-data/abp-validation-data.jsonlines",
+                    "--repeat=200",
+                    // "from-kafka",
+                    // "dropna",
+                    "deserialize",
+                    "preprocess",
+                    "inf-triton",
+                    "--model_name=abp-nvsmi-xgb",
+                    "--server_url=localhost:8001",
+                    "--force_convert_inputs=True",
+                    "monitor",
+                    "--description",
+                    "Inference Rate",
+                    "--smoothing=0.001",
+                    "--unit",
+                    "inf",
+                    "add-class",
+                    // "validate",
+                    // "--val_file_name=models/datasets/validation-data/abp-validation-data.jsonlines",
+                    // "--results_file_name=./.tmp/validation_results-fil.json",
+                    // "--overwrite",
+                    "filter",
+                    "serialize",
+                    "--include",
+                    "timestamp",
+                    "--exclude",
+                    "^_ts_",
+                    "--exclude",
+                    "^nvidia_smi_log",
+                    // "to-kafka",
+                    // "--output_topic",
+                    // "inference_output",
+                    "to-file",
+                    "--filename=./.tmp/abp-validation-data.csv",
+                    "--overwrite"
+                ],
+                "console": "integratedTerminal",
+                "cwd": "${workspaceFolder}",
+                "justMyCode": false,
+                "name": "Python: Run Pipeline (FIL)",
+                "program": "${workspaceFolder}/python/morpheus/morpheus/cli/run.py",
+                "request": "launch",
+                "subProcess": true,
+                "type": "debugpy"
+            },
+            {
+                "args": [
+                    "--log_level=DEBUG",
+                    // "--debug",
+                    "run",
+                    "--num_threads=1",
+                    "--pipeline_batch_size=1024",
+                    "--model_max_batch_size=32",
+                    // "--use_cpp=False",
+                    "pipeline-nlp",
+                    "--labels_file=python/morpheus/morpheus/data/labels_phishing.txt",
+                    "--model_seq_length=128",
+                    "from-file",
+                    "--filename=models/datasets/validation-data/phishing-email-validation-data.jsonlines",
+                    "--repeat=1",
+                    // "dropna",
+                    // "from-kafka",
+                    "deserialize",
+                    "preprocess",
+                    "--vocab_hash_file=./python/morpheus/morpheus/data/bert-base-uncased-hash.txt",
+                    "--truncation=True",
+                    // "--stride=",
+                    "--do_lower_case=True",
+                    "--add_special_tokens=False",
+                    "inf-triton",
+                    "--model_name=phishing-bert-onnx",
+                    "--server_url=localhost:8001",
+                    "--force_convert_inputs=True",
+                    // "--use_shared_memory=True",
+                    "monitor",
+                    "--description",
+                    "Inference Rate",
+                    "--unit",
+                    "inf",
+                    "add-class",
+                    // "--label=pred",
+                    // "--threshold=0.7",
+                    // "add-scores",
+                    // "--label=score",
+                    // "filter",
+                    "validate",
+                    "--val_file_name=models/datasets/validation-data/phishing-email-validation-data.jsonlines",
+                    "--results_file_name=./.tmp/validation_results-phishing.json",
+                    "--overwrite",
+                    "serialize",
+                    // "--include",
+                    // "timestamp",
+                    "--exclude",
+                    "^ts_",
+                    // "to-kafka",
+                    // "--output_topic",
+                    // "inference_output",
+                    "to-file",
+                    "--filename=./.tmp/phishing-detections.jsonlines",
+                    "--overwrite"
+                ],
+                "console": "integratedTerminal",
+                "cwd": "${workspaceFolder}",
+                "justMyCode": false,
+                "name": "Python: Run Pipeline (NLP-Phishing)",
+                "program": "${workspaceFolder}/python/morpheus/morpheus/cli/run.py",
+                "request": "launch",
+                "subProcess": true,
+                "type": "debugpy"
+            },
+            {
+                "args": [
+                    "--input_file",
+                    "../data/pcap_dump.jsonlines",
+                    "--output_file",
+                    "./.tmp/pcap_output.jsonlines",
+                    "--server_url",
+                    "localhost:8001",
+                    "--model_name",
+                    "abp-pcap-xgb"
+                ],
+                "console": "integratedTerminal",
+                "cwd": "${workspaceFolder}/examples/abp_pcap_detection",
+                "justMyCode": false,
+                "name": "Python: Anomaly Detection Example",
+                "program": "${workspaceFolder}/examples/abp_pcap_detection/run.py",
+                "request": "launch",
+                "type": "debugpy"
+            },
+            {
+                "args": [
+                    "-b",
+                    "html",
+                    "-aE",
+                    "-j",
+                    "auto",
+                    "source",
+                    "${workspaceFolder}/build/docs/html"
+                ],
+                "console": "integratedTerminal",
+                "cwd": "${workspaceFolder}/docs",
+                "justMyCode": false,
+                "module": "sphinx.cmd.build",
+                "name": "Python: Sphinx",
+                "request": "launch",
+                "type": "debugpy"
+            },
+            {
+                "args": [
+                    "-x"
+                ],
+                "console": "integratedTerminal",
+                "cwd": "${workspaceFolder}",
+                "justMyCode": false,
+                "module": "pytest",
+                "name": "Python: tests",
+                "request": "launch",
+                "type": "debugpy"
+            },
+            {
+                "MIMode": "gdb",
+                "args": [
+                    "./python/morpheus/morpheus/cli.py",
+                    "--log_level=DEBUG",
+                    "run",
+                    "--num_threads=2",
+                    "--pipeline_batch_size=1024",
+                    "--model_max_batch_size=32",
+                    "--edge_buffer_size=4",
+                    "--use_cpp=True",
+                    "pipeline-nlp",
+                    "--model_seq_length=256",
+                    // "--viz_file=.tmp/nlp-viz.png",
+                    "from-file",
+                    "--filename=models/datasets/validation-data/sid-validation-data.csv",
+                    "--repeat=5",
+                    //  "--iterative",
+                    // "from-kafka",
+                    "deserialize",
+                    "preprocess",
+                    "--vocab_hash_file=./python/morpheus/morpheus/data/bert-base-uncased-hash.txt",
+                    "--truncation=True",
+                    "--do_lower_case=True",
+                    "--add_special_tokens=False",
+                    "inf-triton",
+                    "--model_name=sid-minibert-onnx",
+                    "--server_url=localhost:8001",
+                    "--force_convert_inputs=True",
+                    "monitor",
+                    "--description",
+                    "Inference Rate",
+                    "--unit",
+                    "inf",
+                    "add-class",
+                    // "filter",
+                    "serialize",
+                    // "--include",
+                    // "timestamp",
+                    "--exclude",
+                    "^_ts_",
+                    // "to-kafka",
+                    // "--output_topic",
+                    // "inference_output",
+                    "to-file",
+                    "--filename=./.tmp/detections2-nlp.csv",
+                    "--overwrite"
+                ],
+                "cwd": "${workspaceFolder}",
+                "environment": [
+                    {
+                        "name": "MORPHEUS_ROOT",
+                        "value": "${workspaceFolder}"
+                    },
+                    {
+                        "name": "GLOG_v",
+                        "value": "10"
+                    },
+                    {
+                        "name": "GLOG_logtostderr",
+                        "value": "1"
+                    },
+                    {
+                        "name": "CUDA_LAUNCH_BLOCKING",
+                        "value": "1"
+                    }
+                ],
+                "externalConsole": false,
+                "miDebuggerPath": "gdb",
+                "name": "Debug MRC from Python (Morpheus-NLP)",
+                "program": "python",
+                "request": "launch",
+                "setupCommands": [
+                    {
+                        "description": "Enable pretty-printing for gdb",
+                        "ignoreFailures": true,
+                        "text": "-enable-pretty-printing"
+                    },
+                    {
+                        "description": "Skip stdio-common files",
+                        "text": "-interpreter-exec console \"skip -gfi **/bits/*.h\""
+                    }
+                ],
+                "sourceFileMap": {
+                    "${workspaceFolder}": {
+                        "editorPath": "${workspaceFolder}",
+                        "useForBreakpoints": "true"
+                    }
+                },
+                "stopAtEntry": false,
+                "symbolLoadInfo": {
+                    "exceptionList": "libmrc*.so;cudf_helpers.*;executor.*;morpheus.*;node.*;options.*;pipeline.*;segment.*;subscriber.*;stages.*;messages.*;common*.so",
+                    "loadAll": false
+                },
+                "type": "cppdbg"
+            },
+            {
+                "MIMode": "gdb",
+                "args": [
+                    "./python/morpheus/morpheus/cli.py",
+                    "--log_level=DEBUG",
+                    // "--debug",
+                    "run",
+                    "--num_threads=1",
+                    "--pipeline_batch_size=1024",
+                    "--model_max_batch_size=1024",
+                    // "--use_cpp=False",
+                    "pipeline-fil",
+                    "from-file",
+                    "--filename=models/datasets/validation-data/abp-validation-data.csv",
+                    "--repeat=10",
+                    "--iterative",
+                    // "from-kafka",
+                    // "dropna",
+                    "deserialize",
+                    "preprocess",
+                    "inf-triton",
+                    "--model_name=abp-nvsmi-xgb",
+                    "--server_url=localhost:8001",
+                    "--force_convert_inputs=True",
+                    "monitor",
+                    "--description",
+                    "Inference Rate",
+                    "--unit",
+                    "inf",
+                    "add-class",
+                    "validate",
+                    "--val_file_name=models/datasets/validation-data/abp-validation-data.jsonlines",
+                    "--results_file_name=./.tmp/validation_results-fil.json",
+                    "--overwrite",
+                    // "filter",
+                    "serialize",
+                    // "--include",
+                    // "timestamp",
+                    "--exclude",
+                    "^_ts_",
+                    // "--exclude",
+                    // "^nvidia_smi_log",
+                    // "to-kafka",
+                    // "--output_topic",
+                    // "inference_output",
+                    "to-file",
+                    "--filename=./.tmp/abp-validation-data.csv",
+                    "--overwrite"
+                ],
+                "cwd": "${workspaceFolder}",
+                "environment": [
+                    {
+                        "name": "MORPHEUS_ROOT",
+                        "value": "${workspaceFolder}"
+                    },
+                    {
+                        "name": "GLOG_v",
+                        "value": "10"
+                    },
+                    {
+                        "name": "CUDA_LAUNCH_BLOCKING",
+                        "value": "1"
+                    }
+                ],
+                "externalConsole": false,
+                "miDebuggerPath": "gdb",
+                "name": "Debug MRC from Python (Morpheus-FIL)",
+                "program": "python",
+                "request": "launch",
+                "setupCommands": [
+                    {
+                        "description": "Enable pretty-printing for gdb",
+                        "ignoreFailures": true,
+                        "text": "-enable-pretty-printing"
+                    },
+                    {
+                        "description": "Skip stdio-common files",
+                        "text": "-interpreter-exec console \"skip -gfi **/bits/*.h\""
+                    }
+                ],
+                "sourceFileMap": {
+                    "${workspaceFolder}": {
+                        "editorPath": "${workspaceFolder}",
+                        "useForBreakpoints": "true"
+                    }
+                },
+                "stopAtEntry": false,
+                "symbolLoadInfo": {
+                    "exceptionList": "libmrc*.so;cudf_helpers.*;executor.*;morpheus.*;node.*;options.*;pipeline.*;segment.*;subscriber.*;stages.*;messages.*;common*.so",
+                    "loadAll": false
+                },
+                "type": "cppdbg"
+            },
+            {
+                "MIMode": "gdb",
+                "args": [
+                    // Uncomment to run a specific test
+                    // "--gtest_filter='TestLLMContext.PopSelectMultipleOutputs'"
+                ],
+                "cwd": "${workspaceFolder}",
+                "environment": [
+                    {
+                        "name": "GLOG_v",
+                        "value": "10"
+                    }
+                ],
+                "externalConsole": false,
+                "miDebuggerPath": "gdb",
+                "name": "Debug LLM C++ Tests",
+                "program": "${workspaceFolder}/build/python/morpheus/morpheus/_lib/tests/test_llm.x",
+                "request": "launch",
+                "setupCommands": [
+                    {
+                        "description": "Enable pretty-printing for gdb",
+                        "ignoreFailures": true,
+                        "text": "-enable-pretty-printing"
+                    }
+                ],
+                "stopAtEntry": false,
+                "type": "cppdbg"
+            },
+            {
+                "args": [
+                    "--input_file=validation.csv",
+                    "--training_file=training.csv",
+                    "--output_file=result.csv",
+                    "--model_dir=model"
+                ],
+                "console": "integratedTerminal",
+                "cwd": "${workspaceFolder}/examples/gnn_fraud_detection_pipeline",
+                "justMyCode": false,
+                "name": "Python: GNN DGL inference",
+                "program": "${workspaceFolder}/examples/gnn_fraud_detection_pipeline/run.py",
+                "request": "launch",
+                "type": "debugpy"
+            },
+            {
+                "args": [
+                    "--training-data=${workspaceFolder}/examples/gnn_fraud_detection_pipeline/training.csv",
+                    "--validation-data=${workspaceFolder}/examples/gnn_fraud_detection_pipeline/validation.csv",
+                    "--output-file=result.csv",
+                    "--model-dir=models",
+                    "--epochs=5"
+                ],
+                "console": "integratedTerminal",
+                "cwd": "${workspaceFolder}/models/training-tuning-scripts/fraud-detection-models",
+                "justMyCode": false,
+                "name": "Python: GNN model training",
+                "program": "${workspaceFolder}/models/training-tuning-scripts/fraud-detection-models/training.py",
+                "request": "launch",
+                "type": "debugpy"
+            }
+        ]
+    },
+    "settings": {
+        "[cpp]": {
+            "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd",
+            "editor.detectIndentation": false,
+            "editor.formatOnSave": true,
+            "editor.semanticHighlighting.enabled": true,
+            "editor.suggest.insertMode": "replace",
+            "editor.tabSize": 4,
+            "editor.wordBasedSuggestions": "off",
+            "editor.wordWrapColumn": 120
+        },
+        "[python]": {
+            "editor.codeActionsOnSave": {
+                "source.organizeImports": "explicit"
+            },
+            "editor.defaultFormatter": "eeyore.yapf",
+            "editor.formatOnSave": true,
+            "editor.tabSize": 4
+        },
+        "cmake.configureArgs": [
+            "-DCMAKE_MESSAGE_CONTEXT_SHOW=ON", // Show message context by default
+            "-DMORPHEUS_USE_CLANG_TIDY=OFF", // If we are using clangd extension, disable clang-tidy in VS Code to prevent double errors
+            "-DMORPHEUS_PYTHON_INPLACE_BUILD=ON", // Allow inplace build for python. Use `pip install -e .` from the python folder to install
+            "-DMORPHEUS_USE_CCACHE=ON" // Enable ccache when building in vscode
+        ],
+        "cmake.format.allowOptionalArgumentIndentation": true,
+        "docker.languageserver.formatter.ignoreMultilineInstructions": true,
+        "editor.rulers": [
+            120
+        ],
+        "files.insertFinalNewline": true,
+        "files.trimFinalNewlines": true,
+        "files.trimTrailingWhitespace": true,
+        "flake8.args": [
+            "--style=${workspaceFolder}/pyproject.toml"
+        ],
+        "pylint.args": [
+            "--rcfile=${workspaceFolder}/pyproject.toml",
+            "--init-hook=import sys; sys.path.append(\"${workspaceFolder}\")"
+        ],
+        "pylint.importStrategy": "fromEnvironment",
+        "python.analysis.extraPaths": [
+            "./examples/digital_fingerprinting/production/morpheus"
+        ],
+        "python.analysis.inlayHints.pytestParameters": true,
+        "python.testing.pytestArgs": [
+            "-s",
+            "tests"
+        ],
+        "python.testing.pytestEnabled": true,
+        "python.testing.unittestEnabled": false,
+        "rewrap.wrappingColumn": 120,
+        "testMate.cpp.debug.configTemplate": {
+            "args": "${argsArray}",
+            "cwd": "${cwd}",
+            "darwin": {
+                "MIMode": "lldb",
+                "type": "cppdbg"
+            },
+            "env": "${envObj}",
+            "environment": "${envObjArray}",
+            "name": "Debug Test Runner (${parentLabel} > ${label})",
+            "program": "${exec}",
+            "request": "launch",
+            "testMate.cpp.debug.setEnv": {
+                "GLOG_v": "10",
+                "GTEST_CATCH_EXCEPTIONS": "0", // Allow the debugger to catch exceptions
+                "MORPHEUS_ROOT": "${workspaceFolder}", // Ensure the MORPHEUS_ROOT is set
+                "UCX_ERROR_SIGNALS": "" // Prevent UCX from capturing errors
+            },
+            "type": "lldb",
+            "win32": {
+                "type": "cppvsdbg"
+            }
+        },
+        "testMate.cpp.test.advancedExecutables": [
+            {
+                "env": {
+                    "MORPHEUS_ROOT": "${workspaceFolder}", // Ensure the MORPHEUS_ROOT is set
+                    "UCX_ERROR_SIGNALS": "" // Prevent UCX from capturing errors
+                },
+                "pattern": "{build,Build,BUILD,out,Out,OUT}/**/*{test,Test,TEST}_*.x"
+            }
+        ],
+        "yapf.args": [
+            "--style=${workspaceFolder}/pyproject.toml"
+        ]
+    }
+}

@@ -1,0 +1,108 @@
+# Core Python dependencies for x86_64 CPU environments
+# Standard requirements for Linux x86_64 systems
+
+# Core scientific computing
+numpy>=1.24.0,<2.0.0
+pandas>=2.0.0,<3.0.0
+scipy>=1.10.0,<1.12.0
+scikit-learn>=1.5.0
+
+# Machine Learning
+xgboost>=2.0.0
+lightgbm>=4.0.0
+joblib>=1.3.0
+
+# Deep Learning (CPU version)
+torch>=2.8.0,<3.0.0
+torchvision>=0.23.0,<1.0.0
+torchaudio>=2.8.0,<3.0.0
+
+# ONNX for cross-platform model deployment
+onnxruntime>=1.19.0,<2.0.0  # Install runtime first (no build dependencies)
+onnx>=1.17.0,<2.0.0  # May require cmake on some systems
+
+# Hyperparameter optimization
+optuna>=3.4.0,<5.0.0
+
+# Model explainability
+shap>=0.44.0,<1.0.0
+
+# Data processing and streaming
+kafka-python>=2.0.2
+confluent-kafka[avro]>=2.2.0
+avro-python3>=1.10.2,<1.11.0  # Python 3.12 compatible
+psycopg2-binary>=2.9.0
+sqlalchemy>=2.0.0
+
+# Model management and tracking
+mlflow>=2.7.0
+pydantic>=2.0.0
+
+# Configuration and CLI
+click>=8.1.0
+pyyaml>=6.0
+omegaconf>=2.3.0  # Configuration management for DFP pipelines
+
+# Progress and utilities
+tqdm>=4.65.0
+colorlog>=6.7.0
+structlog>=23.1.0
+psutil>=5.9.0  # System and process monitoring for cross-platform device management
+dill>=0.3.6  # Serialization (used by Morpheus)
+gputil>=1.4.0  # GPU monitoring and metrics
+
+# Monitoring and metrics
+prometheus-client>=0.17.0
+python-json-logger>=2.0.7  # JSON structured logging
+
+# Visualization
+matplotlib>=3.7.0
+seaborn>=0.12.0
+plotly>=5.15.0
+
+# Table formatting
+tabulate>=0.9.0
+
+# Development and testing
+pytest>=7.4.0
+pytest-cov>=4.1.0
+pytest-mock>=3.11.0
+black>=23.7.0
+flake8>=6.0.0
+mypy>=1.5.0
+
+# Jupyter support (optional)
+jupyter>=1.0.0
+notebook>=7.0.0
+
+# Additional utilities
+requests>=2.31.0
+python-dateutil>=2.8.0
+pytz>=2023.3
+
+# Development and Testing
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+black>=23.7.0
+flake8>=6.0.0
+mypy>=1.5.0
+poetry>=2.2.0
+pip-tools>=7.6.0
+
+# Utilities
+python-dotenv>=1.0.0
+faker>=19.3.0  # For synthetic data generation
+
+# Security and Cryptography
+cryptography>=41.0.0
+bcrypt>=4.0.0
+
+python-multipart>=0.0.20
+passlib[bcrypt]==1.7.4
+
+# Documentation dependencies
+sphinx>=7.2.0
+sphinx-rtd-theme>=2.0.0
+myst-parser>=2.0.0
+sphinx-autodoc-typehints>=1.25.0
+linkify-it-py>=2.0.0

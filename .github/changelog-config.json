@@ -1,0 +1,67 @@
+{
+  "categories": [
+    {
+      "title": "## Features",
+      "labels": ["feature", "enhancement", "feat"]
+    },
+    {
+      "title": "## Bug Fixes",
+      "labels": ["bug", "fix"]
+    },
+    {
+      "title": "## Documentation",
+      "labels": ["documentation", "docs"]
+    },
+    {
+      "title": "## Maintenance",
+      "labels": ["maintenance", "chore", "refactor"]
+    },
+    {
+      "title": "## Security",
+      "labels": ["security"]
+    },
+    {
+      "title": "## Performance",
+      "labels": ["performance", "perf"]
+    },
+    {
+      "title": "## Tests",
+      "labels": ["test", "testing"]
+    },
+    {
+      "title": "## Dependencies",
+      "labels": ["dependencies"]
+    }
+  ],
+  "ignore_labels": ["ignore-for-release", "wontfix", "duplicate"],
+  "sort": "ASC",
+  "template": "#{{CHANGELOG}}\n\n**Full Changelog**: #{{RELEASE_DIFF}}",
+  "pr_template": "- #{{TITLE}} by @#{{AUTHOR}} in ##{{NUMBER}}",
+  "empty_template": "No changes",
+  "label_extractor": [
+    {
+      "pattern": "^feat(\\(.+\\))?:",
+      "target": "feature"
+    },
+    {
+      "pattern": "^fix(\\(.+\\))?:",
+      "target": "bug"
+    },
+    {
+      "pattern": "^docs(\\(.+\\))?:",
+      "target": "documentation"
+    },
+    {
+      "pattern": "^chore(\\(.+\\))?:",
+      "target": "maintenance"
+    },
+    {
+      "pattern": "^test(\\(.+\\))?:",
+      "target": "test"
+    },
+    {
+      "pattern": "^perf(\\(.+\\))?:",
+      "target": "performance"
+    }
+  ]
+}

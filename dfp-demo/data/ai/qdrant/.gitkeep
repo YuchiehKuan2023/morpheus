@@ -1,0 +1,2 @@
+# Keep this directory in version control
+# Qdrant runtime files are ignored via .gitignore

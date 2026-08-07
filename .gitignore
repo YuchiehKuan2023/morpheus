@@ -1,0 +1,237 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.conda/
+conda-meta/
+prometheus/
+
+# PyCharm
+.idea/
+
+# RUFF
+.ruff_cache
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+.jar
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.tmp
+*.temp
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# Database
+*.db
+database/data/
+postgres_data/
+pgdata/
+data_backups/
+nv-morpheus/examples/data/
+nv-morpheus/models/data/
+nv-morpheus/tests/
+
+# Data
+*.backup
+
+# Environment variables
+.env
+.env.local
+.env.production
+.env.staging
+.env.development
+.env.services
+config/secrets/
+secrets/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Docker
+docker-compose.override.yml
+.docker/
+
+# Data (use wildcard to cover all use cases: dfp-poc/, dfp-ecommerce/, etc.)
+data/raw/*.json
+data/raw/*.csv
+data/processed/
+data/generated/
+data/temp/
+data/input/
+data/output/detections/
+data/output/profiles/*.json
+*.jsonl
+data/**/*.jsonl
+dfp-*/data/**/*.jsonl
+dfp-*/data/output/detections/
+dfp-*/data/output/profiles/
+dfp-*/data/output/profiles/*.json
+
+services/kafka-ui.jar
+dfp-*/services/kafka-ui.jar
+dfp-*/docs/_build/
+
+# Model files (excluded by default, but allow in model registry)
+*.pkl
+*.joblib
+*.h5
+*.hdf5
+*.pb
+*.onnx
+*.trt
+*.pth
+*.pt
+
+# MLflow (use wildcard to cover all use cases)
+mlruns/
+mlartifacts/
+.mlflow/
+test_registry/
+tests/temp_registry/
+dfp-*/data/mlflow/
+
+# NVIDIA specific
+*.engine
+*.plan
+*.trt
+.triton/
+triton_models/
+
+# Kafka (native services - not tracked in git)
+kafka-logs/
+data/kafka-logs/
+**/data/kafka/server.properties
+**/data/kafka/cluster.id
+data/kafka/server.properties
+data/kafka/cluster.id
+zookeeper/
+data/zookeeper/
+kafka_data/
+
+# Monitoring
+grafana/data/
+prometheus/data/
+monitoring/data/
+
+# Cache
+.cache/
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+
+# Documentation
+docs/_build/
+site/
+DELIVERABLES.md
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.bak
+*.swp
+*.swo
+
+# IDE
+*.sublime-project
+*.sublime-workspace
+
+# OS generated files
+.directory
+.fseventsd
+.Spotlight-V100
+.Trashes
+
+# Security
+*.pem
+*.key
+*.crt
+*.p12
+credentials.json
+service-account.json
+
+# Large datasets (use Git LFS instead)
+# Note: Python scripts in data/ folder are tracked
+*.csv
+*.parquet
+*.arrow
+*.feather
+!data/**/*.py
+
+# Frontend
+**/node_modules/
+dfp-*/frontend/dist/
+dfp-*/frontend/build/
+dfp-*/frontend/.next/
+dfp-*/frontend/.turbo/
+!lib/

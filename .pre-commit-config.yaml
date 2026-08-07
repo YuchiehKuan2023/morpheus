@@ -1,0 +1,32 @@
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.14.9
+    hooks:
+      # Ruff linter - checks code quality (covers all dfp-* directories)
+      - id: ruff
+        args: [--fix]
+        files: ^dfp-[^/]+/.*\.py$
+        exclude: ^(?!dfp-)
+      # Ruff formatter - checks code formatting (covers all dfp-* directories)
+      - id: ruff-format
+        args: [--check]
+        files: ^dfp-[^/]+/.*\.py$
+        exclude: ^(?!dfp-)
+
+  - repo: local
+    hooks:
+      # ESLint for dfp-demo frontend
+      - id: eslint-dfp-demo
+        name: ESLint (dfp-demo frontend)
+        entry: bash -c 'cd dfp-demo/frontend/ui && npm run lint -- --fix'
+        language: system
+        files: ^dfp-demo/frontend/ui/.*\.(ts|tsx|js|jsx)$
+        pass_filenames: false
+
+      # Prettier for dfp-demo styles and config files
+      - id: prettier-dfp-demo
+        name: Prettier (dfp-demo frontend)
+        entry: bash -c 'npx --prefix dfp-demo/frontend/ui prettier --write "$@"' --
+        language: system
+        files: ^dfp-demo/frontend/ui/.*\.(scss|css|json|md)$
+        pass_filenames: true

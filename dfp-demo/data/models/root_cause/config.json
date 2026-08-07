@@ -1,0 +1,51 @@
+{
+  "sub_category_labels": [
+    "Impossible Travel",
+    "Multi-Factor Anomaly",
+    "Location with Unusual Device",
+    "Unknown Device",
+    "Unusual Application",
+    "Unusual Location",
+    "Unusual Browser",
+    "Unusual Operating System",
+    "Broad Deviation"
+  ],
+  "root_cause_map": {
+    "Impossible Travel": "Geographic Anomaly",
+    "Multi-Factor Anomaly": "Multi-Factor Incident",
+    "Location with Unusual Device": "Geographic Anomaly",
+    "Unknown Device": "Unmanaged Device",
+    "Unusual Application": "Unauthorized Application Access",
+    "Unusual Location": "Geographic Anomaly",
+    "Unusual Browser": "Browser Anomaly",
+    "Unusual Operating System": "OS Anomaly",
+    "Broad Deviation": "Behavioral Anomaly"
+  },
+  "distilbert_checkpoint": "distilbert-base-uncased",
+  "max_seq_len": 128,
+  "num_labels": 9,
+  "training_metadata": {
+    "trained_at": "2026-04-29T12:24:19.310523+00:00",
+    "best_epoch": 5,
+    "epochs_trained": 5,
+    "best_val_accuracy": 1.0,
+    "best_val_f1_macro": 1.0,
+    "n_train": 1347,
+    "n_val": 337,
+    "hyperparameters": {
+      "epochs": 5,
+      "batch_size": 16,
+      "lr": 2e-05,
+      "weight_decay": 0.01,
+      "patience": 3,
+      "min_confidence": 0.0,
+      "device": "mps",
+      "distilbert_checkpoint": "distilbert-base-uncased",
+      "max_seq_len": 128,
+      "n_train": 1347,
+      "n_val": 337,
+      "n_labels": 9
+    },
+    "mlflow_run_id": "275a049cc37e423ea15e99849543bbad"
+  }
+}

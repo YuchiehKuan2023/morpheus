@@ -1,0 +1,308 @@
+# Alerting Configuration for DFP PoC
+# Defines alert rules for monitoring pipeline health and performance
+
+# Alert configuration
+alerting:
+  enabled: true
+
+  # Alert channels
+  channels:
+    - type: "log"
+      level: "ERROR"
+
+    - type: "file"
+      path: "./data/logs/alerts.log"
+
+    # Email alerting (configure SMTP settings)
+    - type: "email"
+      enabled: false
+      smtp_host: "smtp.gmail.com"
+      smtp_port: 587
+      smtp_user: "alerts@deloitte.co.uk"
+      smtp_password: "${SMTP_PASSWORD}"
+      from_address: "dfp-alerts@deloitte.co.uk"
+      to_addresses:
+        - "alerts@example.com"
+
+    # Slack alerting
+    - type: "slack"
+      enabled: false
+      webhook_url: "${SLACK_WEBHOOK_URL}"
+      channel: "#dfp-alerts"
+
+    # PagerDuty
+    - type: "pagerduty"
+      enabled: false
+      integration_key: "${PAGERDUTY_KEY}"
+
+# Alert rules
+rules:
+  # Pipeline health alerts
+  - name: "pipeline_errors_high"
+    description: "Pipeline error rate is high"
+    condition: "dfp_errors_total > 10"
+    duration: "5m"
+    severity: "warning"
+    labels:
+      category: "pipeline"
+      component: "error_handling"
+    annotations:
+      summary: "High error rate in {{ $labels.pipeline }} pipeline"
+      description: "Error count exceeded threshold: {{ $value }} errors in last 5 minutes"
+
+  - name: "pipeline_stopped"
+    description: "Pipeline has stopped processing"
+    condition: "rate(dfp_batches_processed_total[5m]) == 0"
+    duration: "10m"
+    severity: "critical"
+    labels:
+      category: "pipeline"
+      component: "processing"
+    annotations:
+      summary: "Pipeline {{ $labels.pipeline }} has stopped"
+      description: "No batches processed in last 10 minutes"
+
+  # Performance alerts
+  - name: "high_latency"
+    description: "Operation latency is high"
+    condition: "dfp_operation_latency_seconds{quantile='0.95'} > 5.0"
+    duration: "5m"
+    severity: "warning"
+    labels:
+      category: "performance"
+      component: "latency"
+    annotations:
+      summary: "High latency in {{ $labels.operation }}"
+      description: "P95 latency is {{ $value }}s (threshold: 5s)"
+
+  - name: "low_throughput"
+    description: "Pipeline throughput is low"
+    condition: "dfp_throughput_events_per_second < 100"
+    duration: "5m"
+    severity: "warning"
+    labels:
+      category: "performance"
+      component: "throughput"
+    annotations:
+      summary: "Low throughput in {{ $labels.pipeline }}"
+      description: "Current throughput: {{ $value }} events/s (threshold: 100 events/s)"
+
+  # Model health alerts
+  - name: "model_loading_failures"
+    description: "Model loading is failing"
+    condition: "rate(dfp_models_loaded_total[5m]) == 0"
+    duration: "5m"
+    severity: "critical"
+    labels:
+      category: "model"
+      component: "loading"
+    annotations:
+      summary: "Model loading failures in {{ $labels.pipeline }}"
+      description: "No models successfully loaded in last 5 minutes"
+
+  - name: "high_reconstruction_error"
+    description: "Model reconstruction error is high"
+    condition: "dfp_reconstruction_error{quantile='0.95'} > 1.0"
+    duration: "10m"
+    severity: "warning"
+    labels:
+      category: "model"
+      component: "quality"
+    annotations:
+      summary: "High reconstruction error for {{ $labels.model }}"
+      description: "P95 reconstruction error: {{ $value }} (threshold: 1.0)"
+
+  - name: "anomaly_rate_spike"
+    description: "Anomaly detection rate has spiked"
+    condition: "dfp_detection_rate > 0.5"
+    duration: "10m"
+    severity: "warning"
+    labels:
+      category: "detection"
+      component: "anomaly_rate"
+    annotations:
+      summary: "Anomaly rate spike in {{ $labels.pipeline }}"
+      description: "Detection rate: {{ $value }} (threshold: 0.5 or 50%)"
+
+  - name: "anomaly_rate_drop"
+    description: "Anomaly detection rate has dropped to zero"
+    condition: "dfp_detection_rate == 0"
+    duration: "30m"
+    severity: "info"
+    labels:
+      category: "detection"
+      component: "anomaly_rate"
+    annotations:
+      summary: "No anomalies detected in {{ $labels.pipeline }}"
+      description: "Zero anomalies detected for 30 minutes (may indicate issue)"
+
+  # Resource alerts
+  - name: "high_memory_usage"
+    description: "System memory usage is high"
+    condition: "system_memory_percent > 90"
+    duration: "5m"
+    severity: "warning"
+    labels:
+      category: "resources"
+      component: "memory"
+    annotations:
+      summary: "High memory usage"
+      description: "Memory usage: {{ $value }}% (threshold: 90%)"
+
+  - name: "high_cpu_usage"
+    description: "CPU usage is high"
+    condition: "system_cpu_percent > 90"
+    duration: "10m"
+    severity: "warning"
+    labels:
+      category: "resources"
+      component: "cpu"
+    annotations:
+      summary: "High CPU usage"
+      description: "CPU usage: {{ $value }}% (threshold: 90%)"
+
+  - name: "disk_space_low"
+    description: "Disk space is running low"
+    condition: "system_disk_percent > 85"
+    duration: "5m"
+    severity: "warning"
+    labels:
+      category: "resources"
+      component: "disk"
+    annotations:
+      summary: "Low disk space"
+      description: "Disk usage: {{ $value }}% (threshold: 85%)"
+
+  - name: "gpu_temperature_high"
+    description: "GPU temperature is high"
+    condition: "system_gpu_temperature_celsius > 80"
+    duration: "5m"
+    severity: "warning"
+    labels:
+      category: "resources"
+      component: "gpu"
+    annotations:
+      summary: "High GPU temperature on GPU {{ $labels.gpu }}"
+      description: "Temperature: {{ $value }}°C (threshold: 80°C)"
+
+  # MLflow alerts
+  - name: "mlflow_connection_failed"
+    description: "MLflow connection is failing"
+    condition: "mlflow_connection_errors_total > 5"
+    duration: "5m"
+    severity: "critical"
+    labels:
+      category: "mlflow"
+      component: "connection"
+    annotations:
+      summary: "MLflow connection failures"
+      description: "Failed to connect to MLflow {{ $value }} times in 5 minutes"
+
+  # Data quality alerts
+  - name: "no_data_received"
+    description: "No new data received"
+    condition: "rate(dfp_events_processed_total[10m]) == 0"
+    duration: "15m"
+    severity: "warning"
+    labels:
+      category: "data"
+      component: "input"
+    annotations:
+      summary: "No data received in {{ $labels.pipeline }}"
+      description: "No events processed in last 15 minutes"
+
+  - name: "high_data_filtering_rate"
+    description: "Too much data is being filtered out"
+    condition: "dfp_events_filtered_total / dfp_events_received_total > 0.5"
+    duration: "10m"
+    severity: "info"
+    labels:
+      category: "data"
+      component: "quality"
+    annotations:
+      summary: "High data filtering rate in {{ $labels.pipeline }}"
+      description: "Over 50% of events are being filtered out"
+
+# Alert inhibition rules (suppress alerts when others are firing)
+inhibit_rules:
+  - source_match:
+      severity: "critical"
+    target_match:
+      severity: "warning"
+    equal:
+      - "pipeline"
+      - "component"
+
+  - source_match:
+      alertname: "pipeline_stopped"
+    target_match_re:
+      alertname: ".*"
+    equal:
+      - "pipeline"
+
+# Alert routing
+routing:
+  # Default route
+  receiver: "default"
+
+  # Route by severity
+  routes:
+    - match:
+        severity: "critical"
+      receiver: "pagerduty"
+      continue: true
+
+    - match:
+        severity: "warning"
+      receiver: "slack"
+      continue: true
+
+    - match:
+        severity: "info"
+      receiver: "log"
+
+# Notification templates
+templates:
+  email_subject: "[{{ .CommonLabels.severity | toUpper }}] {{ .CommonAnnotations.summary }}"
+
+  email_body: |
+    Alert: {{ .CommonAnnotations.summary }}
+
+    Description: {{ .CommonAnnotations.description }}
+
+    Labels:
+    {{ range .CommonLabels.SortedPairs }}  {{ .Name }}: {{ .Value }}
+    {{ end }}
+
+    Firing Alerts:
+    {{ range .Alerts }}
+      - {{ .Labels.alertname }} (started at {{ .StartsAt }})
+    {{ end }}
+
+  slack_message: |
+    :warning: *{{ .CommonAnnotations.summary }}*
+
+    {{ .CommonAnnotations.description }}
+
+    *Pipeline:* {{ .CommonLabels.pipeline }}
+    *Severity:* {{ .CommonLabels.severity }}
+    *Component:* {{ .CommonLabels.component }}
+
+# Metrics to alert on
+metrics_monitoring:
+  # Collect these metrics at regular intervals
+  interval: "30s"
+
+  metrics:
+    - name: "dfp_errors_total"
+    - name: "dfp_batches_processed_total"
+    - name: "dfp_events_processed_total"
+    - name: "dfp_anomalies_detected_total"
+    - name: "dfp_detection_rate"
+    - name: "dfp_operation_latency_seconds"
+    - name: "dfp_throughput_events_per_second"
+    - name: "dfp_reconstruction_error"
+    - name: "system_memory_percent"
+    - name: "system_cpu_percent"
+    - name: "system_disk_percent"
+    - name: "system_gpu_temperature_celsius"

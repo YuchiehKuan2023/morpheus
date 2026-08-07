@@ -1,0 +1,142 @@
+.system-maturity {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+
+  // ── Metric row ──────────────────────────────────────────────────────────────
+  &__metrics {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+
+  &__metric-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.375rem;
+    padding: 1rem;
+    background: var(--color-glass-bg, rgba(255, 255, 255, 0.04));
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 0.75rem;
+  }
+
+  &__metric-value {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--foreground);
+    letter-spacing: -0.02em;
+  }
+
+  &__metric-label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
+    text-align: center;
+  }
+
+  // ── Stacked bar ─────────────────────────────────────────────────────────────
+  &__bar-track {
+    display: flex;
+    height: 2.25rem;
+    border-radius: 8px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.06);
+    justify-content: center;
+    text-align: center;
+    margin-top: 1.5rem;
+  }
+
+  &__bar-segment {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 900;
+    color: var(--brand-black);
+    transition: filter 0.2s ease;
+
+    &:first-child {
+      border-radius: 8px 0 0 8px;
+    }
+    &:last-child {
+      border-radius: 0 8px 8px 0;
+    }
+    &:only-child {
+      border-radius: 8px;
+    }
+
+    &--resilient {
+      background: var(--brand-pale-lime);
+    }
+    &--managed {
+      background: var(--brand-lime);
+    }
+    &--exposed {
+      background: var(--brand-dark-lime);
+    }
+  }
+
+  // ── Legend ───────────────────────────────────────────────────────────────────
+  &__legend {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 1rem;
+    font-size: 0.8rem;
+    margin-top: 1rem;
+  }
+
+  &__legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    color: var(--muted-foreground);
+
+    strong {
+      color: var(--foreground);
+    }
+
+    &::before {
+      content: '';
+      display: inline-block;
+      width: 0.625rem;
+      height: 0.625rem;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    &--resilient::before {
+      background: var(--brand-pale-lime);
+    }
+    &--managed::before {
+      background: var(--brand-lime);
+    }
+    &--exposed::before {
+      background: var(--brand-dark-lime);
+    }
+  }
+
+  &__legend-total {
+    margin-left: auto;
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+    opacity: 0.6;
+  }
+
+  // ── Subtitle ─────────────────────────────────────────────────────────────────
+  &__subtitle {
+    font-size: 0.8rem;
+    color: var(--muted-foreground);
+    opacity: 0.75;
+    margin: 0;
+    margin-top: 2rem;
+    text-align: center;
+  }
+}

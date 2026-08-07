@@ -1,0 +1,246 @@
+.top-navigation {
+  background-color: transparent;
+  padding: 1.5rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  transition: all 0.3s ease;
+
+  &--scrolled {
+    background-color: rgba(250, 250, 250, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    padding: 1rem 0;
+  }
+
+  &__container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  &__items {
+    display: flex;
+    gap: 1rem;
+    background-color: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    padding: 0.5rem;
+    border-radius: 3rem;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.8),
+      0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 3rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: #374151;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    background-color: transparent;
+    border: 1px solid transparent;
+
+    &:hover:not(&--active) {
+      background-color: rgba(255, 255, 255, 0.5);
+      color: #111827;
+    }
+
+    &--active {
+      background-color: var(--brand-black);
+      color: white;
+      border-color: var(--brand-black);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+      .top-navigation__icon {
+        color: white;
+      }
+    }
+  }
+
+  &__icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    flex-shrink: 0;
+  }
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+
+    .top-navigation__logo-icon {
+      display: flex;
+      align-items: center;
+
+      .deloitte-logo {
+        width: 80px;
+        object-fit: contain;
+
+        &--small {
+          display: none;
+        }
+      }
+
+      .nvidia-logo {
+        height: 28px;
+        width: auto;
+        object-fit: contain;
+        margin-left: 5px;
+      }
+    }
+  }
+
+  // Responsive
+  @media (max-width: 768px) {
+    padding: 1rem 0;
+
+    &__container {
+      padding: 0 1rem;
+    }
+
+    &__items {
+      width: 100%;
+      justify-content: space-between;
+      gap: 0.5rem;
+      padding: 0.375rem;
+    }
+
+    &__item {
+      padding: 0.625rem 1rem;
+      font-size: 0.875rem;
+      flex: 1;
+      justify-content: center;
+
+      span {
+        display: none;
+      }
+    }
+
+    &__icon {
+      width: 1.125rem;
+      height: 1.125rem;
+    }
+
+    @media (min-width: 480px) {
+      &__item span {
+        display: inline;
+      }
+    }
+  }
+}
+
+body.page-graph {
+  .top-navigation {
+    padding: 0;
+    width: 0;
+    margin-left: auto;
+    margin-right: auto;
+
+    &__container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    &__items {
+      display: flex;
+      gap: 0.5rem;
+      background-color: transparent;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      padding: 0;
+      border-radius: 0;
+      border: none;
+      box-shadow: none;
+      align-items: center;
+      margin-top: 0.35rem;
+    }
+
+    &__logo {
+      width: 5rem;
+      height: 32px;
+    }
+
+    .deloitte-logo {
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+      border-radius: 35%;
+      margin-left: 3px;
+
+      &:not(.deloitte-logo--small) {
+        display: none;
+      }
+
+      &--small {
+        display: flex;
+        width: 2rem;
+        height: 2rem;
+        border-radius: 0.275rem;
+        margin-left: 0;
+      }
+    }
+
+    .nvidia-logo {
+      width: 2.25rem;
+      height: 2.25rem;
+    }
+
+    &__item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 0.75rem;
+      border-radius: 1rem;
+      font-size: 0.7375rem;
+      font-weight: 600;
+      color: #374151;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      background-color: transparent;
+      border: 1px solid transparent;
+
+      &:hover:not(&--active) {
+        background-color: rgba(255, 255, 255, 0.5);
+        color: #111827;
+      }
+
+      &--active {
+        background-color: var(--brand-black);
+        color: white;
+        border-color: var(--brand-black);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+        .top-navigation__icon {
+          color: white;
+        }
+      }
+    }
+
+    .top-navigation__notifications {
+      width: 2.25rem;
+      height: 2.25rem;
+    }
+
+    .top-navigation__user {
+      > span {
+        width: 2.25rem;
+        height: 2.25rem;
+      }
+    }
+  }
+}

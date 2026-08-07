@@ -1,0 +1,409 @@
+# MLflow Configuration
+# Model tracking and registry configuration for DFP PoC
+
+# MLflow server configuration
+server:
+  # Tracking URI
+  # Can be: file path, http(s) URL, or databricks
+  tracking_uri: "http://localhost:5001"
+
+  # Backend store URI (for metadata)
+  # SQLite for local: "sqlite:///mlflow.db"
+  # PostgreSQL: "postgresql://user:password@localhost/mlflow"
+  backend_store_uri: "sqlite:///./data/mlflow/mlflow.db"
+
+  # Default artifact root
+  default_artifact_root: "./data/mlflow"
+
+  # Server host (for launching server)
+  host: "127.0.0.1"
+
+  # Server port
+  port: 5001
+  port: 5000
+
+  # Enable authentication
+  auth_enabled: false
+
+  # Server timeout (seconds)
+  timeout: 300
+
+# Experiment configuration
+experiments:
+  # Training experiment
+  training:
+    name: "dfp_training"
+    description: "DFP training experiments using dfencoder AutoEncoder"
+    tags:
+      project: "morpheus-dfp-poc"
+      pipeline: "training"
+      model_type: "autoencoder"
+
+  # Inference experiment
+  inference:
+    name: "dfp_inference"
+    description: "DFP inference experiments for anomaly detection"
+    tags:
+      project: "morpheus-dfp-poc"
+      pipeline: "inference"
+      model_type: "autoencoder"
+
+  # Evaluation experiment
+  evaluation:
+    name: "dfp_evaluation"
+    description: "Model evaluation and validation experiments"
+    tags:
+      project: "morpheus-dfp-poc"
+      pipeline: "evaluation"
+
+# Model registry configuration
+model_registry:
+  # Model name in registry
+  model_name: "dfencoder_dfp"
+
+  # Model description
+  model_description: "DFEncoder AutoEncoder for Digital Fingerprinting anomaly detection"
+
+  # Default model tags
+  default_tags:
+    framework: "pytorch"
+    model_type: "autoencoder"
+    use_case: "digital_fingerprinting"
+    architecture: "dfencoder"
+
+  # Model stages
+  stages:
+    - "None"
+    - "Staging"
+    - "Production"
+    - "Archived"
+
+  # Auto-register models after training
+  auto_register: true
+
+  # Auto-transition to staging after registration
+  auto_stage_transition: false
+
+  # Model version alias
+  use_aliases: true
+
+  # Default aliases
+  default_aliases:
+    - "champion"
+    - "challenger"
+    - "latest"
+
+# Run configuration
+runs:
+  # Run name prefix
+  name_prefix: "dfp_run"
+
+  # Auto-generate run names
+  auto_name: true
+
+  # Run name template
+  name_template: "{pipeline}_{timestamp}_{user}"
+
+  # Nested runs
+  enable_nested: true
+
+  # Auto-end runs on exception
+  auto_end_on_exception: true
+
+  # Run tags
+  default_tags:
+    project: "morpheus-dfp-poc"
+    version: "0.1.0"
+
+# Logging configuration
+logging:
+  # Parameters
+  parameters:
+    # Auto-log all parameters
+    auto_log: true
+
+    # Flatten nested parameters
+    flatten_nested: true
+
+    # Parameter prefix
+    prefix: ""
+
+  # Metrics
+  metrics:
+    # Auto-log metrics
+    auto_log: true
+
+    # Log step (for iterative processes)
+    log_step: true
+
+    # Metric prefix
+    prefix: ""
+
+    # Log interval (every N steps)
+    log_interval: 1
+
+  # Artifacts
+  artifacts:
+    # Auto-log artifacts
+    auto_log: true
+
+    # Artifact types to log
+    types:
+      - "model"
+      - "plots"
+      - "data"
+      - "code"
+      - "config"
+
+    # Compress artifacts
+    compress: true
+
+    # Compression format: "gzip", "bz2", "xz"
+    compression_format: "gzip"
+
+  # System metrics
+  system_metrics:
+    # Enable system metrics logging
+    enabled: true
+
+    # Metrics to log
+    metrics:
+      - "cpu_usage"
+      - "memory_usage"
+      - "disk_io"
+      - "network_io"
+      - "gpu_usage"
+      - "gpu_memory"
+
+    # Sampling interval (seconds)
+    sampling_interval: 10
+
+# Model logging configuration
+model_logging:
+  # Log model signature
+  log_signature: true
+
+  # Log input example
+  log_input_example: true
+
+  # Log model code
+  log_code: true
+
+  # Log pip requirements
+  log_requirements: true
+
+  # Log conda environment
+  log_conda_env: true
+
+  # Registered model name
+  registered_model_name: "${model_registry.model_name}"
+
+  # Model serialization format
+  serialization_format: "pytorch" # or "cloudpickle"
+
+  # Include preprocessing artifacts
+  include_preprocessing: true
+
+  # Include training metadata
+  include_metadata: true
+
+# Training-specific logging
+training:
+  # Log frequency (epochs)
+  log_frequency: 1
+
+  # Metrics to log
+  metrics:
+    - "train_loss"
+    - "val_loss"
+    - "learning_rate"
+    - "epoch"
+    - "batch_size"
+    - "reconstruction_error_mean"
+    - "reconstruction_error_std"
+    - "reconstruction_error_min"
+    - "reconstruction_error_max"
+    - "reconstruction_error_p50"
+    - "reconstruction_error_p95"
+    - "reconstruction_error_p99"
+
+  # Parameters to log
+  parameters:
+    - "epochs"
+    - "batch_size"
+    - "learning_rate"
+    - "optimizer"
+    - "loss_function"
+    - "model_architecture"
+    - "encoder_layers"
+    - "latent_dim"
+    - "dropout"
+    - "activation"
+    - "device"
+    - "seed"
+
+  # Artifacts to log
+  artifacts:
+    - "model"
+    - "training_plots"
+    - "loss_curves"
+    - "config"
+    - "baseline_statistics"
+    - "preprocessor"
+
+  # Save model checkpoints
+  save_checkpoints: true
+
+  # Checkpoint frequency (epochs)
+  checkpoint_frequency: 5
+
+# Inference-specific logging
+inference:
+  # Metrics to log
+  metrics:
+    - "num_samples"
+    - "num_anomalies"
+    - "anomaly_rate"
+    - "mean_reconstruction_error"
+    - "std_reconstruction_error"
+    - "inference_time"
+    - "throughput"
+    - "latency_p50"
+    - "latency_p95"
+    - "latency_p99"
+
+  # Parameters to log
+  parameters:
+    - "model_version"
+    - "threshold_type"
+    - "threshold_value"
+    - "batch_size"
+    - "device"
+
+  # Artifacts to log
+  artifacts:
+    - "anomaly_report"
+    - "detection_plots"
+    - "summary_statistics"
+
+  # Log predictions
+  log_predictions: false
+
+  # Log prediction sample size
+  prediction_sample_size: 100
+
+# User-specific model tracking
+user_models:
+  # Track per-user models
+  enabled: true
+
+  # User model naming convention
+  name_template: "{model_name}_user_{user_id}"
+
+  # Generic model name
+  generic_model_name: "{model_name}_generic"
+
+  # User model tags
+  user_tags:
+    model_scope: "user_specific"
+
+  # Generic model tags
+  generic_tags:
+    model_scope: "generic"
+
+# Model versioning
+versioning:
+  # Semantic versioning
+  use_semantic: true
+
+  # Version format
+  version_format: "v{major}.{minor}.{patch}"
+
+  # Auto-increment version
+  auto_increment: true
+
+  # Version tags
+  version_tags:
+    - "major"
+    - "minor"
+    - "patch"
+
+# Model comparison
+comparison:
+  # Enable model comparison
+  enabled: true
+
+  # Comparison metrics
+  metrics:
+    - "val_loss"
+    - "reconstruction_error_mean"
+    - "reconstruction_error_std"
+
+  # Comparison baseline
+  baseline_model: "production"
+
+  # Comparison threshold (% improvement required)
+  improvement_threshold: 0.05 # 5%
+
+# Cleanup configuration
+cleanup:
+  # Enable automatic cleanup
+  enabled: false
+
+  # Retention policy (days)
+  retention_days: 90
+
+  # Delete archived runs
+  delete_archived: true
+
+  # Delete failed runs
+  delete_failed: false
+
+  # Minimum runs to keep per experiment
+  min_runs_per_experiment: 10
+
+# Integration settings
+integrations:
+  # AWS S3
+  s3:
+    enabled: false
+    bucket: null
+    prefix: "mlflow-artifacts"
+
+  # Azure Blob Storage
+  azure:
+    enabled: false
+    container: null
+    connection_string: null
+
+  # GCS
+  gcs:
+    enabled: false
+    bucket: null
+    prefix: "mlflow-artifacts"
+
+  # Databricks
+  databricks:
+    enabled: false
+    workspace_url: null
+    token: null
+
+# Performance optimization
+performance:
+  # Async logging
+  async_logging: true
+
+  # Batch logging
+  batch_logging: true
+
+  # Batch size
+  batch_size: 100
+
+  # Flush interval (seconds)
+  flush_interval: 10
+
+  # Connection pooling
+  connection_pooling: true
+
+  # Max connections
+  max_connections: 10

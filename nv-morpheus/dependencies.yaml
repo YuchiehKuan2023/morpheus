@@ -1,0 +1,641 @@
+# SPDX-FileCopyrightText: Copyright (c) 2023-2025, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# SPDX-License-Identifier: Apache-2.0
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Dependency list for https://github.com/rapidsai/dependency-file-generator
+
+files:
+  # Includes all dependencies together in a single file
+  all:
+    output: conda
+    matrix:
+      cuda: ["12.8"]
+      arch: [x86_64, aarch64]
+    includes:
+      - benchmark_cpp
+      - build_cpp_build
+      - build_cpp_host
+      - checks
+      - cudatoolkit
+      - cudatoolkit-dev
+      - cve-mitigation
+      - data_retrieval
+      - optional_databricks
+      - development
+      - docs
+      - example-dfp-prod
+      - example-dlp
+      - example-gnn
+      - example-llms
+      - optional_databricks
+      - python
+      - runtime
+      - test_python_morpheus
+
+  # Common dependencies for developing with Morpheus.
+  # Includes: runtime, build, docs, test
+  # Excludes: examples
+  dev:
+    output: conda
+    matrix:
+      cuda: ["12.8"]
+      arch: [x86_64, aarch64]
+    includes:
+      - benchmark_cpp
+      - build_cpp_build
+      - build_cpp_host
+      - checks
+      - cudatoolkit-dev
+      - cve-mitigation
+      - data_retrieval
+      - development
+      - docs
+      - python
+      - runtime
+      - test_python_morpheus
+
+  # Dependencies that are needed to build Morpheus.
+  # Includes: runtime
+  # Excludes: test, examples
+  build:
+    output: none
+    matrix:
+      cuda: ["12.8"]
+      arch: [x86_64, aarch64]
+    includes:
+      - benchmark_cpp
+      - build_cpp_build
+      - build_cpp_host
+      - cudatoolkit-dev
+      - cve-mitigation
+      - data_retrieval
+      - development
+      - python
+      - runtime
+      - test_python_morpheus
+
+  # Dependencies that are needed to run Morpheus tests.
+  # Includes: runtime, examples
+  # Excludes: build, dev
+  test:
+    output: none
+    matrix:
+      cuda: ["12.8"]
+      arch: [x86_64, aarch64]
+    includes:
+      - benchmark_cpp
+      - cudatoolkit
+      - cve-mitigation
+      - data_retrieval
+      - development
+      - example-dfp-prod
+      - example-gnn
+      - example-llms
+      - python
+      - runtime
+      - test_python_morpheus
+
+  # Dependencies that are needed to generate the Morpheus documentation.
+  # Includes: build, runtime, examples
+  # Excludes: test
+  docs:
+    output: none
+    matrix:
+      cuda: ["12.8"]
+      arch: [x86_64]
+    includes:
+      - benchmark_cpp
+      - build_cpp_build
+      - build_cpp_host
+      - cudatoolkit-dev
+      - cve-mitigation
+      - data_retrieval
+      - docs
+      - example-dfp-prod
+      - example-gnn
+      - example-llms
+      - python
+      - runtime
+
+  # Only the dependencies that are needed to run core Morpheus. This is the smallest set of dependencies needed to run
+  # a Morpheus pipeline.
+  # Includes: none
+  # Excludes: build, dev, test, examples, docs
+  runtime:
+    output: conda
+    matrix:
+      cuda: ["12.8"]
+      arch: [x86_64, aarch64]
+    includes:
+      - cudatoolkit
+      - cve-mitigation
+      - python
+      - runtime
+
+  # Dependencies that are needed to run all Morpheus examples.
+  # Includes: runtime
+  # Excludes: build, dev, test
+  examples:
+    output: conda
+    matrix:
+      cuda: ["12.8"]
+      arch: [x86_64, aarch64]
+    includes:
+      - cve-mitigation
+      - example-abp-nvsmi
+      - example-dfp-prod
+      - example-dlp
+      - example-gnn
+      - example-llms
+      - python
+      - runtime
+      - optional_databricks
+
+
+  # Dependencies which are needed to run the model generation scripts in the `models` directory.
+  # Includes: none
+  # Excludes: runtime, build, dev, test, examples, docs
+  model-utils:
+    output: conda
+    matrix:
+      cuda: ["12.8"]
+      arch: [x86_64, aarch64]
+    includes:
+      - model-training-tuning
+      - python
+
+  # Dependencies which are used during the CI "checks" stage. Does not output any files.
+  checks:
+    output: none
+    includes:
+      - checks
+      - python
+
+  # morpheus-core pip dependencies are published as a morpheus package data file
+  morpheus_core:
+    output: requirements
+    requirements_dir: python/morpheus/morpheus
+    matrix:
+      arch: [x86_64, aarch64]
+    includes:
+      - morpheus_core_pip
+
+  # morpheus-dfp pip dependencies are published as a morpheus_dfp package data file
+  morpheus_dfp:
+    output: requirements
+    requirements_dir: python/morpheus_dfp/morpheus_dfp
+    matrix:
+      arch: [x86_64, aarch64]
+    includes:
+      - morpheus_core_pip
+
+  # morpheus-llm pip dependencies are published as a morpheus_llm package data file
+  morpheus_llm:
+    output: requirements
+    requirements_dir: python/morpheus_llm/morpheus_llm
+    matrix:
+      arch: [x86_64, aarch64]
+    includes:
+      - morpheus_core_pip
+      - morpheus_llm_pip
+
+  # dfp example conda dependencies
+  dfp_example:
+    output: conda
+    matrix:
+      cuda: ["12.8"]
+      arch: [x86_64, aarch64]
+    output: conda
+    conda_dir: examples/digital_fingerprinting/production/conda/environments
+    includes:
+      - example-dfp-container
+      - example-dfp-prod
+
+channels:
+  - conda-forge
+  - huggingface
+  - rapidsai
+  - rapidsai-nightly
+  - nvidia
+  - nvidia/label/dev
+  - pytorch
+
+dependencies:
+
+  python:
+    common:
+      - output_types: [conda]
+        packages:
+          - python=3.12
+
+  cudatoolkit:
+    specific:
+      - output_types: [conda]
+        matrices:
+          - matrix:
+              cuda: "12.8"
+            packages:
+              - cuda-cudart=12.8
+              - cuda-nvrtc=12.8
+              - cuda-nvtx=12.8
+              - cuda-version=12.8
+
+  cudatoolkit-dev:
+    specific:
+      - output_types: [conda]
+        matrices:
+          - matrix:
+              cuda: "12.8"
+            packages:
+              - cuda-cudart-dev=12.8
+              - cuda-nvml-dev=12.8
+              - cuda-nvrtc-dev=12.8
+              - cuda-nvtx-dev=12.8
+              - cuda-sanitizer-api
+              - cuda-version=12.8
+              - libcublas-dev # required by matx
+              - libcufft-dev # required by matx
+              - libcusolver-dev # required by matx
+              - libcurand-dev # required by matx
+
+
+
+  # Build dependencies for Morpheus on the target arch. Mirrors the `build` section in
+  # ci/conda/recipes/morpheus/meta.yaml
+  build_cpp_build:
+    common:
+      - output_types: [conda]
+        packages:
+          # Compilers
+          - cuda-nvcc=12.8
+          - cxx-compiler
+          - gxx=12.1
+
+          # Non-Compiler Dependencies
+          - automake=1.16.5 # Needed for DOCA build
+          - c-ares=1.32 # 1.33 causes an undefined symbol error
+          - ccache
+          - cmake=3.27
+          - cuda-cudart-dev=12.8
+          - cuda-version=12.8
+          - indicators=2.3 # C++ library for displaying progress bars
+          - libtool # Needed for DOCA build
+          - ninja=1.11
+          - pkg-config=0.29 # for mrc cmake
+          - sysroot_linux-64>=2.28
+
+  # Build dependencies for Morpheus on the host arch. Mirrors the `host` section in
+  # ci/conda/recipes/morpheus/meta.yaml
+  build_cpp_host:
+    common:
+      - output_types: [conda]
+        packages:
+          # Include: cudatoolkit-dev
+          - cuda-python=12.8
+          - &cudf cudf=25.02
+          - cython=3.0
+          - glog>=0.7.1,<0.8
+          - gtest=1.14
+          - libcudf=25.02
+          - librdkafka=2.6.1
+          - libzlib>=1.3.1,<1.4
+          - &mrc mrc=25.10
+          - nlohmann_json=3.11
+          - pybind11-stubgen=0.10.5
+          - pylibcudf=25.02
+          - rapidjson=1.1.0
+          - rdma-core>=48 # Needed for DOCA.
+          - scikit-build=0.17.6
+          - versioneer-518
+
+  checks:
+    common:
+      - output_types: [conda]
+        packages:
+          - pre-commit
+
+  data_retrieval:
+    common:
+      - output_types: [conda]
+        packages:
+          - git-lfs
+
+  development:
+    common:
+      - output_types: [conda]
+        packages:
+          - clangdev=16
+          - flake8
+          - isort
+          - pylint=3.0.3
+          - &pynvml pynvml=12
+          # We are currently depending on some deprecated functionality removed in setuptools 80+ #2224
+          - setuptools>=75,<80
+          - versioneer
+          - yapf=0.43
+    specific:
+      - output_types: [conda]
+        matrices:
+          - matrix:
+              arch: x86_64
+            packages:
+              # IWYU v0.20 doesn't support aarch64, but is supported in 0.21+
+              - include-what-you-use=0.20
+              # Vale does not have arm64 builds for linux
+              - vale=3.7
+              - vale-styles-microsoft
+              - vale-styles-write-good
+          - matrix:
+              arch: aarch64
+
+  docs:
+    common:
+      - output_types: [conda]
+        packages:
+          - breathe>=4.36
+          - doxygen=1.9.2
+          - ipython
+          - myst-parser>=4.0
+          - nbsphinx
+          - sphinx>=8.2
+          - sphinx-copybutton>=0.5
+          - pip:
+            - exhale>=0.3.7
+            - nvidia-sphinx-theme>=0.0.7
+
+  benchmark_cpp:
+    common:
+      - output_types: [conda]
+        packages:
+          - benchmark=1.8.3
+
+  optional_databricks:
+    common:
+      - output_types: [conda]
+        packages:
+          - pip
+          - pip:
+            - databricks-cli < 0.100
+            - databricks-connect
+
+  # Runtime dependencies for Morpheus. Included in nearly all output files so dependencies should
+  # be added only if it is needed to run the core Morpheus library.
+  # This should be synced with `run` in ci/conda/recipes/morpheus/meta.yaml
+  runtime:
+    common:
+      - output_types: [conda]
+        packages:
+          # Include: cudatoolkit
+          # Include: python
+          # Include: cve-mitigation
+          - appdirs
+          - beautifulsoup4=4.12
+          - click>=8, <8.2 # work-around for #2219
+          # - cuda-version=12.8 ##
+          - *cudf
+          - cupy<13.4
+          - datacompy=0.13.1
+          - dill=0.3.7
+          - docker-py>=7.1,<8
+          - elasticsearch==8.9.0
+          - feedparser=6.0
+          - grpcio
+          - grpcio-status
+          # - libwebp=1.3.2 # Required for CVE mitigation: https://nvd.nist.gov/vuln/detail/CVE-2023-4863 ##
+          - mlflow>=2.18
+          - *mrc
+          - networkx=2.8.8
+          - numba=0.60 # Pin version to avoid https://github.com/nv-morpheus/Morpheus/issues/2166
+          - numpydoc=1.5
+          - numba=0.60.0
+          - pydantic
+          - python-confluent-kafka=2.6.1
+          - python-graphviz
+          - pluggy=1.3
+          - rapids-dask-dependency=25.02 # provides dask and distributed
+          - requests>=2.32.3,<3
+          - requests-cache=1.1
+          - scikit-learn=1.3.2
+          - sqlalchemy<2.0 # 2.0 is incompatible with pandas=1.3
+          - tqdm=4
+          - tritonclient=2.34
+          - typing_utils=0.1
+          - urllib3>=2.3,<3
+          - watchdog=3.0
+          - websockets
+          - yaml=0.2
+          - pip
+          - pip:
+            - &torch-extra-index --extra-index-url https://download.pytorch.org/whl/cu124
+            - &gpudb gpudb>=7.2.2.3
+    specific:
+      - output_types: [conda]
+        matrices:
+          - matrix:
+              arch: x86_64
+            packages:
+              - pip:
+                - &marshmallow marshmallow>=3.18,<4.0 # Avoid marshmallow 4.0+ which is incompatible #2232
+                # Milvus does not have arm64 builds for linux
+                - &milvus milvus==2.3.5 # update to match pymilvus when available
+                - &pymilvus pymilvus==2.3.6
+                - &torchcu torch==2.4.0+cu124
+          - matrix:
+              arch: aarch64
+            packages:
+              - pip:
+                - &torch torch==2.4.0
+
+  test_python_morpheus:
+    common:
+      - output_types: [conda]
+        packages:
+          - &nodejs nodejs=18.*
+          - pytest-asyncio
+          - pytest-benchmark=4.0
+          - pytest-cov
+          - pytest=7.4.4
+          - &python-docx python-docx==1.1.0
+          - pip
+          - pip:
+              - pytest-kafka[kafka-python-ng]>=0.8,<0.9
+    specific:
+      - output_types: [conda]
+        matrices:
+          - matrix:
+              arch: x86_64
+            packages:
+              # pypdfium2 does not have Conda arm64 builds, but does have pip arm64 builds
+              - &pypdfium2 pypdfium2==4.30
+          - matrix:
+              arch: aarch64
+            packages:
+              - pip:
+                - *pypdfium2
+
+  morpheus_core_pip:
+    common:
+      - output_types: [requirements]
+        packages:
+           - *torch-extra-index
+    specific:
+      - output_types: [requirements]
+        matrices:
+          - matrix:
+              arch: x86_64
+            packages:
+              - *torchcu
+          - matrix:
+              arch: aarch64
+            packages:
+              - *torch
+
+  morpheus_llm_pip:
+    common:
+      - output_types: [requirements]
+        packages:
+           - &faiss-cpu faiss-cpu==1.9 # Pinning to 1.9 due to incompatibility with numpy
+           - &google-search-results google-search-results==2.4
+           - *gpudb
+           - &langchain langchain==0.1.16
+           - &langchain-nvidia-ai-endpoints langchain-nvidia-ai-endpoints==0.0.11
+           - &langchain-openai langchain-openai==0.1.3
+           - *marshmallow
+           - *milvus
+           - &openai openai==1.13.*
+           - *pymilvus
+
+  example-dfp-prod:
+    common:
+      - output_types: [conda]
+        packages:
+          - *nodejs
+          - boto3=1.35
+          - kfp
+          - papermill=2.6.0
+          - s3fs=2024.10
+          - pip
+          - pip:
+            - python-logging-loki
+
+  # packages needed in the DFP example container
+  example-dfp-container:
+    common:
+      - output_types: [conda]
+        packages:
+          - morpheus-dfp=25.10
+          - tini=0.19
+          - pip:
+            - *torch-extra-index
+    specific:
+      - output_types: [conda]
+        matrices:
+          - matrix:
+              arch: x86_64
+            packages:
+              - pip:
+                - *torchcu
+          - matrix:
+              arch: aarch64
+            packages:
+              - pip:
+                - *torch
+
+  example-gnn:
+    common:
+      - output_types: [conda]
+        packages:
+          - &cuml cuml=25.02.*
+          - pip
+          - pip:
+            - --find-links https://data.dgl.ai/wheels/torch-2.4/cu124/repo.html
+            - dgl
+
+  example-abp-nvsmi:
+    common:
+      - output_types: [conda]
+        packages:
+          - *pynvml
+
+  example-llms:
+    common:
+      - output_types: [conda]
+        packages:
+          - &transformers transformers>=4.40,<5.0
+          - anyio>=3.7
+          - arxiv=1.4
+          - httpx>=0.23,<0.28 # work-around for https://github.com/openai/openai-python/issues/1915
+          - huggingface_hub>=0.24,<1.0
+          - jsonpatch>=1.33
+          - numexpr
+          - &onnx onnx=1.15
+          - *openai
+          - pypdf=3.17.4
+          - *python-docx
+          - pip
+          - pip:
+            - *faiss-cpu
+            - *google-search-results
+            - *langchain
+            - *langchain-nvidia-ai-endpoints
+            - *langchain-openai
+            - sentence-transformers==2.7 # using pip now instead of conda to avoid install of pytorch cpu
+    specific:
+      - output_types: [conda]
+        matrices:
+          - matrix:
+              arch: x86_64
+            packages:
+              # newspaper3k is packaged noarch, but some deps jieba3k are not having issues resolving on arm64
+              - &newspaper3k newspaper3k==0.2.8
+              - *pypdfium2
+          - matrix:
+              arch: aarch64
+            packages:
+              - pip:
+                - *newspaper3k
+                - *pypdfium2
+
+
+  model-training-tuning:
+    common:
+      - output_types: [conda]
+        packages:
+          - *cuml
+          - *transformers
+          - scikit-learn=1.3.2
+          - jupyterlab
+          - matplotlib
+          - *onnx
+          - pandas
+          - seaborn
+          - seqeval=1.2.2
+          - xgboost
+          - pip
+          - pip:
+            - tensorrt-cu12
+
+  cve-mitigation:
+    common:
+      - output_types: [conda]
+        packages:
+          - libwebp=1.3.2 # Required for CVE mitigation: https://nvd.nist.gov/vuln/detail/CVE-2023-4863
+
+  example-dlp:
+    common:
+      - output_types: [conda]
+        packages:
+          - datasets=3.6
+          - onnxruntime=1.22=*cuda
+          # gliner intentionally omitted due to https://github.com/urchade/GLiNER/issues/267

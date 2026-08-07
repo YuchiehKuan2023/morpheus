@@ -1,0 +1,418 @@
+# DFP Integrated Batch Pipeline Configuration
+# NVIDIA Morpheus DFP - Official Integrated Training + Inference Pattern
+#
+# This configuration implements NVIDIA's integrated batch approach where training
+# and inference run in a SINGLE PROCESS with SHARED CACHE to eliminate cold start.
+#
+# Reference:
+#   - examples/digital_fingerprinting/production/dfp_integrated_training_batch_pipeline.py
+#   - morpheus/modules/dfp_deployment.py
+#   - morpheus/modules/dfp_training_pipe.py
+#   - morpheus/modules/dfp_inference_pipe.py
+
+# Import base configuration
+defaults:
+  - base_config
+
+# ==================================================
+# Pipeline Configuration
+# ==================================================
+pipeline:
+  name: "dfp_integrated_batch"
+  type: "integrated_batch"
+  description: "NVIDIA DFP integrated batch pipeline - training + inference in single process"
+
+# ==================================================
+# DFP Configuration (NVIDIA Standard)
+# ==================================================
+dfp:
+  # User ID column
+  userid_column: "username"
+
+  # Timestamp column
+  timestamp_column: "timestamp"
+
+  # Preprocessing (inherit from base_config.yaml)
+  preprocessing:
+    schema_file: "config/feature_schema.yaml"
+    feature_set: "default"
+    fill_missing: true
+    fill_value: 0
+    normalize: true
+    normalization_method: "standard"
+
+    # CRITICAL: Preserve coordinate columns for geographic features
+    # These columns must survive schema processing to enable travel_speed_kmph calculation
+    preserve_columns:
+      - "_batch_id"
+      - "location_geoCoordinates_latitude"
+      - "location_geoCoordinates_longitude"
+
+    # Geographic features (NVIDIA Grafana pattern)
+    # Enable velocity-based anomaly detection (impossible travel)
+    enable_geographic_features: true
+
+    # Speed threshold for impossible travel detection (km/h)
+    # 800 km/h = max commercial aircraft cruising speed (~900 km/h with margin)
+    # Above this: physically impossible for civilian travel
+    impossible_travel_speed_kmph: 800
+
+    # Distance threshold for meaningful travel (km)
+    # 500 km = minimum distance to consider for velocity detection
+    # Below this: local movement, not relevant for impossible travel
+    distance_threshold_km: 500
+
+  # ==================================================
+  # TRAINING PATH CONFIGURATION (NVIDIA Standard)
+  # ==================================================
+  # Reference: morpheus/modules/dfp_training_pipe.py
+  #
+  # Training uses cache_mode="aggregate" to accumulate statistics:
+  #   - last_train_count (for increment features)
+  #   - distinct values (apps, locations, devices)
+  #
+  # NVIDIA defaults:
+  #   - min_history: 300 (require 300 events before training)
+  #   - min_increment: 300 (train on 300+ new events)
+  #   - max_history: "60d" (60-day training window)
+  #   - cache_mode: "aggregate" (accumulate, don't flush)
+  # ==================================================
+  training:
+    # Minimum history events per user required for training
+    # NVIDIA default: 300
+    min_history: 300
+
+    # Minimum new events required to trigger training
+    # NVIDIA default: 300
+    min_increment: 300
+
+    # Maximum history duration (training window)
+    # NVIDIA default: "60d" (60 days)
+    max_history: "60d"
+
+    # Cache mode: AGGREGATE (accumulate statistics)
+    # CRITICAL: This populates cache with last_train_count
+    cache_mode: "aggregate"
+
+    # Cache directory (shared with inference)
+    cache_dir: ".cache/dfp"
+
+    # Timestamp column
+    timestamp_column: "timestamp"
+
+  # ==================================================
+  # INFERENCE PATH CONFIGURATION (NVIDIA Module API)
+  # ==================================================
+  # Reference: morpheus_dfp/modules/dfp_rolling_window.py
+  #
+  # Inference uses cache_mode="batch" (CONTINUOUS STREAMING):
+  #   - Reads last_train_count from disk (training baseline)
+  #   - Reloads cache from disk on each event
+  #   - Preserves training baseline across events
+  #   - NVIDIA Module API pattern adapted for continuous streaming
+  #
+  # NVIDIA Module API batch mode:
+  #   - min_history: 1 (accept any events for inference)
+  #   - min_increment: 0 (no increment requirement)
+  #   - max_history: "1d" (1-day inference window)
+  #   - cache_mode: "batch" (reload from disk per event)
+  #   - cache_to_disk: true (enable disk persistence)
+  # ==================================================
+  inference:
+    # Minimum history events per user for inference
+    # NVIDIA default: 1 (accept any)
+    min_history: 1
+
+    # Minimum increment for inference
+    # NVIDIA default: 0 (no requirement)
+    min_increment: 0
+
+    # Maximum history duration (inference window)
+    # NVIDIA default: "1d" (1 day)
+    max_history: "1d"
+
+    # Cache mode: BATCH (MODULE API CONTINUOUS STREAMING)
+    # Reloads from disk to preserve training baseline
+    cache_mode: "batch"
+
+    # Cache directory (MUST match training for shared cache)
+    cache_dir: ".cache/dfp"
+
+    # Timestamp column
+    timestamp_column: "timestamp"
+
+  # Data prep (inherited from base_config.yaml)
+  data_prep:
+    feature_columns: [] # Auto-detected from schema
+
+    # CRITICAL: Geographic feature handling (NVIDIA Grafana pattern)
+    # INCLUDE travel_speed_kmph → Model learns normal travel patterns (0-100 km/h typical)
+    # EXCLUDE distance_km, ts_delta_hour, impossible_travel → Rule-based metadata only
+    exclude_columns:
+      - "username"
+      - "timestamp"
+      - "_batch_id"
+      - "_row_hash"
+      - "distance_km" # Geographic metadata (rule-based alerts only)
+      - "ts_delta_hour" # Geographic metadata (rule-based alerts only)
+      - "impossible_travel" # Rule-based flag (not for ML training)
+    validate_features: true
+
+# ==================================================
+# Training Configuration (Model Hyperparameters)
+# ==================================================
+training:
+  # Number of training epochs
+  epochs: 100
+
+  # Validation split ratio
+  validation_size: 0.1
+
+  # Minimum samples required for training
+  min_training_samples: 100
+
+  # Use validation set for loss statistics
+  use_val_for_loss_stats: true
+
+  # Random seed
+  seed: 42
+
+  # Model configuration (dfencoder AutoEncoder)
+  model_kwargs:
+    # Encoder layers (NVIDIA default: [512, 500])
+    encoder_layers: [512, 500]
+
+    # Decoder layers (NVIDIA default: [512])
+    decoder_layers: [512]
+
+    # Activation function
+    activation: "relu"
+
+    # Swap probability (denoising)
+    swap_probability: 0.2
+
+    # Learning rate (NVIDIA default: 0.01 for SGD)
+    learning_rate: 0.01
+
+    # Learning rate decay
+    learning_rate_decay: 0.99
+
+    # Batch size
+    batch_size: 512
+
+    # Evaluation batch size
+    eval_batch_size: 1024
+
+    # Optimizer
+    optimizer: "sgd"
+
+    # Feature scaler
+    scaler: "standard"
+
+    # Loss scaler
+    loss_scaler: "standard"
+
+    # Early stopping patience
+    patience: 5
+
+# ==================================================
+# Inference Configuration (Anomaly Detection)
+# ==================================================
+inference:
+  # Batch size for inference
+  batch_size: 64
+
+  # Anomaly detection threshold
+  anomaly_threshold:
+    # Threshold type: "z_score", "percentile", "absolute"
+    type: "z_score"
+
+    # Threshold value (z-score > 2.0 = anomaly)
+    # NVIDIA standard: z>2.0 (official DFP threshold)
+    value: 2.0
+
+    # Adaptive threshold (disabled for consistency)
+    adaptive: false
+
+  # Model selection strategy
+  model_selection:
+    # Prefer user-specific model over generic
+    prefer_user_specific: true
+
+    # Fallback to generic model if user model not found
+    fallback_to_generic: true
+
+    # Model version: "latest", "production", or specific version
+    version: "latest"
+
+    # MLflow stage filter: null, "Production", "Staging"
+    stage: null
+
+  # Output configuration
+  output:
+    format: "csv"
+    include_all_rows: false # Only anomalies
+    include_details: true
+    include_model_metadata: true
+    compression: null
+
+# ==================================================
+# FFT Time-Series Configuration (Layer 3)
+# ==================================================
+# FFT-based burst detection for temporal patterns
+# Complements Layer 2 (DFP AutoEncoder)
+#
+# Use Cases:
+#   - Credential spray attacks (20+ logins in 2 minutes)
+#   - Rapid location hopping (5+ location changes in 10 minutes)
+#   - Event bursts (sudden spike in activity)
+#
+# Reference: nv-morpheus TimeSeriesStage pattern
+# ==================================================
+fft:
+  # Enable/disable FFT Layer 3 detection
+  # Default: false (disabled until tested)
+  enabled: false
+
+  # Signal type to analyze
+  # Options:
+  #   - "event_count": Event count histogram per time window (default)
+  #   - "location": Location change binary signal
+  #   - "velocity": Travel speed sequence (travel_speed_kmph)
+  signal_type: "event_count"
+
+  # Time window for event_count binning
+  # Pandas Timedelta format: "1H" (1 hour), "30T" (30 minutes), "1D" (1 day)
+  # Smaller window = more sensitive to short bursts
+  # Default: "1H" (1 hour bins)
+  window: "1H"
+
+  # Frequency filtering percentile (0-100)
+  # Higher = more frequencies filtered = more sensitive
+  # NVIDIA default: 90 (filter bottom 90% of frequencies)
+  # Typical range: 85-95
+  percentile: 90
+
+  # Z-score threshold for anomaly detection
+  # Higher = less sensitive (fewer false positives)
+  # NVIDIA default: 8 (8 standard deviations)
+  # Typical range: 6-10
+  z_threshold: 8
+
+  # Minimum signal length to run FFT
+  # FFT requires sufficient data points
+  # Default: 10 samples minimum
+  min_history: 10
+
+# ==================================================
+# MLflow Configuration (Model Registry)
+# ==================================================
+mlflow:
+  # MLflow tracking URI
+  tracking_uri: "http://localhost:5001"
+
+  # Experiment name
+  experiment_name: "dfp/pipeline"
+
+  # Model naming pattern (NVIDIA standard)
+  # Per-user models: DFP-{user_id}
+  # Generic model: DFP-generic
+  model_name_formatter: "DFP-{user_id}"
+
+  # Enable per-user models
+  per_user_models: true
+
+  # Incremental training (load v1 → train → save v2)
+  incremental_training: true
+
+  # Model retention policy
+  retention:
+    # Keep last N versions per model
+    keep_versions: 7
+
+    # Auto-cleanup versions older than N days
+    cleanup_days: 30
+
+# ==================================================
+# Execution Configuration
+# ==================================================
+execution:
+  # Device: "cpu", "cuda", "auto"
+  device: "cpu"
+
+  # Number of workers
+  num_workers: 1
+
+  # Enable progress bars
+  show_progress: true
+
+  # Verbose output
+  verbose: true
+
+  # Dry run (no actual training/inference)
+  dry_run: false
+
+  # Profile execution
+  profile: false
+
+# ==================================================
+# Logging Configuration
+# ==================================================
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "logs/integrated_batch.log"
+  console: true
+  rotation:
+    enabled: true
+    max_bytes: 10485760 # 10 MB
+    backup_count: 5
+
+# ==================================================
+# Feature Configuration
+# ==================================================
+# Feature columns produced by preprocessing (DFPPreprocessing module output)
+# NVIDIA official features from columns_ae_azure.txt (9 features total)
+# + Geographic velocity feature (NVIDIA Grafana pattern)
+feature_columns:
+  - "appDisplayName"
+  - "clientAppUsed"
+  - "deviceDetailbrowser"
+  - "deviceDetaildisplayName"
+  - "deviceDetailoperatingSystem"
+  - "statusfailureReason"
+  - "appincrement"
+  - "locincrement"
+  - "logcount"
+  - "travel_speed_kmph" # NVIDIA Grafana: Model learns normal travel patterns (0-800 km/h)
+# ==================================================
+# NVIDIA MODULAR STREAMING PATTERN NOTES
+# ==================================================
+# This configuration implements NVIDIA's modular streaming pattern:
+#
+# 1. Training Path (cache_mode="aggregate"):
+#    - Populates cache with last_train_count
+#    - Accumulates statistics continuously
+#    - Saves per-user models to MLflow
+#
+# 2. Inference Path (cache_mode="aggregate"):
+#    - Reads last_train_count from training
+#    - Preserves cache for continuous streaming
+#    - Real-time streaming inference (not batch)
+#    - Official NVIDIA modular streaming pattern
+#
+# 3. Shared Cache (CRITICAL):
+#    - Training and inference use SAME cache directory
+#    - Both paths preserve cache with aggregate mode
+#    - No cache cold start issue
+#
+# 4. Expected Outcome:
+#    - Detection rate: ~11% (NVIDIA benchmark)
+#    - Anomaly scores <10 (using last_train_count baseline)
+#    - Per-user incremental training
+#    - Real-time streaming inference
+#
+# Reference:
+#   - nv-morpheus/python/morpheus_dfp/morpheus_dfp/modules/dfp_training_pipe.py
+#   - nv-morpheus/python/morpheus_dfp/morpheus_dfp/modules/dfp_inference_pipe.py
+#   - nv-morpheus/python/morpheus_dfp/morpheus_dfp/modules/dfp_rolling_window.py

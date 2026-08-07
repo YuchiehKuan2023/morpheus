@@ -1,0 +1,296 @@
+# User Baseline Configuration
+# Defines normal behavior for each of the 50 trained users
+# This is learned from 70 days of CLEAN training data
+
+# INSTRUCTIONS TO POPULATE:
+# 1. Review your training data for each user
+# 2. Extract typical patterns (apps, locations, work hours, activity ranges)
+# 3. Fill in this template for ALL 50 users
+# 4. Use actual email addresses from your Azure AD data
+
+users:
+  # Example User 1 - Sales Representative
+  andrew.thomas@fabrikam.com:
+    normal_behavior:
+      typical_apps:
+        - "Salesforce"
+        - "Office 365"
+        - "LinkedIn Sales Navigator"
+        - "Zoom"
+      typical_locations:
+        - city: "Seattle, WA"
+          lat: 47.6062
+          lon: -122.3321
+      typical_browsers:
+        - "Chrome"
+        - "Edge"
+      typical_os:
+        - "Windows 10"
+      work_hours:
+        start: 8 # 8 AM
+        end: 17 # 5 PM
+      work_days: [0, 1, 2, 3, 4] # Monday-Friday (0=Monday)
+      typical_activity_range:
+        min: 15
+        max: 35
+      typical_apps_per_session: 3
+      never_accessed:
+        - "Azure Portal"
+        - "AWS Console"
+        - "GitHub"
+      travel_pattern: "stationary" # or "occasional" or "frequent"
+      privileged_access: false
+      user_role: "sales"
+
+  # Example User 2 - DevOps Engineer
+  james.rodriguez@fabrikam.com:
+    normal_behavior:
+      typical_apps:
+        - "Azure Portal"
+        - "GitHub"
+        - "AWS Console"
+        - "Grafana"
+        - "Slack"
+      typical_locations:
+        - city: "Austin, TX"
+          lat: 30.2672
+          lon: -97.7431
+      typical_browsers:
+        - "Firefox"
+        - "Chrome"
+      typical_os:
+        - "Linux"
+        - "macOS"
+      work_hours:
+        start: 10 # Flexible hours
+        end: 22 # Often works late
+      work_days: [0, 1, 2, 3, 4, 5] # Sometimes works weekends
+      typical_activity_range:
+        min: 40
+        max: 90
+      typical_apps_per_session: 6
+      never_accessed:
+        - "Salesforce"
+        - "LinkedIn"
+      travel_pattern: "stationary"
+      privileged_access: true # Has admin rights
+      user_role: "devops"
+
+  # Example User 3 - Marketing Manager
+  sarah.chen@fabrikam.com:
+    normal_behavior:
+      typical_apps:
+        - "Office 365"
+        - "Adobe Creative Cloud"
+        - "HubSpot"
+        - "Google Analytics"
+        - "Zoom"
+      typical_locations:
+        - city: "San Francisco, CA"
+          lat: 37.7749
+          lon: -122.4194
+        - city: "Los Angeles, CA"
+          lat: 34.0522
+          lon: -118.2437
+      typical_browsers:
+        - "Chrome"
+      typical_os:
+        - "macOS"
+      work_hours:
+        start: 9
+        end: 18
+      work_days: [0, 1, 2, 3, 4]
+      typical_activity_range:
+        min: 20
+        max: 50
+      typical_apps_per_session: 4
+      travel_pattern: "frequent" # Travels for conferences
+      privileged_access: false
+      user_role: "marketing"
+
+  # Example User 4 - Finance Analyst
+  michael.johnson@fabrikam.com:
+    normal_behavior:
+      typical_apps:
+        - "SAP"
+        - "Office 365"
+        - "PowerBI"
+        - "Excel Online"
+      typical_locations:
+        - city: "New York, NY"
+          lat: 40.7128
+          lon: -74.0060
+      typical_browsers:
+        - "Edge"
+        - "Chrome"
+      typical_os:
+        - "Windows 10"
+      work_hours:
+        start: 7 # Early start
+        end: 17
+      work_days: [0, 1, 2, 3, 4]
+      typical_activity_range:
+        min: 25
+        max: 45
+      typical_apps_per_session: 3
+      never_accessed:
+        - "GitHub"
+        - "AWS Console"
+      travel_pattern: "stationary"
+      privileged_access: false
+      user_role: "finance"
+
+  # Example User 5 - HR Manager
+  emily.davis@fabrikam.com:
+    normal_behavior:
+      typical_apps:
+        - "Workday"
+        - "Office 365"
+        - "LinkedIn Recruiter"
+        - "Teams"
+      typical_locations:
+        - city: "Chicago, IL"
+          lat: 41.8781
+          lon: -87.6298
+      typical_browsers:
+        - "Chrome"
+      typical_os:
+        - "Windows 10"
+      work_hours:
+        start: 8
+        end: 17
+      work_days: [0, 1, 2, 3, 4]
+      typical_activity_range:
+        min: 18
+        max: 35
+      typical_apps_per_session: 3
+      travel_pattern: "occasional"
+      privileged_access: false
+      user_role: "hr"
+
+  # ========================================
+  # ADD REMAINING 45 USERS HERE
+  # ========================================
+  # Copy the template above and fill in actual values from your training data
+  #
+  # To extract user baselines from your training data:
+  # 1. Run: python scripts/utils/extract_user_baselines.py --input "data/input/train/*.jsonl" --output config/user_baselines_generated.yaml
+  # 2. Review and adjust as needed
+  # 3. Merge into this file or replace it
+  # 4. Ensure all 50 users are represented
+
+  # user.6@fabrikam.com:
+  #   normal_behavior:
+  #     typical_apps: [...]
+  #     typical_locations: [...]
+  #     ...
+
+  # user.7@fabrikam.com:
+  #   normal_behavior:
+  #     typical_apps: [...]
+  #     typical_locations: [...]
+  #     ...
+
+  # ... continue for all 50 users ...
+
+# ========================================
+# Anomaly Generation Rules
+# ========================================
+anomaly_distribution:
+  # What percentage of users should have anomalies in generated dataset?
+  # Realistic: Not everyone is compromised - only 30-40%
+  percentage_users_with_anomalies: 0.35 # 35% = ~18 of 50 users
+
+  # Distribution of anomaly types
+  anomaly_types:
+    impossible_travel:
+      probability: 0.25 # 25% of anomalies
+      description: "Access from geographically distant location in impossible timeframe"
+      severity: "high"
+      applies_to: "all" # Can happen to any user
+
+    off_hours_access:
+      probability: 0.20 # 20% of anomalies
+      description: "Access outside trained work hours (per user baseline)"
+      severity: "medium"
+      applies_to: ["users without late-night work pattern"]
+      # NOTE: Will NOT generate for users with work_hours.end >= 20
+
+    unusual_application:
+      probability: 0.15 # 15% of anomalies
+      description: "Access to application never seen during training"
+      severity: "medium"
+      applies_to: "all"
+
+    excessive_activity:
+      probability: 0.20 # 20% of anomalies
+      description: "Activity count > 2x user's typical maximum"
+      severity: "medium"
+      applies_to: "all"
+
+    privilege_escalation:
+      probability: 0.10 # 10% of anomalies
+      description: "Non-privileged user accessing admin resources"
+      severity: "critical"
+      applies_to: ["users without privileged_access"]
+      # NOTE: Will NOT generate for users with privileged_access: true
+
+    unusual_device:
+      probability: 0.10 # 10% of anomalies (benign)
+      description: "Access from browser/OS never seen in training"
+      severity: "low"
+      applies_to: "all"
+      malicious: false # This is often benign (new laptop, etc.)
+
+# ========================================
+# Global Settings
+# ========================================
+settings:
+  # Global location database for impossible travel
+  global_locations:
+    - city: "Moscow, Russia"
+      lat: 55.7558
+      lon: 37.6173
+      suspicious: true
+    - city: "Beijing, China"
+      lat: 39.9042
+      lon: 116.4074
+      suspicious: false
+    - city: "Tokyo, Japan"
+      lat: 35.6762
+      lon: 139.6503
+      suspicious: false
+    - city: "Lagos, Nigeria"
+      lat: 6.5244
+      lon: 3.3792
+      suspicious: true
+    - city: "Sydney, Australia"
+      lat: -33.8688
+      lon: 151.2093
+      suspicious: false
+    - city: "London, UK"
+      lat: 51.5074
+      lon: -0.1278
+      suspicious: false
+    - city: "Mumbai, India"
+      lat: 19.0760
+      lon: 72.8777
+      suspicious: false
+    - city: "São Paulo, Brazil"
+      lat: -23.5505
+      lon: -46.6333
+      suspicious: false
+
+  # Unusual applications (not in typical_apps)
+  unusual_applications:
+    - "TOR Browser"
+    - "Kali Linux Tools"
+    - "Anonymous VPN"
+    - "File Transfer Pro"
+    - "Remote Desktop (unknown)"
+    - "Cryptocurrency Wallet"
+
+  # Date range for synthetic generation
+  default_date_range:
+    start_days_ago: 30 # Generate for last 30 days
+    end_days_ago: 0 # Up to today

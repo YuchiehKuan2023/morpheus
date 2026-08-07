@@ -1,0 +1,23 @@
+{
+  "tasks": [
+    {
+      "type": "inference",
+      "properties": {
+        "timestamp_column_name": "timestamp",
+        "userid_column_name": "username",
+        "cache_dir": ".cache/dfp",
+        "model_name_formatter": "DFP-{user_id}",
+        "infer_data_glob": "data/input/train/azure_ad_train.jsonl",
+        "cache_mode": "batch",
+        "min_history": 1,
+        "min_increment": 0,
+        "max_history": "1d"
+      }
+    }
+  ],
+  "metadata": {
+    "description": "Inference configuration for DFP integrated batch pipeline",
+    "created": "2025-11-19",
+    "notes": "Uses same training data for inference testing. Cache dir matches training for proper model reuse. All paths resolve relative to project root (morpheus-dfp/)."
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "trained_at": "2026-05-07T07:53:03.763705+00:00",
+  "user_id": null,
+  "training_days": 130,
+  "date_range": [
+    "2025-12-16",
+    "2026-05-06"
+  ],
+  "total_anomalies": 1760,
+  "data_mode": "all"
+}

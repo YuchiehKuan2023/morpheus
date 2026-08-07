@@ -1,0 +1,35 @@
+version: "3.8"
+
+# All application services (Kafka, MLflow, Qdrant, AI pipelines, frontend)
+# are managed by services/start_services.sh via tmux.
+# This file is intentionally scoped to TimescaleDB only to avoid port and
+# configuration conflicts with the native service stack.
+
+services:
+  # TimescaleDB — time-series PostgreSQL for anomaly trend analytics
+  # Runs on port 5433 alongside the native PG18 on 5432.
+  # Switch the application to this instance by setting POSTGRES_PORT=5433 in .env
+  # after running: scripts/db/migrate_to_timescaledb.sh
+  timescaledb:
+    image: timescale/timescaledb-ha:pg17
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-dfp_ai}
+      POSTGRES_USER: ${POSTGRES_USER:-dfp_ai}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-}
+    volumes:
+      - timescaledb-data:/home/postgres/pgdata/data
+    restart: unless-stopped
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U ${POSTGRES_USER:-dfp_ai} -d ${POSTGRES_DB:-dfp_ai}",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  timescaledb-data:

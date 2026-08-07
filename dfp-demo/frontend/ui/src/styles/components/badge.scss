@@ -1,0 +1,43 @@
+.dfp-badge {
+  &:not(.light) {
+    background: var(--brand-black) !important;
+    color: #ffffff !important;
+  }
+
+  &.light {
+    background: #ffffff !important;
+    color: var(--brand-black) !important;
+  }
+
+  &.lime {
+    background: var(--brand-pale-lime) !important;
+    color: var(--brand-black) !important;
+  }
+
+  border-radius: 0.375rem !important;
+  border: none !important;
+  padding: 0.25rem 0.75rem !important;
+  font-size: 0.75rem !important;
+  font-weight: 500 !important;
+
+  &:hover {
+    &:not(.light):not(.lime) {
+      background: hsl(222 47% 15%) !important;
+    }
+  }
+
+  &.md {
+    padding: 0.375rem 0.875rem !important;
+    font-size: 0.875rem !important;
+    font-weight: 600 !important;
+  }
+}
+
+.kpi-card {
+  .dfp-badge {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}

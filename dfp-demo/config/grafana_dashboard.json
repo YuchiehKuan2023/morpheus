@@ -1,0 +1,549 @@
+{
+  "dashboard": {
+    "title": "NVIDIA Morpheus DFP - Pipeline Monitoring",
+    "tags": ["dfp", "morpheus", "anomaly-detection"],
+    "timezone": "browser",
+    "schemaVersion": 16,
+    "version": 0,
+    "refresh": "30s",
+
+    "panels": [
+      {
+        "id": 1,
+        "title": "Pipeline Health",
+        "type": "stat",
+        "gridPos": { "x": 0, "y": 0, "w": 6, "h": 4 },
+        "targets": [
+          {
+            "expr": "rate(dfp_errors_total[5m])",
+            "legendFormat": "Error Rate",
+            "refId": "A"
+          }
+        ],
+        "options": {
+          "colorMode": "background",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "values": false,
+            "fields": "",
+            "calcs": ["lastNotNull"]
+          }
+        },
+        "fieldConfig": {
+          "defaults": {
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                { "value": null, "color": "green" },
+                { "value": 1, "color": "yellow" },
+                { "value": 5, "color": "red" }
+              ]
+            }
+          }
+        }
+      },
+
+      {
+        "id": 2,
+        "title": "Events Processed",
+        "type": "stat",
+        "gridPos": { "x": 6, "y": 0, "w": 6, "h": 4 },
+        "targets": [
+          {
+            "expr": "sum(rate(dfp_events_processed_total[5m]))",
+            "legendFormat": "Events/sec",
+            "refId": "A"
+          }
+        ],
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "values": false,
+            "fields": "",
+            "calcs": ["lastNotNull"]
+          }
+        }
+      },
+
+      {
+        "id": 3,
+        "title": "Detection Rate",
+        "type": "gauge",
+        "gridPos": { "x": 12, "y": 0, "w": 6, "h": 4 },
+        "targets": [
+          {
+            "expr": "dfp_detection_rate",
+            "legendFormat": "{{ pipeline }}",
+            "refId": "A"
+          }
+        ],
+        "options": {
+          "showThresholdLabels": false,
+          "showThresholdMarkers": true
+        },
+        "fieldConfig": {
+          "defaults": {
+            "min": 0,
+            "max": 1,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                { "value": null, "color": "green" },
+                { "value": 0.3, "color": "yellow" },
+                { "value": 0.6, "color": "red" }
+              ]
+            },
+            "unit": "percentunit"
+          }
+        }
+      },
+
+      {
+        "id": 4,
+        "title": "Active Models",
+        "type": "stat",
+        "gridPos": { "x": 18, "y": 0, "w": 6, "h": 4 },
+        "targets": [
+          {
+            "expr": "dfp_active_models",
+            "legendFormat": "{{ pipeline }}",
+            "refId": "A"
+          }
+        ]
+      },
+
+      {
+        "id": 5,
+        "title": "Throughput (Events/sec)",
+        "type": "graph",
+        "gridPos": { "x": 0, "y": 4, "w": 12, "h": 6 },
+        "targets": [
+          {
+            "expr": "rate(dfp_events_processed_total[1m])",
+            "legendFormat": "{{ pipeline }}",
+            "refId": "A"
+          }
+        ],
+        "yaxes": [
+          { "format": "short", "label": "Events/sec" },
+          { "format": "short" }
+        ],
+        "lines": true,
+        "fill": 1,
+        "linewidth": 2
+      },
+
+      {
+        "id": 6,
+        "title": "Anomalies Detected",
+        "type": "graph",
+        "gridPos": { "x": 12, "y": 4, "w": 12, "h": 6 },
+        "targets": [
+          {
+            "expr": "rate(dfp_anomalies_detected_total[5m])",
+            "legendFormat": "{{ pipeline }}",
+            "refId": "A"
+          }
+        ],
+        "yaxes": [
+          { "format": "short", "label": "Anomalies/sec" },
+          { "format": "short" }
+        ],
+        "lines": true,
+        "fill": 1,
+        "linewidth": 2
+      },
+
+      {
+        "id": 7,
+        "title": "Operation Latency (P95)",
+        "type": "graph",
+        "gridPos": { "x": 0, "y": 10, "w": 12, "h": 6 },
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, rate(dfp_operation_latency_seconds_bucket[5m]))",
+            "legendFormat": "{{ operation }}",
+            "refId": "A"
+          }
+        ],
+        "yaxes": [
+          { "format": "s", "label": "Latency (seconds)" },
+          { "format": "short" }
+        ],
+        "lines": true,
+        "fill": 0,
+        "linewidth": 2
+      },
+
+      {
+        "id": 8,
+        "title": "Model Performance (Z-Score Distribution)",
+        "type": "heatmap",
+        "gridPos": { "x": 12, "y": 10, "w": 12, "h": 6 },
+        "targets": [
+          {
+            "expr": "rate(dfp_z_score_bucket[5m])",
+            "legendFormat": "{{ le }}",
+            "format": "heatmap",
+            "refId": "A"
+          }
+        ]
+      },
+
+      {
+        "id": 9,
+        "title": "System Resources - CPU",
+        "type": "graph",
+        "gridPos": { "x": 0, "y": 16, "w": 8, "h": 5 },
+        "targets": [
+          {
+            "expr": "system_cpu_percent",
+            "legendFormat": "CPU Usage",
+            "refId": "A"
+          }
+        ],
+        "yaxes": [
+          { "format": "percent", "label": "CPU %", "max": 100 },
+          { "format": "short" }
+        ],
+        "alert": {
+          "conditions": [
+            {
+              "evaluator": { "type": "gt", "params": [90] },
+              "operator": { "type": "and" },
+              "query": { "params": ["A", "5m", "now"] },
+              "reducer": { "type": "avg" },
+              "type": "query"
+            }
+          ],
+          "frequency": "60s",
+          "handler": 1,
+          "name": "High CPU Usage",
+          "noDataState": "no_data",
+          "message": "CPU usage is above 90%"
+        }
+      },
+
+      {
+        "id": 10,
+        "title": "System Resources - Memory",
+        "type": "graph",
+        "gridPos": { "x": 8, "y": 16, "w": 8, "h": 5 },
+        "targets": [
+          {
+            "expr": "system_memory_percent",
+            "legendFormat": "Memory Usage",
+            "refId": "A"
+          }
+        ],
+        "yaxes": [
+          { "format": "percent", "label": "Memory %", "max": 100 },
+          { "format": "short" }
+        ]
+      },
+
+      {
+        "id": 11,
+        "title": "System Resources - Disk",
+        "type": "graph",
+        "gridPos": { "x": 16, "y": 16, "w": 8, "h": 5 },
+        "targets": [
+          {
+            "expr": "system_disk_percent",
+            "legendFormat": "Disk Usage",
+            "refId": "A"
+          }
+        ],
+        "yaxes": [
+          { "format": "percent", "label": "Disk %", "max": 100 },
+          { "format": "short" }
+        ]
+      },
+
+      {
+        "id": 12,
+        "title": "Model Training Activity",
+        "type": "graph",
+        "gridPos": { "x": 0, "y": 21, "w": 12, "h": 5 },
+        "targets": [
+          {
+            "expr": "rate(dfp_models_trained_total[5m])",
+            "legendFormat": "Models Trained/sec",
+            "refId": "A"
+          }
+        ],
+        "yaxes": [
+          { "format": "short", "label": "Models/sec" },
+          { "format": "short" }
+        ],
+        "bars": true,
+        "lines": false
+      },
+
+      {
+        "id": 13,
+        "title": "Reconstruction Error (Mean)",
+        "type": "graph",
+        "gridPos": { "x": 12, "y": 21, "w": 12, "h": 5 },
+        "targets": [
+          {
+            "expr": "avg(dfp_reconstruction_error) by (model)",
+            "legendFormat": "{{ model }}",
+            "refId": "A"
+          }
+        ],
+        "yaxes": [
+          { "format": "short", "label": "Error" },
+          { "format": "short" }
+        ],
+        "lines": true,
+        "fill": 1
+      },
+
+      {
+        "id": 14,
+        "title": "Pipeline Errors (by type)",
+        "type": "table",
+        "gridPos": { "x": 0, "y": 26, "w": 12, "h": 6 },
+        "targets": [
+          {
+            "expr": "topk(10, sort_desc(sum by (pipeline, error_type) (rate(dfp_errors_total[5m]))))",
+            "format": "table",
+            "instant": true,
+            "refId": "A"
+          }
+        ]
+      },
+
+      {
+        "id": 15,
+        "title": "Top Users by Anomaly Count",
+        "type": "table",
+        "gridPos": { "x": 12, "y": 26, "w": 12, "h": 6 },
+        "targets": [
+          {
+            "expr": "topk(10, sort_desc(sum by (user_id) (dfp_anomalies_detected_total)))",
+            "format": "table",
+            "instant": true,
+            "refId": "A"
+          }
+        ]
+      },
+
+      {
+        "id": 16,
+        "title": "── Agentic Chat ──",
+        "type": "row",
+        "gridPos": { "x": 0, "y": 32, "w": 24, "h": 1 },
+        "collapsed": false,
+        "panels": []
+      },
+
+      {
+        "id": 17,
+        "title": "Total Agentic Queries",
+        "type": "stat",
+        "gridPos": { "x": 0, "y": 33, "w": 6, "h": 4 },
+        "datasource": { "type": "postgres", "uid": "dfp_ai_postgres" },
+        "targets": [
+          {
+            "rawSql": "SELECT COUNT(*) AS \"Total\" FROM chat_messages WHERE role = 'assistant' AND data IS NOT NULL AND data ? 'reasoning_trace'",
+            "format": "table",
+            "refId": "A"
+          }
+        ],
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "auto"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": { "mode": "thresholds" },
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [{ "value": null, "color": "green" }]
+            }
+          }
+        }
+      },
+
+      {
+        "id": 18,
+        "title": "Avg Steps per Query",
+        "type": "stat",
+        "gridPos": { "x": 6, "y": 33, "w": 6, "h": 4 },
+        "datasource": { "type": "postgres", "uid": "dfp_ai_postgres" },
+        "targets": [
+          {
+            "rawSql": "SELECT ROUND(AVG((data->>'steps')::int), 1) AS \"Avg Steps\" FROM chat_messages WHERE role = 'assistant' AND data IS NOT NULL AND data ? 'steps'",
+            "format": "table",
+            "refId": "A"
+          }
+        ],
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "auto"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": { "mode": "thresholds" },
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                { "value": null, "color": "blue" },
+                { "value": 5, "color": "yellow" },
+                { "value": 8, "color": "red" }
+              ]
+            }
+          }
+        }
+      },
+
+      {
+        "id": 19,
+        "title": "Max Steps Observed",
+        "type": "stat",
+        "gridPos": { "x": 12, "y": 33, "w": 6, "h": 4 },
+        "datasource": { "type": "postgres", "uid": "dfp_ai_postgres" },
+        "targets": [
+          {
+            "rawSql": "SELECT MAX((data->>'steps')::int) AS \"Max Steps\" FROM chat_messages WHERE role = 'assistant' AND data IS NOT NULL AND data ? 'steps'",
+            "format": "table",
+            "refId": "A"
+          }
+        ],
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "auto"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": { "mode": "thresholds" },
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                { "value": null, "color": "green" },
+                { "value": 8, "color": "red" }
+              ]
+            }
+          }
+        }
+      },
+
+      {
+        "id": 20,
+        "title": "Agent Queries (24h)",
+        "type": "stat",
+        "gridPos": { "x": 18, "y": 33, "w": 6, "h": 4 },
+        "datasource": { "type": "postgres", "uid": "dfp_ai_postgres" },
+        "targets": [
+          {
+            "rawSql": "SELECT COUNT(*) AS \"Last 24h\" FROM chat_messages WHERE role = 'assistant' AND data IS NOT NULL AND data ? 'reasoning_trace' AND created_at > NOW() - INTERVAL '24 hours'",
+            "format": "table",
+            "refId": "A"
+          }
+        ],
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "auto"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": { "mode": "thresholds" },
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [{ "value": null, "color": "green" }]
+            }
+          }
+        }
+      },
+
+      {
+        "id": 21,
+        "title": "Tool Call Distribution",
+        "type": "piechart",
+        "gridPos": { "x": 0, "y": 37, "w": 12, "h": 8 },
+        "datasource": { "type": "postgres", "uid": "dfp_ai_postgres" },
+        "targets": [
+          {
+            "rawSql": "SELECT tool AS \"Tool\", COUNT(*) AS \"Calls\" FROM chat_messages, jsonb_array_elements_text(tools_used::jsonb) AS tool WHERE role = 'assistant' AND tools_used IS NOT NULL GROUP BY tool ORDER BY \"Calls\" DESC LIMIT 15",
+            "format": "table",
+            "refId": "A"
+          }
+        ],
+        "options": {
+          "legend": { "displayMode": "table", "placement": "right" },
+          "pieType": "donut"
+        }
+      },
+
+      {
+        "id": 22,
+        "title": "Avg Tool Latency (ms)",
+        "type": "barchart",
+        "gridPos": { "x": 12, "y": 37, "w": 12, "h": 8 },
+        "datasource": { "type": "postgres", "uid": "dfp_ai_postgres" },
+        "targets": [
+          {
+            "rawSql": "SELECT step->>'tool' AS \"Tool\", ROUND(AVG((step->>'elapsed_ms')::int)) AS \"Avg ms\" FROM (SELECT jsonb_array_elements(data->'reasoning_trace') AS step FROM chat_messages WHERE role = 'assistant' AND data IS NOT NULL AND data ? 'reasoning_trace' ORDER BY created_at DESC LIMIT 200) sub WHERE step->>'kind' = 'action' AND step->>'tool' IS NOT NULL GROUP BY step->>'tool' ORDER BY \"Avg ms\" DESC",
+            "format": "table",
+            "refId": "A"
+          }
+        ],
+        "options": { "orientation": "horizontal", "showValue": "always" },
+        "fieldConfig": {
+          "defaults": { "color": { "mode": "palette-classic" } }
+        }
+      }
+    ],
+
+    "templating": {
+      "list": [
+        {
+          "name": "pipeline",
+          "type": "query",
+          "query": "label_values(dfp_events_processed_total, pipeline)",
+          "label": "Pipeline",
+          "allValue": ".*",
+          "multi": true,
+          "includeAll": true
+        },
+        {
+          "name": "interval",
+          "type": "interval",
+          "query": "5m,10m,30m,1h,6h,12h,1d",
+          "label": "Interval",
+          "auto": true
+        }
+      ]
+    },
+
+    "time": {
+      "from": "now-6h",
+      "to": "now"
+    },
+
+    "timepicker": {
+      "refresh_intervals": [
+        "5s",
+        "10s",
+        "30s",
+        "1m",
+        "5m",
+        "15m",
+        "30m",
+        "1h",
+        "2h",
+        "1d"
+      ]
+    }
+  }
+}
