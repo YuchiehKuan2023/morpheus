@@ -167,7 +167,7 @@ httpx==0.28.1
     # via
     #   jupyterlab
     #   safety
-huey==3.3.0
+huey==3.3.3
     # via mlflow
 identify==2.6.19
     # via pre-commit
