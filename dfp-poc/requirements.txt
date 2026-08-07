@@ -651,7 +651,7 @@ traitlets==5.16.1
     #   nbclient
     #   nbconvert
     #   nbformat
-typer==0.27.0
+typer==0.27.1
     # via safety
 typing-extensions==4.16.0
     # via
