@@ -636,7 +636,7 @@ tqdm==4.69.0
     # via
     #   dfp-poc (dfp-poc/pyproject.toml)
     #   nltk
-traitlets==5.15.1
+traitlets==5.16.1
     # via
     #   ipykernel
     #   ipython
