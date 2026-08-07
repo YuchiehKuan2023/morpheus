@@ -469,7 +469,7 @@ numpy==2.2.6
     #   xgboost
 omegaconf==2.3.1
     # via dfp-demo (dfp-demo/pyproject.toml)
-openai==2.51.0
+openai==2.53.0
     # via dfp-demo (dfp-demo/pyproject.toml)
 opentelemetry-api==1.44.0
     # via
