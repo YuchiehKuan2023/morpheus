@@ -838,7 +838,7 @@ tornado==6.5.7
     #   jupyterlab
     #   notebook
     #   terminado
-tqdm==4.69.0
+tqdm==4.70.0
     # via
     #   cmdstanpy
     #   dfp-demo (dfp-demo/pyproject.toml)
