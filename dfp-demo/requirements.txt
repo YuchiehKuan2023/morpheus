@@ -959,7 +959,7 @@ wrapt==2.3.0
     # via smart-open
 xgboost==3.2.0
     # via dfp-demo (dfp-demo/pyproject.toml)
-xxhash==3.8.0
+xxhash==3.8.1
     # via
     #   langgraph
     #   langsmith
