@@ -552,7 +552,7 @@ pluggy==1.6.0
     # via
     #   pytest
     #   pytest-cov
-portalocker==3.2.0
+portalocker==4.1.0
     # via qdrant-client
 pre-commit==4.6.1
     # via dfp-demo (dfp-demo/pyproject.toml)
