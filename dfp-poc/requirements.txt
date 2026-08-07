@@ -310,7 +310,7 @@ mlflow==3.15.1
     # via dfp-poc (dfp-poc/pyproject.toml)
 mlflow-skinny==3.15.0
     # via mlflow
-mlflow-tracing==3.14.0
+mlflow-tracing==3.15.1
     # via mlflow
 mpmath==1.4.1
     # via sympy
