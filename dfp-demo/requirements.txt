@@ -197,7 +197,7 @@ hdbscan==0.8.44
     # via dfp-demo (dfp-demo/pyproject.toml)
 hf-xet==1.5.2
     # via huggingface-hub
-holidays==0.101
+holidays==0.102
     # via prophet
 hpack==4.2.0
     # via h2
