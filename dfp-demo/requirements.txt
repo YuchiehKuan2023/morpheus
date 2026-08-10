@@ -214,7 +214,7 @@ httpx[http2]==0.28.1
     #   safety
 huey==3.3.4
     # via mlflow
-huggingface-hub==1.26.0
+huggingface-hub==1.26.1
     # via
     #   sentence-transformers
     #   tokenizers
