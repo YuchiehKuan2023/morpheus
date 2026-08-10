@@ -4,7 +4,7 @@
 #
 #    pip-compile --extra=dev --extra=jupyter --extra=viz --output-file=dfp-poc/requirements.txt dfp-poc/pyproject.toml
 #
-alembic==1.18.5
+alembic==1.19.0
     # via mlflow
 annotated-doc==0.0.5
     # via
