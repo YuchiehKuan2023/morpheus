@@ -13,7 +13,7 @@ qdrant-client>=1.18.0          # Qdrant vector DB client
 
 # ==================== NLP & Entity Extraction ====================
 spacy>=3.7.0                  # NLP and NER
-transformers>=5.13.0          # Hugging Face transformers
+transformers>=5.15.0          # Hugging Face transformers
 torch>=2.1.0                  # PyTorch for transformers
 
 # spaCy model (install separately): python -m spacy download en_core_web_sm

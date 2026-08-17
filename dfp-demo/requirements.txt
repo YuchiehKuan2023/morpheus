@@ -865,7 +865,7 @@ traitlets==5.16.1
     #   nbclient
     #   nbconvert
     #   nbformat
-transformers==5.14.1
+transformers==5.15.0
     # via
     #   dfp-demo (dfp-demo/pyproject.toml)
     #   sentence-transformers
