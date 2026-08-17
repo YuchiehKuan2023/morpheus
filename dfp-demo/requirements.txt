@@ -120,7 +120,7 @@ cymem==2.0.13
     #   preshed
     #   spacy
     #   thinc
-databricks-sdk==0.123.0
+databricks-sdk==0.128.0
     # via
     #   mlflow-skinny
     #   mlflow-tracing
