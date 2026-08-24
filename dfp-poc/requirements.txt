@@ -270,7 +270,7 @@ jupyterlab-server==2.28.0
     # via
     #   jupyterlab
     #   notebook
-jupyterlab-widgets==3.0.16
+jupyterlab-widgets==3.0.17
     # via ipywidgets
 kafka-python==3.0.10
     # via dfp-poc (dfp-poc/pyproject.toml)
