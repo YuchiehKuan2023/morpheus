@@ -433,7 +433,7 @@ nltk==3.10.3
     # via safety
 nodeenv==1.10.0
     # via pre-commit
-notebook==7.6.1
+notebook==7.6.2
     # via
     #   dfp-demo (dfp-demo/pyproject.toml)
     #   jupyter
