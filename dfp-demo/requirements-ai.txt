@@ -30,7 +30,7 @@ statsmodels>=0.14.6          # Statistical models
 openai>=2.51.0                # GPT-4 integration (backup)
 groq>=1.6.0                  # Groq API client (primary LLM)
 langchain>=1.3.14             # LLM orchestration
-tiktoken>=0.13.0              # OpenAI tokenizer
+tiktoken>=0.14.0              # OpenAI tokenizer
 pyyaml>=6.0.0                # YAML config parsing
 json-repair>=0.63.2          # Robust JSON parsing for LLM responses
 
