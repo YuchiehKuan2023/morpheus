@@ -23,7 +23,7 @@ hdbscan>=0.8.44              # Density-based clustering
 umap-learn>=0.5.12            # Dimensionality reduction
 
 # ==================== Time Series & Forecasting ====================
-prophet>=1.1.5               # Time series forecasting
+prophet>=1.4.0               # Time series forecasting
 statsmodels>=0.14.6          # Statistical models
 
 # ==================== LLM Integration ====================
