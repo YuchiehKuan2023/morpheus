@@ -123,7 +123,7 @@ fastapi==0.141.1
     # via mlflow-skinny
 fastjsonschema==2.22.1
     # via nbformat
-filelock==3.32.2
+filelock==3.32.3
     # via
     #   python-discovery
     #   safety
