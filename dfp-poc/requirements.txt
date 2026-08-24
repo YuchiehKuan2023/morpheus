@@ -314,7 +314,7 @@ mlflow-tracing==3.15.1
     # via mlflow
 mpmath==1.4.1
     # via sympy
-mypy==2.3.0
+mypy==2.3.1
     # via dfp-poc (dfp-poc/pyproject.toml)
 mypy-extensions==1.1.0
     # via
