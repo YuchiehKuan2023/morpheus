@@ -334,7 +334,7 @@ jupyterlab-server==2.28.0
     #   notebook
 jupyterlab-widgets==3.0.16
     # via ipywidgets
-kafka-python==3.0.10
+kafka-python==3.0.11
     # via dfp-demo (dfp-demo/pyproject.toml)
 kiwisolver==1.5.0
     # via matplotlib
