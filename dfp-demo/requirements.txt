@@ -651,7 +651,7 @@ python-dateutil==2.9.0.post0
     #   pandas
 python-discovery==1.5.0
     # via virtualenv
-python-dotenv==1.2.2
+python-dotenv==1.2.3
     # via mlflow-skinny
 python-json-logger==4.1.0
     # via jupyter-events
