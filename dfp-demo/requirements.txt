@@ -146,7 +146,7 @@ faker==40.36.0
     # via dfp-demo (dfp-demo/pyproject.toml)
 fastapi==0.141.1
     # via mlflow-skinny
-fastjsonschema==2.22.1
+fastjsonschema==2.22.2
     # via nbformat
 filelock==3.32.3
     # via
