@@ -554,7 +554,7 @@ pluggy==1.6.0
     #   pytest-cov
 portalocker==4.1.0
     # via qdrant-client
-pre-commit==4.6.1
+pre-commit==4.6.2
     # via dfp-demo (dfp-demo/pyproject.toml)
 preshed==3.0.13
     # via
