@@ -306,7 +306,7 @@ mdurl==0.1.2
     # via markdown-it-py
 mistune==3.3.4
     # via nbconvert
-mlflow==3.15.1
+mlflow==3.15.2
     # via dfp-poc (dfp-poc/pyproject.toml)
 mlflow-skinny==3.15.1
     # via mlflow
