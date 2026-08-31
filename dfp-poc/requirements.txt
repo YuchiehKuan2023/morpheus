@@ -420,7 +420,7 @@ platformdirs==4.11.5
     #   jupyter-core
     #   python-discovery
     #   virtualenv
-plotly==6.9.0
+plotly==7.0.0
     # via dfp-poc (dfp-poc/pyproject.toml)
 pluggy==1.6.0
     # via
