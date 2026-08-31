@@ -20,7 +20,7 @@ anyio==4.14.2
     #   jupyter-server
     #   openai
     #   starlette
-appnope==0.1.4
+appnope==1.0.0
     # via ipykernel
 argon2-cffi==25.1.0
     # via jupyter-server
