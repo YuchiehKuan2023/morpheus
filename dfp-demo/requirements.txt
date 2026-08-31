@@ -830,7 +830,7 @@ torch==2.13.0
     # via
     #   dfp-demo (dfp-demo/pyproject.toml)
     #   sentence-transformers
-tornado==6.5.7
+tornado==6.5.8
     # via
     #   ipykernel
     #   jupyter-client
