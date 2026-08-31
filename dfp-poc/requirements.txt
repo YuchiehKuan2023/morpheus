@@ -414,7 +414,7 @@ pexpect==4.9.0
     # via ipython
 pillow==12.3.0
     # via matplotlib
-platformdirs==4.11.0
+platformdirs==4.11.5
     # via
     #   black
     #   jupyter-core
