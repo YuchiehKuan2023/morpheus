@@ -726,7 +726,7 @@ ruamel-yaml==0.19.1
     # via
     #   safety
     #   safety-schemas
-ruff==0.16.1
+ruff==0.16.5
     # via dfp-demo (dfp-demo/pyproject.toml)
 safetensors==0.8.0
     # via transformers
