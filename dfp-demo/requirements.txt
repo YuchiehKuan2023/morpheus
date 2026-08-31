@@ -84,7 +84,7 @@ click==8.4.2
     #   safety
     #   typer
     #   uvicorn
-cloudpathlib==0.24.0
+cloudpathlib==0.25.0
     # via weasel
 cloudpickle==3.1.2
     # via
