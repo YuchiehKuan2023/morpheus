@@ -32,7 +32,7 @@ groq>=1.6.0                  # Groq API client (primary LLM)
 langchain>=1.3.14             # LLM orchestration
 tiktoken>=0.14.0              # OpenAI tokenizer
 pyyaml>=6.0.0                # YAML config parsing
-json-repair>=0.63.2          # Robust JSON parsing for LLM responses
+json-repair>=0.63.4          # Robust JSON parsing for LLM responses
 
 # Local LLM support (optional)
 # ollama>=0.1.0              # Ollama Python client
