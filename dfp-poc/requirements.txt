@@ -66,7 +66,7 @@ cfgv==3.5.0
     # via pre-commit
 charset-normalizer==3.5.1
     # via requests
-click==8.4.2
+click==8.5.0
     # via
     #   black
     #   dfp-poc (dfp-poc/pyproject.toml)
