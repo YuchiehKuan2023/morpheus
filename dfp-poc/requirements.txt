@@ -565,7 +565,7 @@ ruff==0.16.1
     # via dfp-poc (dfp-poc/pyproject.toml)
 safety==3.8.1
     # via dfp-poc (dfp-poc/pyproject.toml)
-safety-schemas==0.0.19
+safety-schemas==0.0.20
     # via safety
 scikit-learn==1.7.2
     # via

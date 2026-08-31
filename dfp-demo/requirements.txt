@@ -732,7 +732,7 @@ safetensors==0.8.0
     # via transformers
 safety==3.8.1
     # via dfp-demo (dfp-demo/pyproject.toml)
-safety-schemas==0.0.19
+safety-schemas==0.0.20
     # via safety
 scikit-learn==1.7.2
     # via
