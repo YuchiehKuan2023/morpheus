@@ -561,7 +561,7 @@ ruamel-yaml==0.19.1
     # via
     #   safety
     #   safety-schemas
-ruff==0.16.1
+ruff==0.16.5
     # via dfp-poc (dfp-poc/pyproject.toml)
 safety==3.8.1
     # via dfp-poc (dfp-poc/pyproject.toml)
