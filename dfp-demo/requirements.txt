@@ -955,7 +955,7 @@ werkzeug==3.1.8
     #   flask-cors
 widgetsnbextension==4.0.15
     # via ipywidgets
-wrapt==2.3.0
+wrapt==2.4.0
     # via smart-open
 xgboost==3.2.0
     # via dfp-demo (dfp-demo/pyproject.toml)
