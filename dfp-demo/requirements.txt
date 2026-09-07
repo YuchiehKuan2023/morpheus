@@ -566,7 +566,7 @@ prometheus-client==0.26.0
     # via
     #   dfp-demo (dfp-demo/pyproject.toml)
     #   jupyter-server
-prompt-toolkit==3.0.52
+prompt-toolkit==3.0.53
     # via
     #   ipython
     #   jupyter-console
