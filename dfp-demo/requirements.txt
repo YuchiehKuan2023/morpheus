@@ -687,7 +687,7 @@ referencing==0.37.0
     #   jsonschema
     #   jsonschema-specifications
     #   jupyter-events
-regex==2026.7.19
+regex==2026.9.3
     # via
     #   nltk
     #   transformers
