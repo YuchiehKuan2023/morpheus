@@ -336,7 +336,7 @@ jupyterlab-widgets==3.0.17
     # via ipywidgets
 kafka-python==3.0.11
     # via dfp-demo (dfp-demo/pyproject.toml)
-kiwisolver==1.5.0
+kiwisolver==1.5.1
     # via matplotlib
 langchain==1.4.0
     # via dfp-demo (dfp-demo/pyproject.toml)
