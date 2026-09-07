@@ -826,7 +826,7 @@ tokenizers==0.23.1
     # via transformers
 tomlkit==0.15.1
     # via safety
-torch==2.13.0
+torch==2.14.0
     # via
     #   dfp-demo (dfp-demo/pyproject.toml)
     #   sentence-transformers
