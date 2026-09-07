@@ -183,7 +183,7 @@ graphql-core==3.2.11
     #   graphql-relay
 graphql-relay==3.2.0
     # via graphene
-grpcio==1.83.0
+grpcio==1.83.1
     # via qdrant-client
 gunicorn==26.0.0
     # via mlflow
