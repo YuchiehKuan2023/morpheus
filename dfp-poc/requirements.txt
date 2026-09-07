@@ -622,7 +622,7 @@ tinycss2==1.5.1
     # via bleach
 tomlkit==0.15.1
     # via safety
-torch==2.13.0
+torch==2.14.0
     # via dfp-poc (dfp-poc/pyproject.toml)
 tornado==6.5.8
     # via
