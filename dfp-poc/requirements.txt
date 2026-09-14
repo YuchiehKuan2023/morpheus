@@ -693,7 +693,7 @@ uvicorn==0.52.4
     # via mlflow-skinny
 virtualenv==21.7.4
     # via pre-commit
-wcwidth==0.8.2
+wcwidth==0.8.3
     # via
     #   prettytable
     #   prompt-toolkit
