@@ -800,7 +800,7 @@ stack-data==0.6.3
     # via ipython
 stanio==0.5.1
     # via cmdstanpy
-starlette==1.4.1
+starlette==1.6.0
     # via fastapi
 stevedore==5.8.0
     # via bandit
