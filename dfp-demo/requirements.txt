@@ -212,7 +212,7 @@ httpx[http2]==0.28.1
     #   openai
     #   qdrant-client
     #   safety
-huey==3.3.4
+huey==3.4.0
     # via mlflow
 huggingface-hub==1.28.0
     # via
