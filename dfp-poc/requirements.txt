@@ -155,7 +155,7 @@ graphql-core==3.2.11
     #   graphql-relay
 graphql-relay==3.2.0
     # via graphene
-gunicorn==26.0.0
+gunicorn==26.2.0
     # via mlflow
 h11==0.16.0
     # via
