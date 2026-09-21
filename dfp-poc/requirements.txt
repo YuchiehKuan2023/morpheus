@@ -378,7 +378,7 @@ opentelemetry-sdk==1.44.0
     #   mlflow-tracing
 opentelemetry-semantic-conventions==0.65b0
     # via opentelemetry-sdk
-packaging==26.2
+packaging==26.3
     # via
     #   black
     #   dparse
