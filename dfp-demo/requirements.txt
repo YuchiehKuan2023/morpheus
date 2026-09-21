@@ -348,7 +348,7 @@ langchain-core==1.6.2
     #   langgraph-prebuilt
 langgraph==1.2.11
     # via langchain
-langgraph-checkpoint==4.1.1
+langgraph-checkpoint==4.2.0
     # via
     #   langgraph
     #   langgraph-prebuilt
