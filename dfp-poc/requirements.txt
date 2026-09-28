@@ -691,7 +691,7 @@ urllib3==2.7.0
     #   requests
 uvicorn==0.52.4
     # via mlflow-skinny
-virtualenv==21.7.4
+virtualenv==21.12.1
     # via pre-commit
 wcwidth==0.8.3
     # via
