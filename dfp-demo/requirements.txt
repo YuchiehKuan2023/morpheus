@@ -672,7 +672,7 @@ pyyaml==6.0.3
     #   omegaconf
     #   pre-commit
     #   transformers
-pyzmq==27.1.0
+pyzmq==27.2.0
     # via
     #   ipykernel
     #   jupyter-client
