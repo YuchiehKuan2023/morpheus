@@ -818,7 +818,7 @@ terminado==0.18.1
     #   jupyter-server-terminals
 thinc==9.1.1
     # via spacy
-threadpoolctl==3.6.0
+threadpoolctl==3.7.0
     # via scikit-learn
 tinycss2==1.5.1
     # via bleach
