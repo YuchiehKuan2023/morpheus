@@ -338,9 +338,9 @@ kafka-python==3.0.11
     # via dfp-demo (dfp-demo/pyproject.toml)
 kiwisolver==1.5.1
     # via matplotlib
-langchain==1.4.0
+langchain==1.4.3
     # via dfp-demo (dfp-demo/pyproject.toml)
-langchain-core==1.6.2
+langchain-core==1.6.6
     # via
     #   langchain
     #   langgraph
@@ -469,7 +469,7 @@ numpy==2.2.6
     #   xgboost
 omegaconf==2.3.1
     # via dfp-demo (dfp-demo/pyproject.toml)
-openai==3.13.0
+openai==3.23.0
     # via dfp-demo (dfp-demo/pyproject.toml)
 opentelemetry-api==1.44.0
     # via
@@ -756,7 +756,7 @@ seaborn==0.13.2
     # via dfp-demo (dfp-demo/pyproject.toml)
 send2trash==2.1.0
     # via jupyter-server
-sentence-transformers==6.0.1
+sentence-transformers==6.1.0
     # via dfp-demo (dfp-demo/pyproject.toml)
 shap==0.49.1
     # via dfp-demo (dfp-demo/pyproject.toml)
@@ -865,7 +865,7 @@ traitlets==5.16.1
     #   nbclient
     #   nbconvert
     #   nbformat
-transformers==5.17.0
+transformers==5.18.0
     # via
     #   dfp-demo (dfp-demo/pyproject.toml)
     #   sentence-transformers
