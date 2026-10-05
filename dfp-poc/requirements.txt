@@ -492,7 +492,7 @@ pytest-asyncio==1.4.0
     # via dfp-poc (dfp-poc/pyproject.toml)
 pytest-cov==7.1.0
     # via dfp-poc (dfp-poc/pyproject.toml)
-pytest-mock==3.15.1
+pytest-mock==3.16.0
     # via dfp-poc (dfp-poc/pyproject.toml)
 python-dateutil==2.9.0.post0
     # via
