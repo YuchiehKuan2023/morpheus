@@ -35,7 +35,7 @@ attrs==26.1.0
     # via
     #   jsonschema
     #   referencing
-authlib==1.7.2
+authlib==1.8.0
     # via safety
 babel==2.18.0
     # via jupyterlab-server
