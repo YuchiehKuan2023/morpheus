@@ -229,7 +229,7 @@ idna==3.20
     #   httpx
     #   jsonschema
     #   requests
-importlib-metadata==9.0.0
+importlib-metadata==9.0.1
     # via
     #   mlflow-skinny
     #   opentelemetry-api
