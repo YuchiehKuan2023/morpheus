@@ -699,7 +699,7 @@ wcwidth==0.9.1
     #   prompt-toolkit
 webcolors==25.10.0
     # via jsonschema
-webencodings==0.5.1
+webencodings==0.6.1
     # via
     #   bleach
     #   tinycss2
