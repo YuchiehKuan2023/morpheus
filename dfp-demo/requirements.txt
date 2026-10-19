@@ -548,7 +548,7 @@ platformdirs==4.12.4
     #   virtualenv
 plotly==6.9.0
     # via dfp-demo (dfp-demo/pyproject.toml)
-pluggy==1.6.0
+pluggy==1.7.0
     # via
     #   pytest
     #   pytest-cov
