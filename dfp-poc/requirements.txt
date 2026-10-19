@@ -29,7 +29,7 @@ arrow==1.4.0
     # via isoduration
 asttokens==3.0.2
     # via stack-data
-async-lru==2.3.0
+async-lru==2.4.0
     # via jupyterlab
 attrs==26.1.0
     # via
