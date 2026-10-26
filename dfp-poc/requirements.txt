@@ -43,7 +43,7 @@ bandit[toml]==1.9.4
     # via dfp-poc (dfp-poc/pyproject.toml)
 beautifulsoup4==4.15.0
     # via nbconvert
-black==26.5.1
+black==26.10.1
     # via dfp-poc (dfp-poc/pyproject.toml)
 bleach[css]==6.4.0
     # via nbconvert
