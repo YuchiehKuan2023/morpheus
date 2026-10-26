@@ -620,7 +620,7 @@ threadpoolctl==3.6.0
     # via scikit-learn
 tinycss2==1.5.1
     # via bleach
-tomlkit==0.15.1
+tomlkit==0.15.2
     # via safety
 torch==2.14.1
     # via dfp-poc (dfp-poc/pyproject.toml)
