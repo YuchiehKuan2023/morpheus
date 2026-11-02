@@ -24,7 +24,7 @@ umap-learn>=0.5.12            # Dimensionality reduction
 
 # ==================== Time Series & Forecasting ====================
 prophet>=1.4.0               # Time series forecasting
-statsmodels>=0.14.6          # Statistical models
+statsmodels>=0.15.0          # Statistical models
 
 # ==================== LLM Integration ====================
 openai>=2.51.0                # GPT-4 integration (backup)
