@@ -629,17 +629,17 @@ pygments==2.21.0
     #   rich
 pyparsing==3.3.2
     # via matplotlib
-pytest==9.1.1
+pytest==9.2.0
     # via
     #   dfp-demo (dfp-demo/pyproject.toml)
     #   pytest-asyncio
     #   pytest-cov
     #   pytest-mock
-pytest-asyncio==1.4.0
+pytest-asyncio==1.4.1
     # via dfp-demo (dfp-demo/pyproject.toml)
 pytest-cov==7.1.0
     # via dfp-demo (dfp-demo/pyproject.toml)
-pytest-mock==3.16.0
+pytest-mock==3.17.0
     # via dfp-demo (dfp-demo/pyproject.toml)
 python-dateutil==2.9.0.post0
     # via
