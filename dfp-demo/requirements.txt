@@ -635,7 +635,7 @@ pytest==9.2.0
     #   pytest-asyncio
     #   pytest-cov
     #   pytest-mock
-pytest-asyncio==1.4.1
+pytest-asyncio==1.4.1.post1
     # via dfp-demo (dfp-demo/pyproject.toml)
 pytest-cov==7.1.0
     # via dfp-demo (dfp-demo/pyproject.toml)
