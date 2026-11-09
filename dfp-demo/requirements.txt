@@ -404,7 +404,7 @@ murmurhash==1.0.15
     #   preshed
     #   spacy
     #   thinc
-mypy==2.3.0
+mypy==2.4.1
     # via dfp-demo (dfp-demo/pyproject.toml)
 mypy-extensions==1.1.0
     # via
