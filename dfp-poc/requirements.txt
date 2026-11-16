@@ -316,7 +316,7 @@ mpmath==1.4.1
     # via sympy
 mypy==2.3.1
     # via dfp-poc (dfp-poc/pyproject.toml)
-mypy-extensions==1.1.0
+mypy-extensions==1.2.0
     # via
     #   black
     #   mypy
