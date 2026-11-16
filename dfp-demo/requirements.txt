@@ -816,7 +816,7 @@ terminado==0.18.1
     # via
     #   jupyter-server
     #   jupyter-server-terminals
-thinc==9.1.1
+thinc==10.0.0
     # via spacy
 threadpoolctl==3.7.0
     # via scikit-learn
