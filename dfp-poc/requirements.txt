@@ -632,7 +632,7 @@ tornado==6.5.8
     #   jupyterlab
     #   notebook
     #   terminado
-tqdm==4.70.0
+tqdm==4.70.1
     # via
     #   dfp-poc (dfp-poc/pyproject.toml)
     #   nltk
