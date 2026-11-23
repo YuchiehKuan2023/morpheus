@@ -140,7 +140,7 @@ dparse==0.6.4
     # via
     #   safety
     #   safety-schemas
-executing==2.2.1
+executing==2.3.0
     # via stack-data
 faker==40.36.0
     # via dfp-demo (dfp-demo/pyproject.toml)
